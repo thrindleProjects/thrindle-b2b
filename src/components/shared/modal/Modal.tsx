@@ -28,7 +28,7 @@ const GenModal: React.FC<ModalProps> = ({
       shouldCloseOnOverlayClick={true}
       shouldReturnFocusAfterClose={true}
       ariaHideApp={false}
-      className='ml-auto  h-max flex-shrink-0 bg-transparent  bg-white drop-shadow-2xl md:h-max lg:w-[485px]'
+      className='ml-auto  h-max flex-shrink-0 bg-transparent  drop-shadow-2xl md:h-max lg:w-[485px]'
     >
       <motion.div
         animate={{ x: 0 }}
