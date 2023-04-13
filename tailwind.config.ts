@@ -16,6 +16,8 @@ export default {
         'primary-blue': '#065DA7',
         'primary-black': '#1B1C1E',
         'primary-yellow': '#FEA218',
+        'thrindle-grey': '#e8e8e8',
+        'thrindle-light-blue': '#e4eff7',
       },
       keyframes: {
         flicker: {

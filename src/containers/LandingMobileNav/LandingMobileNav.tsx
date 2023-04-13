@@ -1,22 +1,23 @@
 import { MouseEvent, useState } from 'react';
 import { FiMenu } from 'react-icons/fi';
-import { IoCloseOutline } from 'react-icons/io5';
 
-const LandingMobileNav = () => {
-  const [showModal, setShowModal] = useState<boolean>(true);
+import LandingMobileNavModal from '@/containers/LandingMobileNavModal/LandingMobileNavModal';
+
+const LandingMobileNav: React.FC = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleClose = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
-    setShowModal(false);
+    setIsOpen(false);
   };
 
   const handleOpen = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
-    setShowModal(true);
+    setIsOpen(true);
   };
 
   return (
@@ -28,17 +29,7 @@ const LandingMobileNav = () => {
       >
         <FiMenu />
       </button>
-
-      {showModal && (
-        <div
-          role='modal'
-          className='text-primary-black fixed left-0 top-0 h-full w-full bg-white'
-        >
-          <button className='px-6 text-2xl' type='button' onClick={handleClose}>
-            <IoCloseOutline />
-          </button>
-        </div>
-      )}
+      <LandingMobileNavModal isOpen={isOpen} onClose={handleClose} />
     </div>
   );
 };

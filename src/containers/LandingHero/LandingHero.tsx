@@ -4,6 +4,7 @@ import styles from './LandingHero.module.scss';
 
 import { useMediaQuery } from '@/hooks';
 
+import LandingHeaderDash from '@/components/LandingHeaderDash';
 import ThrindleLogo from '@/components/shared/ThrindleLogo';
 import LandingDesktopNav from '@/containers/LandingDesktopNav';
 import LandingMobileNav from '@/containers/LandingMobileNav/LandingMobileNav';
@@ -22,27 +23,29 @@ const LandingHero: React.FC = () => {
           {!isDesktop && <LandingMobileNav />}
         </header>
 
-        <section className='row-span-1 row-start-2 mx-auto flex h-full flex-col items-center justify-center gap-4 px-4 text-center text-white md:w-full md:gap-6 md:px-0 lg:gap-8'>
-          <div className='bg-primary-yellow h-1 w-12 lg:mb-4'></div>
+        <div className='row-span-1 row-start-2 mx-auto h-full'>
+          <section className='flex h-full flex-col items-center justify-center gap-4 px-4 text-center text-white md:w-full md:gap-6 md:px-0 lg:gap-8'>
+            <LandingHeaderDash />
 
-          <h2 className='text-3xl font-semibold lg:text-4xl xl:text-5xl'>
-            Automate your office purchase system
-          </h2>
+            <h1 className='text-3xl font-semibold lg:text-4xl xl:text-5xl'>
+              Automate your office purchase system
+            </h1>
 
-          <p className='w-full text-xs font-medium text-white/80 md:w-1/2 md:text-sm lg:text-base'>
-            Streamline your procurement process and increase efficiency. Say
-            goodbye to tedious manual purchasing tasks and hello to more
-            productive workflows. We simplify your procurement process and help
-            you save time and money
-          </p>
+            <p className='w-full text-xs font-medium text-white/80 md:w-1/2 md:text-sm lg:text-base'>
+              Streamline your procurement process and increase efficiency. Say
+              goodbye to tedious manual purchasing tasks and hello to more
+              productive workflows. We simplify your procurement process and
+              help you save time and money
+            </p>
 
-          <Link
-            href='register'
-            className='bg-primary-blue min-w-[15%] rounded-lg px-5 py-3 text-xs font-semibold md:text-sm lg:text-base xl:p-4'
-          >
-            Get Started
-          </Link>
-        </section>
+            <Link
+              href='register'
+              className='bg-primary-blue min-w-[15%] rounded-lg px-5 py-3 text-xs font-semibold md:text-sm lg:text-base xl:p-4'
+            >
+              Get Started
+            </Link>
+          </section>
+        </div>
       </div>
     </div>
   );
