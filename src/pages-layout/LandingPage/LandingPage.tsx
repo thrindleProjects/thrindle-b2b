@@ -2,8 +2,10 @@ import LandingHero from '@/containers/LandingHero';
 
 const LandingPageLayout = () => {
   return (
-    <div>
-      <LandingHero />
+    <div className='bg-primary-yellow/10'>
+      <div className='mx-auto max-w-screen-2xl'>
+        <LandingHero />
+      </div>
     </div>
   );
 };

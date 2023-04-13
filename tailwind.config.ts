@@ -2,7 +2,10 @@ import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
 
 export default {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  content: [
+    './src/**/*.{js,jsx,ts,tsx}',
+    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
+  ],
   theme: {
     extend: {
       fontFamily: {
@@ -12,7 +15,7 @@ export default {
       colors: {
         'primary-blue': '#065DA7',
         'primary-black': '#1B1C1E',
-        'primary-yellow': '',
+        'primary-yellow': '#FEA218',
       },
       keyframes: {
         flicker: {
@@ -41,5 +44,5 @@ export default {
       },
     },
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [require('@tailwindcss/forms'), require('flowbite/plugin')],
 } satisfies Config;
