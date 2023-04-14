@@ -1,8 +1,8 @@
-import { Button } from 'flowbite-react';
 import { useFormik } from 'formik';
 import Link from 'next/link';
 import React from 'react';
 
+import Button from '@/components/buttons/Button';
 import Input from '@/components/shared/Input/Input';
 
 import { TEXT } from '@/constant/constants';
@@ -94,7 +94,7 @@ const RegisterForm = () => {
 
         <Button className='mt-10 h-[52px] w-full'>Create An Account</Button>
       </form>
-      <Link href='/login'>
+      <Link href='/app/login'>
         <p className=' mt-4 text-xs font-[500]'>
           Already have an account?{' '}
           <span className='text-primary-blue'> Sign in</span>

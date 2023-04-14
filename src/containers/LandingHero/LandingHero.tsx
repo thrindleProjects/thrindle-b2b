@@ -39,7 +39,7 @@ const LandingHero: React.FC = () => {
             </p>
 
             <Link
-              href='register'
+              href='/app/register'
               className='bg-primary-blue min-w-[15%] rounded-lg px-5 py-3 text-xs font-semibold md:text-sm lg:text-base xl:p-4'
             >
               Get Started

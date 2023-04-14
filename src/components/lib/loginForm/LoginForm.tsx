@@ -1,8 +1,8 @@
-import { Button } from 'flowbite-react';
 import { useFormik } from 'formik';
 import Link from 'next/link';
 import React from 'react';
 
+import Button from '@/components/buttons/Button';
 import Input from '@/components/shared/Input/Input';
 
 import { PASSWORD, TEXT } from '@/constant/constants';
@@ -46,15 +46,17 @@ const LoginForm = () => {
             required={true}
           />
         </div>
-        <Link href='/reset-password'>
+        <Link href='/app/reset-password'>
           <p className='text-primary-blue mt-4 text-xs font-[500]'>
             Forgot Password?
           </p>
         </Link>
-        <Button className='mt-4 h-[52px] w-full'>Login</Button>
+        <Button className='mt-4 h-[52px] w-full' variant='primary'>
+          Login
+        </Button>
       </form>
 
-      <Link href='/sign-up'>
+      <Link href='/app/register'>
         <p className=' mt-4 text-xs font-[500]'>
           Don’t have an account?{' '}
           <span className='text-primary-blue'>Create Account</span>
