@@ -12,6 +12,9 @@ export default {
         primary: ['Inter', ...defaultTheme.fontFamily.sans],
         'clash-grotesk': ['ClashGrotesk'],
       },
+      backgroundImage: {
+        pattern: "url('/assets/svg/pattern.svg')",
+      },
       colors: {
         'primary-blue': '#065DA7',
         'primary-black': '#1B1C1E',
