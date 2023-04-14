@@ -4,11 +4,14 @@ import { LayoutProps } from '@/components/layout/type';
 import NavBar from '@/components/shared/NavBar/NavBar';
 import NavItem from '@/components/shared/NavItem/NavItem';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Layout: React.FC<LayoutProps> = ({
   children,
   headerText,
   component,
   subText,
+  className,
+  headerClassName,
 }) => {
   // Put Header or Footer Here
 
@@ -31,10 +34,12 @@ const Layout: React.FC<LayoutProps> = ({
       <NavBar />
       <NavItem />
 
-      <div className='px-10'>
-        <div className='flex items-center justify-between py-6'>
+      <div className={`px-10 ${className}`}>
+        <div
+          className={`flex items-center justify-between py-6 ${headerClassName}`}
+        >
           <div>
-            <p className='text-[24px] font-[600]'>{headerText}</p>
+            <p className='text-[24px] font-[500]'>{headerText}</p>
 
             <p className='mt-1 w-[60%]'>{subText}</p>
           </div>
