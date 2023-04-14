@@ -18,7 +18,7 @@ const LandingDesktopNav: React.FC = () => {
       </nav>
 
       <Link
-        href='/login'
+        href='/app/login'
         className='bg-primary-blue hidden h-full place-items-center rounded-lg px-4 font-semibold text-white lg:grid'
       >
         Log In
