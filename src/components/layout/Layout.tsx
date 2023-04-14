@@ -4,6 +4,7 @@ import { LayoutProps } from '@/components/layout/type';
 import NavBar from '@/components/shared/NavBar/NavBar';
 import NavItem from '@/components/shared/NavItem/NavItem';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Layout: React.FC<LayoutProps> = ({
   children,
   headerText,

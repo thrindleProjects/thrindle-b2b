@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 
-import { layoutData } from '../../../utils/layoutData';
+import { layoutData } from '../../../types/layoutData';
 
 const NavItem = () => {
   const [active, setActive] = useState('');
