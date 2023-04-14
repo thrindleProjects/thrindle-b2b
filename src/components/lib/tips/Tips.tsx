@@ -8,7 +8,7 @@ const Tips = () => {
         Quick Tips
       </p>
 
-      <div className='h-[10rem] w-[40%]'>
+      <div className='md:h-[12rem] md:w-[60%] xl:h-[10rem] xl:w-[40%]'>
         <Carousel leftControl={<></>} rightControl={<></>} slideInterval={4000}>
           <div>
             <p className=' mt-2 text-center text-[16px] font-[600] text-white'>
