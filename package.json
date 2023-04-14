@@ -19,11 +19,14 @@
   },
   "dependencies": {
     "clsx": "^1.2.1",
+    "flowbite": "^1.6.5",
+    "flowbite-react": "^0.4.3",
     "framer-motion": "^10.11.6",
     "next": "^13.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
+    "sass": "^1.62.0",
     "react-modal": "^3.16.1",
     "recharts": "^2.5.0",
     "tailwind-merge": "^1.11.0"
