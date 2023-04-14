@@ -6,6 +6,8 @@ import Button from '@/components/buttons/Button';
 import Layout from '@/components/layout/Layout';
 import GenModal from '@/components/shared/modal/Modal';
 
+import DashboardLayout from '@/pages-layout/dashboardLayout/DashboardLayout';
+
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -14,9 +16,11 @@ const Dashboard = () => {
   };
   return (
     <Layout
+      className='px-0'
+      headerClassName='lg:px-10'
       headerText='Overview'
       component={
-        <div className='flex gap-2'>
+        <div className='z-50 flex gap-2'>
           <Button
             variant='outline'
             leftIcon={MdAdd}
@@ -37,6 +41,9 @@ const Dashboard = () => {
         </div>
       }
     >
+      <section className='mt-5 w-full border-t border-t-gray-200 pb-5 lg:px-10'>
+        <DashboardLayout />
+      </section>
       <GenModal isOpen={isOpen} handleCloseModal={handleCloseModal}>
         <div>Modal Children</div>
       </GenModal>
