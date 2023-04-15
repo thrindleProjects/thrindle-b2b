@@ -8,7 +8,10 @@ import { cardData } from './ui-data';
 
 const LandingHowItWorks: React.FC = () => {
   return (
-    <div className='bg-primary-blue relative flex flex-col items-center gap-6 px-4 pb-40 pt-20 text-white md:gap-9 md:px-10 xl:gap-11 xl:px-16'>
+    <div
+      className='bg-primary-blue relative flex flex-col items-center gap-6 px-4 pb-40 pt-20 text-white md:gap-9 md:px-10 xl:gap-11 xl:px-16'
+      id='how-it-works'
+    >
       <section className='flex w-full flex-col items-center gap-4 text-center'>
         <LandingHeaderDash />
         <h2 className='text-center text-xl font-semibold md:text-xl lg:text-2xl lg:font-medium xl:text-3xl'>
