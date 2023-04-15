@@ -25,7 +25,7 @@ const WalletCard = ({ className }: { className?: string }) => {
       <div className='absolute bottom-10  left-0 right-0 flex flex-row items-center justify-between  px-7'>
         {showPrice ? (
           <p className='font-clash-grotesk text-3xl font-semibold text-white'>
-            ₦20,000
+            ₦0.00
           </p>
         ) : (
           <p className='text-3xl font-semibold text-white'>*******</p>

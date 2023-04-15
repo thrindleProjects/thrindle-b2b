@@ -1,4 +1,4 @@
-import DashboardChart from '@/components/pages-component/dashboard/DashboardChart';
+import { DashboardChart } from '@/components/pages-component/dashboard';
 import BorderContainer from '@/components/shared/borderContainer/BorderContainer';
 import WalletCard from '@/components/shared/walletCard/WalletCard';
 

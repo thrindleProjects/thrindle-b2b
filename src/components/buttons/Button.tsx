@@ -50,7 +50,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           'transition-colors duration-75',
           //#region  //*=========== Size ===========
           [
-            size === 'base' && ['px-3 py-1.5', 'text-sm md:text-base'],
+            size === 'base' && ['px-3 py-3', 'text-sm '],
             size === 'sm' && ['px-2 py-1', 'text-xs md:text-sm'],
           ],
           //#endregion  //*======== Size ===========

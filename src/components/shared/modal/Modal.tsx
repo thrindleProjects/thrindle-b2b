@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import React from 'react';
+import { FaTimes } from 'react-icons/fa';
 import Modal from 'react-modal';
 
 import { ModalProps } from '@/components/shared/modal/type';
@@ -8,6 +8,7 @@ const GenModal: React.FC<ModalProps> = ({
   handleCloseModal,
   isOpen,
   children,
+  hideCloseIcon,
 }) => {
   return (
     <Modal
@@ -40,6 +41,14 @@ const GenModal: React.FC<ModalProps> = ({
         }}
         className='ml-auto  h-screen overflow-y-scroll bg-white px-10 py-10'
       >
+        {!hideCloseIcon && (
+          <div className='flex w-full flex-row justify-end'>
+            <button onClick={handleCloseModal}>
+              <FaTimes className='text-xl text-gray-800' />
+            </button>
+          </div>
+        )}
+
         {children}
       </motion.div>
     </Modal>
