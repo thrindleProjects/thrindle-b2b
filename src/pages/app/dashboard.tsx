@@ -4,12 +4,19 @@ import { MdAdd } from 'react-icons/md';
 
 import Button from '@/components/buttons/Button';
 import Layout from '@/components/layout/Layout';
+import {
+  FundWalletModal,
+  OrderSuccessModal,
+  QuickBuyModalView,
+} from '@/components/pages-component/dashboard';
 import GenModal from '@/components/shared/modal/Modal';
 
 import DashboardLayout from '@/pages-layout/dashboardLayout/DashboardLayout';
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [fundWalletModal, setFundWalletModal] = useState(false);
+  const [orderSuccessModal, setOrderSuccessModal] = useState(false);
 
   const handleCloseModal = () => {
     setIsOpen((prev) => !prev);
@@ -26,6 +33,8 @@ const Dashboard = () => {
             leftIcon={MdAdd}
             leftIconClassName='text-primary-blue text-xl'
             className='h-[56px] w-[192px] text-[18px]'
+            onClick={() => setFundWalletModal(!fundWalletModal)}
+            // onClick={() => setOrderSuccessModal(!orderSuccessModal)}
           >
             Fund Wallet
           </Button>
@@ -45,7 +54,19 @@ const Dashboard = () => {
         <DashboardLayout />
       </section>
       <GenModal isOpen={isOpen} handleCloseModal={handleCloseModal}>
-        <div>Modal Children</div>
+        <QuickBuyModalView />
+      </GenModal>
+      <GenModal
+        isOpen={fundWalletModal}
+        handleCloseModal={() => setFundWalletModal(!fundWalletModal)}
+      >
+        <FundWalletModal />
+      </GenModal>
+      <GenModal
+        isOpen={orderSuccessModal}
+        handleCloseModal={() => setOrderSuccessModal(!orderSuccessModal)}
+      >
+        <OrderSuccessModal />
       </GenModal>
     </Layout>
   );

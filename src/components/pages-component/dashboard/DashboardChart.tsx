@@ -7,7 +7,7 @@ import {
   YAxis,
 } from 'recharts';
 
-import DashboardChartTooltip from '@/components/pages-component/dashboard/DashboardChartTooltip';
+import { DashboardChartTooltip } from '@/components/pages-component/dashboard';
 
 import { graphData } from '@/utils/devData';
 
