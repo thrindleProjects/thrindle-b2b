@@ -1,15 +1,14 @@
 import { ModalHeader } from '@/components/shared/modal';
 import { AccountNumberContainer } from '@/components/shared/walletCard';
 
-const FundWalletModal = () => {
+import { FundsModalProps } from '@/utils/appTypes';
+
+const FundWalletModal: React.FC<FundsModalProps> = ({ text, title }) => {
   return (
     <div className='w-full '>
       {/* Content */}
       <div className='mt-10 w-full'>
-        <ModalHeader
-          title='Fund Wallet'
-          text='An account has been set up for you, make a transfer and it will automatically reflect in your wallet once it is seen'
-        />
+        <ModalHeader title={title} text={text} />
         <div className='mt-5 w-full'>
           <AccountNumberContainer
             acctName='Critter Vertinary'
