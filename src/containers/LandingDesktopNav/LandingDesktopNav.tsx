@@ -14,7 +14,7 @@ const LandingDesktopNav: React.FC = () => {
             <ScrollLink href='#why-us'>Why Us</ScrollLink>
           </li>
           <li>
-            <Link href='contact-us'>Contact Us</Link>
+            <ScrollLink href='#contact-us'>Contact Us</ScrollLink>
           </li>
         </ul>
       </nav>

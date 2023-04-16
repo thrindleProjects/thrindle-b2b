@@ -101,7 +101,7 @@ const LandingReviews: React.FC = () => {
                       <Image src={review.logo} alt={review.title} fill={true} />
                     </figure>
                     <div className='flex flex-col'>
-                      <p className='text-sm font-semibold md:text-base lg:text-xl lg:font-medium'>
+                      <p className='text-sm font-semibold md:text-base lg:text-xl lg:font-medium xl:text-2xl'>
                         {review.title}
                       </p>
                       <p className='text-primary-black/60 text-xs font-medium md:text-sm lg:text-base lg:font-normal'>

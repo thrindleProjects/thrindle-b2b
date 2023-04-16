@@ -44,16 +44,18 @@ const LandingMobileNavModal: React.FC<{
                   </ScrollLink>
                 </li>
                 <li className='border-b-primary-black/10 w-full border-b py-6'>
-                  <Link href='contact-us'>Contact Us</Link>
+                  <ScrollLink customClick={onClose} href='#contact-us'>
+                    Contact Us
+                  </ScrollLink>
                 </li>
               </ul>
 
               <ul className='text-primary-blue/80 flex flex-col items-center gap-4 text-center text-lg font-medium'>
                 <li className='border-b-primary-black/10 w-full border-b py-6'>
-                  <button type='button'>Logout</button>
+                  <Link href='/app/login'>Log In</Link>
                 </li>
                 <li className='w-full py-6'>
-                  <Link href='register'>Why Us</Link>
+                  <Link href='/app/register'>Create Account</Link>
                 </li>
               </ul>
             </nav>

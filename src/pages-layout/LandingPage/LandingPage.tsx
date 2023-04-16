@@ -1,6 +1,7 @@
 import LandingGetStarted from '@/containers/LandingGetStarted/LandingGetStarted';
 import LandingHero from '@/containers/LandingHero';
 import LandingHowItWorks from '@/containers/LandingHowItWorks/LandingHowItWorks';
+import LandingNewsLetter from '@/containers/LandingNewsLetter/LandingNewsLetter';
 import LandingReviews from '@/containers/LandingReviews/LandingReviews';
 import LandingWhatWeOffer from '@/containers/LandingWhatWeOffer/LandingWhatWeOffer';
 import OurPartners from '@/containers/OurPartners/OurPartners';
@@ -15,6 +16,7 @@ const LandingPageLayout: React.FC = () => {
         <LandingHowItWorks />
         <LandingReviews />
         <LandingGetStarted />
+        <LandingNewsLetter />
       </div>
     </div>
   );

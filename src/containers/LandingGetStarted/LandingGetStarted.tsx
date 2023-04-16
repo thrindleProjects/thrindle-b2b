@@ -7,7 +7,7 @@ import LandingHeaderDash from '@/components/LandingHeaderDash/LandingHeaderDash'
 
 const LandingGetStarted: React.FC = () => {
   return (
-    <div className='flex w-full flex-col gap-6 bg-white px-4 py-20 md:px-10 lg:grid lg:aspect-[13/8] lg:grid-cols-2 lg:grid-rows-1 lg:gap-0 lg:py-40 xl:px-16'>
+    <div className='flex w-full flex-col gap-6 bg-white px-4 py-10 md:px-10 lg:grid lg:aspect-[13/8] lg:grid-cols-2 lg:grid-rows-1 lg:gap-0 lg:py-20 xl:px-16'>
       <section className='square flex w-full flex-col items-center justify-center gap-4 text-center lg:items-start lg:pr-[33%] lg:text-left'>
         <LandingHeaderDash />
         <h2 className='text-xl font-semibold md:text-xl lg:text-2xl lg:font-medium xl:text-3xl'>
