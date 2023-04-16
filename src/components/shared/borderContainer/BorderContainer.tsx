@@ -8,7 +8,7 @@ const BorderContainer = ({
   className?: string;
 }) => {
   return (
-    <div className={`w-full rounded border border-gray-200 ${className}`}>
+    <div className={` rounded border border-gray-200 ${className}`}>
       {children}
     </div>
   );

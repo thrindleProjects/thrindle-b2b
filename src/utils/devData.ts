@@ -79,3 +79,42 @@ export const dummyOrders = [
     status: 'pending',
   },
 ];
+
+export const walletData = [
+  {
+    description: 'Funded Wallet',
+    date: '24th March',
+    amount: '#50,000',
+    status: 'Pending',
+  },
+  {
+    description: 'Funded Wallet',
+    date: '24th March',
+    amount: '#50,000',
+    status: 'Success',
+  },
+  {
+    description: 'Funded Wallet',
+    date: '24th March',
+    amount: '#50,000',
+    status: 'Pending',
+  },
+  {
+    description: 'Funded Wallet',
+    date: '24th March',
+    amount: '#50,000',
+    status: 'Pending',
+  },
+  {
+    description: 'Funded Wallet',
+    date: '24th March',
+    amount: '#50,000',
+    status: 'Success',
+  },
+  {
+    description: 'Funded Wallet',
+    date: '24th March',
+    amount: '#50,000',
+    status: 'Pending',
+  },
+];
