@@ -40,3 +40,42 @@ export const graphData = [
   { name: 'Nov', uv: 50, pv: 2400, amt: 2400 },
   { name: 'Dec', uv: 400, pv: 2400, amt: 2400 },
 ];
+
+export const dummyOrders = [
+  {
+    _id: '#45656TY',
+    createdAt: 'Order Created 21st March 2023',
+    quantity: 20,
+    status: 'in-progress',
+  },
+  {
+    _id: '#23256PR',
+    createdAt: 'Order Created 21st March 2023',
+    quantity: 3,
+    status: 'completed',
+  },
+  {
+    _id: '#56473FG',
+    createdAt: 'Order Created 21st March 2023',
+    quantity: 1,
+    status: 'in-progress',
+  },
+  {
+    _id: '#98201QW',
+    createdAt: 'Order Created 21st March 2023',
+    quantity: 6,
+    status: 'pending',
+  },
+  {
+    _id: '#10293XS',
+    createdAt: 'Order Created 21st March 2023',
+    quantity: 2,
+    status: 'completed',
+  },
+  {
+    _id: '#78493KL',
+    createdAt: 'Order Created 21st March 2023',
+    quantity: 5,
+    status: 'pending',
+  },
+];
