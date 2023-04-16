@@ -12,7 +12,7 @@ const NavItem = () => {
         <Link href={item.route} key={index}>
           <p
             className={`${
-              item.route === asPath
+              asPath.startsWith(item.route)
                 ? 'text-primary-blue border-primary-blue border-b-primary-blue border-b-2 border-transparent'
                 : 'border-transparent hover:border-b-2 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300'
             } border-primary-blue inline-block   rounded-t-lg py-4  font-[500]`}
