@@ -1,5 +1,11 @@
+import Footer from '@/containers/Footer';
+import LandingGetStarted from '@/containers/LandingGetStarted';
 import LandingHero from '@/containers/LandingHero';
-import OurPartners from '@/containers/OurPartners/OurPartners';
+import LandingHowItWorks from '@/containers/LandingHowItWorks';
+import LandingNewsLetter from '@/containers/LandingNewsLetter';
+import LandingReviews from '@/containers/LandingReviews';
+import LandingWhatWeOffer from '@/containers/LandingWhatWeOffer';
+import OurPartners from '@/containers/OurPartners';
 
 const LandingPageLayout: React.FC = () => {
   return (
@@ -7,6 +13,12 @@ const LandingPageLayout: React.FC = () => {
       <div className='mx-auto max-w-screen-2xl'>
         <LandingHero />
         <OurPartners />
+        <LandingWhatWeOffer />
+        <LandingHowItWorks />
+        <LandingReviews />
+        <LandingGetStarted />
+        <LandingNewsLetter />
+        <Footer />
       </div>
     </div>
   );
