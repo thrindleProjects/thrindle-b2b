@@ -47,7 +47,10 @@ function getStarRatingEmoji(stars: number): JSX.Element {
 
 const LandingReviews: React.FC = () => {
   return (
-    <div className='flex flex-col items-center gap-6 bg-white px-4 pb-20 pt-[45rem] md:gap-9 md:px-10 md:pt-[50rem] lg:pb-20 lg:pt-44 xl:gap-11 xl:px-16'>
+    <div
+      className='flex flex-col items-center gap-6 bg-white px-4 pb-20 pt-[45rem] md:gap-9 md:px-10 md:pt-[50rem] lg:pb-20 lg:pt-44 xl:gap-11 xl:px-16'
+      id='testimonials'
+    >
       <section className='flex w-full flex-col items-center gap-4 text-center'>
         <LandingHeaderDash />
         <h2 className='text-center text-xl font-semibold md:text-xl lg:text-2xl lg:font-medium xl:text-3xl'>
@@ -79,7 +82,7 @@ const LandingReviews: React.FC = () => {
           className='aspect-[1/3] w-full lg:aspect-auto lg:h-auto'
           autoHeight={false}
           mousewheel={{
-            forceToAxis: false,
+            forceToAxis: true,
             sensitivity: 3,
             releaseOnEdges: true,
           }}
@@ -94,8 +97,11 @@ const LandingReviews: React.FC = () => {
         >
           {data.map((review) => {
             return (
-              <SwiperSlide key={review.id} className='aspect-square w-full'>
-                <div className='border-primary-black/10 flex h-full w-full flex-col items-center justify-center gap-4 overflow-y-auto rounded-lg border p-6 lg:p-4'>
+              <SwiperSlide
+                key={review.id}
+                className='aspect-square w-full overflow-y-auto'
+              >
+                <div className='border-primary-black/10 flex min-h-full w-full flex-col items-center justify-center gap-4 rounded-lg border p-6 lg:p-4'>
                   <div className='border-primary-black/10 flex w-full items-center gap-2 border-b pb-4'>
                     <figure className='relative aspect-square w-1/6 overflow-hidden rounded-lg lg:w-2/6'>
                       <Image src={review.logo} alt={review.title} fill={true} />

@@ -1,10 +1,11 @@
-import LandingGetStarted from '@/containers/LandingGetStarted/LandingGetStarted';
+import Footer from '@/containers/Footer';
+import LandingGetStarted from '@/containers/LandingGetStarted';
 import LandingHero from '@/containers/LandingHero';
-import LandingHowItWorks from '@/containers/LandingHowItWorks/LandingHowItWorks';
-import LandingNewsLetter from '@/containers/LandingNewsLetter/LandingNewsLetter';
-import LandingReviews from '@/containers/LandingReviews/LandingReviews';
-import LandingWhatWeOffer from '@/containers/LandingWhatWeOffer/LandingWhatWeOffer';
-import OurPartners from '@/containers/OurPartners/OurPartners';
+import LandingHowItWorks from '@/containers/LandingHowItWorks';
+import LandingNewsLetter from '@/containers/LandingNewsLetter';
+import LandingReviews from '@/containers/LandingReviews';
+import LandingWhatWeOffer from '@/containers/LandingWhatWeOffer';
+import OurPartners from '@/containers/OurPartners';
 
 const LandingPageLayout: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const LandingPageLayout: React.FC = () => {
         <LandingReviews />
         <LandingGetStarted />
         <LandingNewsLetter />
+        <Footer />
       </div>
     </div>
   );

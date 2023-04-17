@@ -18,11 +18,14 @@ const ScrollLink = ({ children, customClick, ...props }: ScrollLinkProps) => {
     //remove everything before the hash
     const targetId = e.currentTarget.href.replace(/.*#/, '');
     const elem = document.getElementById(targetId);
+    const bodyRect = document.body.getBoundingClientRect();
     if (customClick) {
       customClick(e);
     }
+
+    if (!elem) return;
     window.scrollTo({
-      top: elem?.getBoundingClientRect().top,
+      top: elem.getBoundingClientRect().top - bodyRect.top,
       behavior: 'smooth',
     });
   };
