@@ -60,7 +60,10 @@ const Dashboard = () => {
         isOpen={fundWalletModal}
         handleCloseModal={() => setFundWalletModal(!fundWalletModal)}
       >
-        <FundWalletModal />
+        <FundWalletModal
+          title='Fund Wallet'
+          text='An account has been set up for you, make a transfer and it will automatically reflect in your wallet once it is seen'
+        />
       </GenModal>
       <GenModal
         isOpen={orderSuccessModal}
