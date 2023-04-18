@@ -23,7 +23,10 @@ const OrderStatusTabLayout = () => {
   useEffect(() => {
     if (query && !query.orderId && dummyOrders?.length) {
       setActiveOrder(dummyOrders[0]?._id);
-      push(`/app/orders?status=${activeTab}&orderId=${dummyOrders[0]?._id}`);
+      push({
+        pathname: '/app/orders',
+        query: { status: activeTab, orderId: dummyOrders[0]?._id },
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query.orderId, dummyOrders]);
@@ -34,7 +37,10 @@ const OrderStatusTabLayout = () => {
         className='md:w-[80%] lg:w-full xl:w-[80%]'
         activeTab={activeTab}
         changeTab={(val: orderStatus) => {
-          push(`/app/orders?status=${val}`);
+          push({
+            pathname: '/app/orders',
+            query: { status: `${val}` },
+          });
           setActiveTab(val);
         }}
       />
@@ -45,7 +51,11 @@ const OrderStatusTabLayout = () => {
             {...item}
             activeOrder={activeOrder}
             changeOrder={() => {
-              push(`/app/orders?status=${activeTab}&orderId=${item?._id}`);
+              push({
+                pathname: '/app/orders',
+                query: { status: `${activeTab}`, orderId: `${item._id}` },
+              });
+
               setActiveOrder(item?._id);
             }}
           />

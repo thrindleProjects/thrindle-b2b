@@ -3,26 +3,31 @@ export const recentPurchasesData = [
     name: 'Office Chair',
     price: 100000,
     date: '23rd March 2023',
+    quantity: 20,
   },
   {
     name: 'Office Chair',
     price: 100000,
     date: '23rd March 2023',
+    quantity: 10,
   },
   {
     name: 'Office Chair',
     price: 100000,
     date: '23rd March 2023',
+    quantity: 2,
   },
   {
     name: 'Office Chair',
     price: 100000,
     date: '23rd March 2023',
+    quantity: 200,
   },
   {
     name: 'Office Chair',
     price: 100000,
     date: '23rd March 2023',
+    quantity: 50,
   },
 ];
 
@@ -47,36 +52,42 @@ export const dummyOrders = [
     createdAt: 'Order Created 21st March 2023',
     quantity: 20,
     status: 'in-progress',
+    price: 200000,
   },
   {
     _id: '#23256PR',
     createdAt: 'Order Created 21st March 2023',
     quantity: 3,
     status: 'completed',
+    price: 140000,
   },
   {
     _id: '#56473FG',
     createdAt: 'Order Created 21st March 2023',
     quantity: 1,
     status: 'in-progress',
+    price: 35000,
   },
   {
     _id: '#98201QW',
     createdAt: 'Order Created 21st March 2023',
     quantity: 6,
     status: 'pending',
+    price: 30000,
   },
   {
     _id: '#10293XS',
     createdAt: 'Order Created 21st March 2023',
     quantity: 2,
     status: 'completed',
+    price: 120000,
   },
   {
     _id: '#78493KL',
     createdAt: 'Order Created 21st March 2023',
     quantity: 5,
     status: 'pending',
+    price: 4000,
   },
 ];
 

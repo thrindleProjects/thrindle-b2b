@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { MdAdd } from 'react-icons/md';
@@ -6,14 +7,15 @@ import Button from '@/components/buttons/Button';
 import Layout from '@/components/layout/Layout';
 import {
   FundWalletModal,
-  OrderSuccessModal,
   QuickBuyModalView,
 } from '@/components/pages-component/dashboard';
 import GenModal from '@/components/shared/modal/Modal';
+import ResponseStatusModal from '@/components/shared/responseStatusModal/ResponseStatusModal';
 
 import DashboardLayout from '@/pages-layout/dashboardLayout/DashboardLayout';
 
 const Dashboard = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [fundWalletModal, setFundWalletModal] = useState(false);
   const [orderSuccessModal, setOrderSuccessModal] = useState(false);
@@ -69,7 +71,14 @@ const Dashboard = () => {
         isOpen={orderSuccessModal}
         handleCloseModal={() => setOrderSuccessModal(!orderSuccessModal)}
       >
-        <OrderSuccessModal />
+        <ResponseStatusModal
+          onClick={() => router.push('/app/orders')}
+          title='Order Recieved'
+          msg='     We have gotten the list and we will be responding with a quote in less
+        than 5 hours, check your order page to monitor update and make payment'
+          icon_src='order_received'
+          btnText='Proceed To Orders'
+        />
       </GenModal>
     </Layout>
   );

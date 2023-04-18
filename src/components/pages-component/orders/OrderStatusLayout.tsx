@@ -1,12 +1,12 @@
 // import OrderProgressState from '@/components/pages-component/orders/OrderProgressState';
-// import { useRouter } from 'next/router';
 
+import OrderListLayout from '@/components/pages-component/orders/OrderListLayout';
 import BorderContainer from '@/components/shared/borderContainer/BorderContainer';
 
 const OrderStatusLayout = () => {
-  // const { query } = useRouter();
   return (
-    <BorderContainer className='h-[530px] w-full overflow-y-scroll p-5'>
+    <BorderContainer className='relative h-[530px] w-full overflow-y-auto p-5'>
+      <OrderListLayout />
       {/* <OrderProgressState /> */}
     </BorderContainer>
   );

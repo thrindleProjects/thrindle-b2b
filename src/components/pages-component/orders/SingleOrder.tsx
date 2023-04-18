@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useOrderStatusHook } from '@/hooks';
+import OrderStatusContainer from '@/components/shared/orderStatus/OrderStatusContainer';
 
 import { orderStatus } from '@/@types/appTypes';
 
@@ -19,14 +19,11 @@ const SingleOrder = ({
   activeOrder: string | null;
   changeOrder: () => void;
 }) => {
-  const { orderStyle } = useOrderStatusHook({
-    orderStatus: status as orderStatus,
-  });
-
   return (
     <div
       onClick={changeOrder}
       role='button'
+      tabIndex={1}
       className={
         activeOrder && activeOrder === _id
           ? 'border-primary-blue relative mb-5 h-[150px] w-full rounded-md border  transition-all duration-500 ease-in-out'
@@ -45,15 +42,10 @@ const SingleOrder = ({
           <p className='font-clash-grotesk pt-1 text-xs font-normal text-gray-400'>
             {createdAt}
           </p>
-          <div
-            className={`mt-5 flex flex-row items-center justify-center rounded-sm px-3 py-2 ${orderStyle.bgColor}`}
-          >
-            <p
-              className={`font-clash-grotesk text-xs font-medium ${orderStyle.textColor}`}
-            >
-              {orderStyle?.text}
-            </p>
-          </div>
+          <OrderStatusContainer
+            status={status as orderStatus}
+            className='mt-5'
+          />
         </div>
         <div>
           <p className='font-clash-grotesk text-sm font-semibold text-gray-800'>
