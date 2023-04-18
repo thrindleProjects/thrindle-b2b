@@ -4,3 +4,8 @@ export const orderStatues = [
   { status: 'Pending', slug: 'pending' },
   { status: 'Completed', slug: 'completed' },
 ];
+
+export const paymentOptionsData = [
+  { name: 'Now', slug: 'now' },
+  { name: 'Scheduled Payment', slug: 'scheduled-payment' },
+];

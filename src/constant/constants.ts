@@ -8,3 +8,4 @@ export const FILE = 'file';
 export const ITEMNAME = 'Item Name';
 export const ITEMDESCRIPTION = 'Item Description';
 export const IMAGE = 'Image';
+export const SCHEDULED_PAYMENT = 'scheduled-payment';

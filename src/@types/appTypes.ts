@@ -7,3 +7,5 @@ export type navItemType =
   | 'orders';
 
 export type orderStatus = 'all' | 'pending' | 'in-progress' | 'completed';
+
+export type orderPaymentOptions = 'now' | 'scheduled-payment';
