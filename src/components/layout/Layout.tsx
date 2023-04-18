@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+
+import { useMediaQuery } from '@/hooks';
 
 import { LayoutProps } from '@/components/layout/type';
 import NavBar from '@/components/shared/NavBar/NavBar';
 import NavItem from '@/components/shared/NavItem/NavItem';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Layout: React.FC<LayoutProps> = ({
   children,
   headerText,
@@ -15,13 +16,9 @@ const Layout: React.FC<LayoutProps> = ({
 }) => {
   // Put Header or Footer Here
 
-  const [showMobileWarning, setShowMobileWarning] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
-  useEffect(() => {
-    if (window.innerWidth <= 800) setShowMobileWarning(true);
-  }, []);
-
-  if (showMobileWarning) {
+  if (isMobile) {
     return (
       <div className='text-md flex h-screen w-screen items-center justify-center'>
         <p> This Web App can't be viewed on mobile screens.</p>
