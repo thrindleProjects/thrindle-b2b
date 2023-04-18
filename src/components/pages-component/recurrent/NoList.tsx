@@ -9,7 +9,9 @@ const NoList = () => {
       <BorderContainer className='h-max w-[48%] p-10'>
         <AddItemForm />
       </BorderContainer>
-      <BorderContainer className='h-[400px] w-[48%]'></BorderContainer>
+      <BorderContainer className='h-[400px] w-[48%]'>
+        <div></div>
+      </BorderContainer>
     </div>
   );
 };
