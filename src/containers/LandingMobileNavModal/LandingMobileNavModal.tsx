@@ -3,11 +3,13 @@ import Link from 'next/link';
 import { MouseEvent } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
 
+import ScrollLink from '@/components/links/ScrollLink';
+
 import { mobileNavVariant } from './variants';
 
 const LandingMobileNavModal: React.FC<{
   isOpen: boolean;
-  onClose: (e: MouseEvent<HTMLButtonElement>) => void;
+  onClose: (e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
 }> = ({ isOpen, onClose }) => {
   return (
     <AnimatePresence>
@@ -32,22 +34,28 @@ const LandingMobileNavModal: React.FC<{
             <nav className='flex flex-col gap-3'>
               <ul className='text-primary-black flex flex-col items-center gap-4 text-center text-2xl font-semibold'>
                 <li className='border-b-primary-black/10 w-full border-b py-6'>
-                  <Link href='how-it-works'>How It Works</Link>
+                  <ScrollLink href='#how-it-works' customClick={onClose}>
+                    How It Works
+                  </ScrollLink>
                 </li>
                 <li className='border-b-primary-black/10 w-full border-b py-6'>
-                  <Link href='why-us'>Why Us</Link>
+                  <ScrollLink href='#why-us' customClick={onClose}>
+                    Why Us
+                  </ScrollLink>
                 </li>
                 <li className='border-b-primary-black/10 w-full border-b py-6'>
-                  <Link href='contact-us'>Contact Us</Link>
+                  <ScrollLink customClick={onClose} href='#contact-us'>
+                    Contact Us
+                  </ScrollLink>
                 </li>
               </ul>
 
               <ul className='text-primary-blue/80 flex flex-col items-center gap-4 text-center text-lg font-medium'>
                 <li className='border-b-primary-black/10 w-full border-b py-6'>
-                  <button type='button'>Logout</button>
+                  <Link href='/app/login'>Log In</Link>
                 </li>
                 <li className='w-full py-6'>
-                  <Link href='register'>Why Us</Link>
+                  <Link href='/app/register'>Create Account</Link>
                 </li>
               </ul>
             </nav>

@@ -6,7 +6,9 @@ import LandingMobileNavModal from '@/containers/LandingMobileNavModal/LandingMob
 const LandingMobileNav: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handleClose = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleClose = (
+    e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => {
     e.preventDefault();
     e.stopPropagation();
 

@@ -2,12 +2,12 @@ import Image from 'next/image';
 
 import LandingHeaderDash from '@/components/LandingHeaderDash/LandingHeaderDash';
 
-const OurPartners = () => {
+const OurPartners: React.FC = () => {
   return (
     <div className='bg-primary-yellow/10 flex flex-col items-center gap-6 px-4 py-10 md:gap-9 md:px-10 xl:gap-11 xl:px-16'>
       <section className='g flex w-full flex-col items-center gap-4 text-center'>
         <LandingHeaderDash />
-        <h2 className='font-semiboldgi text-center text-xl md:text-xl lg:text-2xl lg:font-medium xl:text-3xl'>
+        <h2 className='text-center text-xl font-semibold md:text-xl lg:text-2xl lg:font-medium xl:text-3xl'>
           Our Partners
         </h2>
       </section>
