@@ -4,6 +4,8 @@ import { MdAdd } from 'react-icons/md';
 import Button from '@/components/buttons/Button';
 import Layout from '@/components/layout/Layout';
 
+import RecurrentLayout from '@/pages-layout/recurrent-layout/RecurrentLayout';
+
 const RecurrentList = () => {
   return (
     <Layout
@@ -22,7 +24,9 @@ so we can get them for you automatically'
           </Button>
         </div>
       }
-    ></Layout>
+    >
+      <RecurrentLayout />
+    </Layout>
   );
 };
 

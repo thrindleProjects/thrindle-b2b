@@ -3,11 +3,9 @@ import { MdAdd } from 'react-icons/md';
 
 import Button from '@/components/buttons/Button';
 import Layout from '@/components/layout/Layout';
-import {
-  FundWalletModal,
-  OrderSuccessModal,
-} from '@/components/pages-component/dashboard';
+import { FundWalletModal } from '@/components/pages-component/dashboard';
 import GenModal from '@/components/shared/modal/Modal';
+import ResponseStatusModal from '@/components/shared/responseStatusModal/ResponseStatusModal';
 
 import WalletLayout from '@/pages-layout/wallet-layout/WalletLayout';
 
@@ -50,7 +48,15 @@ const Wallet = () => {
             setFundWalletSucsessModal(!fundWalletSucsessModal)
           }
         >
-          <OrderSuccessModal />
+          <ResponseStatusModal
+            title='Wallet Successfully Funded'
+            msg='Your wallet have been funded with#100,000 from account
+number 2123458798 UBA Proceed to wallet to view balance'
+            btnText='Check Wallet'
+            bvnVariant='primary'
+            onClick={() => setFundWalletSucsessModal(false)}
+            icon_src='funded-success'
+          />
         </GenModal>
       </div>
     </Layout>
