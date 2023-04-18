@@ -17,7 +17,7 @@ const FormContainer: React.FC<IFormContainer> = ({
 }) => {
   return (
     <div className=' md:px-10 lg:px-20'>
-      <div className='h-20'>
+      <div className='h-20 py-10'>
         <ThrindleLogo variant='blue' />
       </div>
       <div className={`flex h-max flex-col ${className}`}>
