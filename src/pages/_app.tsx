@@ -15,6 +15,7 @@ import '@/styles/colors.css';
 import { persistor, store } from '@/store/store';
 
 import { toastOptions } from '@/config/toastConfig';
+import AuthenticatedLayout from '@/layouts/AuthenticatedLayout';
 
 /**
  * !STARTERCONF info
@@ -38,7 +39,9 @@ function MyApp({
 }: AppPropsWithLayout) {
   const router = useRouter();
 
-  const getLayout = Component.getLayout ?? ((page) => <>{page}</>);
+  const getLayout =
+    Component.getLayout ??
+    ((page) => <AuthenticatedLayout>{page}</AuthenticatedLayout>);
   return (
     <SessionProvider session={session}>
       <Provider store={store}>
