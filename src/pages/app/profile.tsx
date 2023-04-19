@@ -1,9 +1,14 @@
 import React from 'react';
 
-import Layout from '@/components/layout/Layout';
+import AuthenticatedLayoutHeader from '@/components/shared/AuthenticatedLayoutHeader/AuthenticatedLayoutHeader';
+import MainContentWrapper from '@/components/shared/MainContentWrapper/MainContentWrapper';
 
 const Profile = () => {
-  return <Layout headerText='Profile'></Layout>;
+  return (
+    <MainContentWrapper>
+      <AuthenticatedLayoutHeader headerText='Profile' />
+    </MainContentWrapper>
+  );
 };
 
 export default Profile;

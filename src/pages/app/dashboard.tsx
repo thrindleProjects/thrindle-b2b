@@ -4,11 +4,12 @@ import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { MdAdd } from 'react-icons/md';
 
 import Button from '@/components/buttons/Button';
-import Layout from '@/components/layout/Layout';
 import {
   FundWalletModal,
   QuickBuyModalView,
 } from '@/components/pages-component/dashboard';
+import AuthenticatedLayoutHeader from '@/components/shared/AuthenticatedLayoutHeader/AuthenticatedLayoutHeader';
+import MainContentWrapper from '@/components/shared/MainContentWrapper';
 import GenModal from '@/components/shared/modal/Modal';
 import ResponseStatusModal from '@/components/shared/responseStatusModal/ResponseStatusModal';
 
@@ -24,35 +25,35 @@ const Dashboard = () => {
     setIsOpen((prev) => !prev);
   };
   return (
-    <Layout
-      className='px-0'
-      headerClassName='lg:px-10'
-      headerText='Overview'
-      component={
-        <div className='z-50 flex gap-2'>
-          <Button
-            variant='outline'
-            leftIcon={MdAdd}
-            leftIconClassName='text-primary-blue text-xl'
-            className='h-[56px] w-[192px] text-[18px]'
-            onClick={() => setFundWalletModal(!fundWalletModal)}
-            // onClick={() => setOrderSuccessModal(!orderSuccessModal)}
-          >
-            Fund Wallet
-          </Button>
-          <Button
-            onClick={handleCloseModal}
-            variant='primary'
-            leftIcon={HiOutlineShoppingBag}
-            leftIconClassName='text-white text-xl'
-            className='h-[56px] w-[192px] text-[18px]'
-          >
-            Quick Buy
-          </Button>
-        </div>
-      }
-    >
-      <section className='mt-5 w-full border-t border-t-gray-200 pb-5 lg:px-10'>
+    <MainContentWrapper className='px-0'>
+      <AuthenticatedLayoutHeader
+        headerClassName='lg:px-10'
+        headerText='Overview'
+        component={
+          <div className='z-50 flex gap-2'>
+            <Button
+              variant='outline'
+              leftIcon={MdAdd}
+              leftIconClassName='text-primary-blue text-xl'
+              className='h-[56px] w-[192px] text-[18px]'
+              onClick={() => setFundWalletModal(!fundWalletModal)}
+              // onClick={() => setOrderSuccessModal(!orderSuccessModal)}
+            >
+              Fund Wallet
+            </Button>
+            <Button
+              onClick={handleCloseModal}
+              variant='primary'
+              leftIcon={HiOutlineShoppingBag}
+              leftIconClassName='text-white text-xl'
+              className='h-[56px] w-[192px] text-[18px]'
+            >
+              Quick Buy
+            </Button>
+          </div>
+        }
+      />
+      <section className='mt-5 w-full border-t border-t-gray-200 lg:px-10'>
         <DashboardLayout />
       </section>
       <GenModal isOpen={isOpen} handleCloseModal={handleCloseModal}>
@@ -80,7 +81,7 @@ const Dashboard = () => {
           btnText='Proceed To Orders'
         />
       </GenModal>
-    </Layout>
+    </MainContentWrapper>
   );
 };
 

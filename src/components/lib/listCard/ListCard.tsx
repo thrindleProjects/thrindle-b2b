@@ -1,15 +1,21 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 
+import { IListCardProps } from '@/components/lib/listCard/types';
 import BorderContainer from '@/components/shared/borderContainer/BorderContainer';
 
-import { listData } from '@/utils/devData';
-
-const ListCard = () => {
+const ListCard: React.FC<IListCardProps> = ({ data }) => {
+  const [active, setActive] = useState(0);
   return (
-    <div className='mt-6'>
-      {listData.map((item, index) => (
-        <BorderContainer key={index} className='mt-6 p-6'>
+    <div className='mt-6 h-[460px] overflow-y-auto'>
+      {data.map((item, index) => (
+        <BorderContainer
+          onClick={() => setActive(index)}
+          key={index}
+          className={`mt-6 cursor-pointer p-6 ${
+            active === index ? 'border-primary-blue' : ''
+          }`}
+        >
           <div className='flex items-center justify-between'>
             <div className='flex items-center gap-6'>
               <Image
