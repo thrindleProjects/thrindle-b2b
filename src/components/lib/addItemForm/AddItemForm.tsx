@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { MdAdd } from 'react-icons/md';
 
 import Button from '@/components/buttons/Button';
+import { IAddItemFormProps } from '@/components/lib/addItemForm/types';
 import Counter from '@/components/lib/counter/Counter';
 import Input from '@/components/shared/Input/Input';
 import InputFile from '@/components/shared/InputFile/InputFile';
@@ -12,7 +13,7 @@ import * as CONSTANTS from '@/constant/constants';
 
 import { initialValues, validationSchema } from './validation';
 
-const AddItemForm = () => {
+const AddItemForm: React.FC<IAddItemFormProps> = ({ asModal }) => {
   const [counter, setCounter] = useState(0);
 
   const increaseCounter = () => {
@@ -32,6 +33,15 @@ const AddItemForm = () => {
   });
   return (
     <form onSubmit={formik.handleSubmit}>
+      {asModal && (
+        <div className='mb-8'>
+          <p className='text-primary-blue text-[24px] font-[600]'>Add Item</p>
+          <p className='text-thrindle-text-grey mt-2 text-[14px] font-[400]'>
+            Add an item to your recurrent orders to place order for them at
+            schedule
+          </p>
+        </div>
+      )}
       <Input
         id={CONSTANTS.ITEMNAME}
         type={CONSTANTS.TEXT}
