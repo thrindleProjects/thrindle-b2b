@@ -129,3 +129,24 @@ export const walletData = [
     status: 'Pending',
   },
 ];
+
+export const listData = [
+  {
+    title: 'Office Chairs',
+    orderDate: 'Order Created 21st March 2023',
+    msg: 'Lorem ipsum dolor sit amet consectetur. Viverra dictum sagittis turpis senectus. Proin tellus nibh',
+    pieces: '500 Pieces',
+  },
+  {
+    title: 'Office Chairs',
+    orderDate: 'Order Created 21st March 2023',
+    msg: 'Lorem ipsum dolor sit amet consectetur. Viverra dictum sagittis turpis senectus. Proin tellus nibh',
+    pieces: '500 Pieces',
+  },
+  {
+    title: 'Office Chairs',
+    orderDate: 'Order Created 21st March 2023',
+    msg: 'Lorem ipsum dolor sit amet consectetur. Viverra dictum sagittis turpis senectus. Proin tellus nibh',
+    pieces: '500 Pieces',
+  },
+];
