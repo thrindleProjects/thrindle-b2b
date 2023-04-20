@@ -22,6 +22,7 @@ export default {
         'primary-grey': '#F9F9F9',
         'thrindle-grey': '#e8e8e8',
         'thrindle-light-blue': '#e4eff7',
+        'thrindle-text-grey': '#767778',
       },
       keyframes: {
         flicker: {

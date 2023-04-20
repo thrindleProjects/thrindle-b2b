@@ -4,30 +4,54 @@ export const recentPurchasesData = [
     price: 100000,
     date: '23rd March 2023',
     quantity: 20,
+    is_available: false,
+    description:
+      'Lorem ipsum dolor sit amet consectetur. Viverra dictum sagittis',
   },
   {
     name: 'Office Chair',
     price: 100000,
     date: '23rd March 2023',
     quantity: 10,
+    is_available: true,
+    description:
+      'Lorem ipsum dolor sit amet consectetur. Viverra dictum sagittis',
   },
   {
     name: 'Office Chair',
     price: 100000,
     date: '23rd March 2023',
     quantity: 2,
+    is_available: true,
+    description:
+      'Lorem ipsum dolor sit amet consectetur. Viverra dictum sagittis',
   },
   {
     name: 'Office Chair',
     price: 100000,
     date: '23rd March 2023',
     quantity: 200,
+    is_available: false,
+    description:
+      'Lorem ipsum dolor sit amet consectetur. Viverra dictum sagittis',
   },
   {
     name: 'Office Chair',
     price: 100000,
     date: '23rd March 2023',
     quantity: 50,
+    is_available: true,
+    description:
+      'Lorem ipsum dolor sit amet consectetur. Viverra dictum sagittis',
+  },
+  {
+    name: 'Office Chair',
+    price: 10200,
+    date: '23rd March 2023',
+    quantity: 510,
+    is_available: true,
+    description:
+      'Lorem ipsum dolor sit amet consectetur. Viverra dictum sagittis',
   },
 ];
 
@@ -127,5 +151,26 @@ export const walletData = [
     date: '24th March',
     amount: '#50,000',
     status: 'Pending',
+  },
+];
+
+export const listData = [
+  {
+    title: 'Office Chairs',
+    orderDate: 'Order Created 21st March 2023',
+    msg: 'Lorem ipsum dolor sit amet consectetur. Viverra dictum sagittis turpis senectus. Proin tellus nibh',
+    pieces: '500 Pieces',
+  },
+  {
+    title: 'Office Chairs',
+    orderDate: 'Order Created 21st March 2023',
+    msg: 'Lorem ipsum dolor sit amet consectetur. Viverra dictum sagittis turpis senectus. Proin tellus nibh',
+    pieces: '500 Pieces',
+  },
+  {
+    title: 'Office Chairs',
+    orderDate: 'Order Created 21st March 2023',
+    msg: 'Lorem ipsum dolor sit amet consectetur. Viverra dictum sagittis turpis senectus. Proin tellus nibh',
+    pieces: '500 Pieces',
   },
 ];

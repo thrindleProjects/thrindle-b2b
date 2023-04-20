@@ -4,7 +4,10 @@ import { useState } from 'react';
 import styles from './OrderListLayout.module.scss';
 
 import Button from '@/components/buttons/Button';
-import { OrderPaymentModal } from '@/components/pages-component/orders';
+import {
+  OrderPaymentModal,
+  OrderSuggestedOptions,
+} from '@/components/pages-component/orders';
 import SingleOrderList from '@/components/pages-component/orders/SingleOrderList';
 import GenModal from '@/components/shared/modal/Modal';
 import OrderStatusContainer from '@/components/shared/orderStatus/OrderStatusContainer';
@@ -16,6 +19,7 @@ const OrderListLayout = () => {
   const { query } = useRouter();
   const [paymentModal, setPaymentModal] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [optionsModal, setOptionsModal] = useState(false);
 
   return (
     <div className={`h-full w-full ${styles.order_list_wrapper}`}>
@@ -38,7 +42,11 @@ const OrderListLayout = () => {
         {/* Content */}
         <div className='mt-10 w-full'>
           {recentPurchasesData.map((item, index) => (
-            <SingleOrderList key={index} {...item} />
+            <SingleOrderList
+              key={index}
+              {...item}
+              toggleOptionsModal={() => setOptionsModal(!optionsModal)}
+            />
           ))}
         </div>
       </div>
@@ -92,6 +100,13 @@ const OrderListLayout = () => {
           onClick={() => setPaymentSuccess(false)}
           icon_src='order-success'
         />
+      </GenModal>
+      {/* Suggested Options Modal */}
+      <GenModal
+        isOpen={optionsModal}
+        handleCloseModal={() => setOptionsModal(false)}
+      >
+        <OrderSuggestedOptions />
       </GenModal>
     </div>
   );
