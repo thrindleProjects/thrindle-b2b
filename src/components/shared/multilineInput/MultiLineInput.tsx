@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 
 import InputLabel from '@/components/shared/InputLabel/InputLabel';
@@ -18,7 +19,7 @@ const MultiLineInput: React.FC<MultiLineInputProps> = ({
   numbOfRows,
 }) => {
   return (
-    <div className={`${className} text-ace-black   rounded-[5px]`}>
+    <div className={`${className} text-ace-black flex flex-col gap-2`}>
       <InputLabel id={id} label={label} />
       <MainMultiInput
         className='h-full w-full bg-transparent outline-none'
@@ -30,11 +31,19 @@ const MultiLineInput: React.FC<MultiLineInputProps> = ({
         rows={numbOfRows}
         name={name}
       />
-      {formikTouched && formikErrors && (
-        <div className='ml-3 block  text-left text-[10px] font-light    text-red-600'>
-          *{formikErrors}
-        </div>
-      )}
+      <AnimatePresence>
+        {formikTouched && formikErrors && (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ ease: 'easeOut', duration: 0.5 }}
+            className='pl-1 pt-1 text-xs font-semibold text-red-300'
+          >
+            {formikErrors}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

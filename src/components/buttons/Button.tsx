@@ -98,7 +98,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...rest}
       >
         {isLoading && (
-          <div
+          <span
             className={clsxm(
               'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
               {
@@ -109,10 +109,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             )}
           >
             <ImSpinner2 className='animate-spin' />
-          </div>
+          </span>
         )}
         {LeftIcon && (
-          <div
+          <span
             className={clsxm([
               size === 'base' && 'mr-1',
               size === 'sm' && 'mr-1.5',
@@ -124,14 +124,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                   size === 'base' && 'md:text-md text-md',
                   size === 'sm' && 'md:text-md text-sm',
                 ],
-                leftIconClassName
+                leftIconClassName,
+                'text-inherit'
               )}
             />
-          </div>
+          </span>
         )}
         {children}
         {RightIcon && (
-          <div
+          <span
             className={clsxm([
               size === 'base' && 'ml-1',
               size === 'sm' && 'ml-1.5',
@@ -146,7 +147,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 rightIconClassName
               )}
             />
-          </div>
+          </span>
         )}
       </button>
     );

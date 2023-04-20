@@ -39,7 +39,7 @@ const InputFile: React.FC<InputFileProps<HTMLInputElement>> = (props) => {
     <div className='flex w-full flex-col gap-2'>
       {label && !!label.length && <InputLabel id={id} label={label} />}
       <FileInput
-        className={`relative w-full border-b-2 px-2 text-xs shadow-inner outline-none transition-all duration-300 ease-in placeholder:text-xs md:px-4 xl:text-sm xl:placeholder:text-sm ${
+        className={`border-primary-blue relative w-full rounded-lg border border-dashed px-2 text-xs shadow-inner outline-none transition-all duration-300 ease-in placeholder:text-xs md:px-4 xl:text-sm xl:placeholder:text-sm ${
           className ? className : ''
         }`}
       >
@@ -54,7 +54,7 @@ const InputFile: React.FC<InputFileProps<HTMLInputElement>> = (props) => {
           multiple={Boolean(multiple)}
           accept={`${extensions ? extensions : '.doc, .docx, '}`}
         />
-        <div className='grid grid-cols-7'>
+        <div className='text-primary-black/60 grid grid-cols-7 font-medium'>
           <span className='col-span-1 grid place-items-center text-xl'>
             <Icon icon='material-symbols:photo-camera-outline' />
           </span>
