@@ -1,13 +1,13 @@
 import React from 'react';
 
-import List from '@/components/pages-component/recurrent/List';
+import NoList from '@/components/pages-component/recurrent/NoList';
 
 const RecurrentLayout = () => {
   return (
     <div>
-      {/* <NoList /> */}
+      <NoList />
 
-      <List />
+      {/* <List /> */}
     </div>
   );
 };
