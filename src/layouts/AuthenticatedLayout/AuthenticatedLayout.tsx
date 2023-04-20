@@ -8,7 +8,7 @@ import NavItem from '@/components/shared/NavItem/NavItem';
 const AuthenticatedLayout: React.FC<PropsWithChildren> = ({ children }) => {
   // Put Header or Footer Here
 
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 767px)');
 
   if (isMobile) {
     return (

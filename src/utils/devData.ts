@@ -4,30 +4,54 @@ export const recentPurchasesData = [
     price: 100000,
     date: '23rd March 2023',
     quantity: 20,
+    is_available: false,
+    description:
+      'Lorem ipsum dolor sit amet consectetur. Viverra dictum sagittis',
   },
   {
     name: 'Office Chair',
     price: 100000,
     date: '23rd March 2023',
     quantity: 10,
+    is_available: true,
+    description:
+      'Lorem ipsum dolor sit amet consectetur. Viverra dictum sagittis',
   },
   {
     name: 'Office Chair',
     price: 100000,
     date: '23rd March 2023',
     quantity: 2,
+    is_available: true,
+    description:
+      'Lorem ipsum dolor sit amet consectetur. Viverra dictum sagittis',
   },
   {
     name: 'Office Chair',
     price: 100000,
     date: '23rd March 2023',
     quantity: 200,
+    is_available: false,
+    description:
+      'Lorem ipsum dolor sit amet consectetur. Viverra dictum sagittis',
   },
   {
     name: 'Office Chair',
     price: 100000,
     date: '23rd March 2023',
     quantity: 50,
+    is_available: true,
+    description:
+      'Lorem ipsum dolor sit amet consectetur. Viverra dictum sagittis',
+  },
+  {
+    name: 'Office Chair',
+    price: 10200,
+    date: '23rd March 2023',
+    quantity: 510,
+    is_available: true,
+    description:
+      'Lorem ipsum dolor sit amet consectetur. Viverra dictum sagittis',
   },
 ];
 
