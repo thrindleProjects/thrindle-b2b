@@ -73,7 +73,7 @@ const AddItemForm: React.FC<IAddItemFormProps> = ({ asModal }) => {
           }
           errorText={formik.errors[CONSTANTS.IMAGE]}
           required={true}
-          extensions='image/*, .doc, .docx, '
+          extensions='image/*, .doc, .docx,'
           showPreview={true}
         />
       </div>

@@ -1,0 +1,15 @@
+.count_button {
+  @apply flex aspect-square w-full items-center justify-center;
+  @apply disabled:cursor-not-allowed;
+  @apply rounded-lg;
+  @apply text-3xl;
+  @apply border;
+
+  &.count_increase {
+    @apply bg-primary-blue border-white text-white;
+  }
+
+  &.count_decrease {
+    @apply border-primary-blue text-primary-blue bg-white;
+  }
+}

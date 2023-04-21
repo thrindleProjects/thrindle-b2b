@@ -25,7 +25,7 @@ const OrderListLayout = () => {
     <div className={`h-full w-full ${styles.order_list_wrapper}`}>
       {/* <div className=' flex-1 overflow-y-auto'> */}
       {/* Header */}
-      <div className='row-span-1 row-start-1 h-full overflow-y-auto'>
+      <div className='row-span-1 row-start-1 h-full overflow-y-auto px-5'>
         <div className='flex w-full flex-row items-center justify-between'>
           <div>
             <h6 className='font-clash-grotesk text-base font-semibold text-gray-900'>
@@ -71,7 +71,7 @@ const OrderListLayout = () => {
         </Button>
       </div> */}
       {/* Buy order again */}
-      <div className='row-span-1 row-start-2 py-2'>
+      <div className='row-span-1 row-start-2 px-5 py-2'>
         <Button onClick={() => setPaymentModal(true)} className='w-full'>
           Buy Again
         </Button>
