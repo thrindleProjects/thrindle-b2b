@@ -8,7 +8,7 @@ import {
   validationSchema,
 } from './validation';
 const useShoppingList = (props: {
-  onSubmit?: () => void;
+  onSubmit?: (item: Readonly<ShoppingListItem & { date: string }>) => void;
   initialValues?: ShoppingListItem;
   resetForm?: boolean;
 }) => {
@@ -23,17 +23,15 @@ const useShoppingList = (props: {
       // on submit of form add new item to cart
 
       // if no initial values are provided add a new item to cart
+      const date = new Date().toISOString();
       if (!initialValues) {
         setShoppingItems((old) => {
-          const newCart: ShoppingListCart = [
-            ...old,
-            { ...item, date: new Date().toISOString() },
-          ];
+          const newCart: ShoppingListCart = [...old, { ...item, date }];
           return newCart;
         });
       }
       if (onSubmit) {
-        onSubmit();
+        onSubmit({ ...item, date });
       }
 
       if (resetForm) {
@@ -66,6 +64,21 @@ const useShoppingList = (props: {
     return;
   };
 
+  const deleteItem = (date: string) => {
+    setShoppingItems((old) => old.filter((item) => item.date !== date));
+  };
+
+  const editItem = (item: ShoppingListItem & { date: string }) => {
+    setShoppingItems((old) => {
+      return old.map((oldItem) => {
+        if (item.date !== oldItem.date) {
+          return oldItem;
+        }
+        return { ...oldItem, ...item };
+      });
+    });
+  };
+
   return Object.freeze({
     onChange: formik.handleChange,
     onSubmit: formik.handleSubmit,
@@ -79,6 +92,8 @@ const useShoppingList = (props: {
     cart: shoppingItems,
     increaseQuantity,
     decreaseQuantity,
+    deleteItem,
+    editItem,
   });
 };
 

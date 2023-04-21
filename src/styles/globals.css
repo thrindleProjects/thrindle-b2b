@@ -86,3 +86,25 @@ body,
 #__next {
   @apply h-full w-full;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for WebKit-based browsers */
+}
+
+.no-scrollbar {
+  overflow: -moz-scrollbars-none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for Edge and IE */
+  scrollbar-width: none; /* Hide scrollbar for non-WebKit-based browsers */
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}

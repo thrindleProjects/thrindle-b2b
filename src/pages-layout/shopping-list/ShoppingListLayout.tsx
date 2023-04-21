@@ -10,15 +10,17 @@ const ShoppingListLayout: React.FC = () => {
 
   return (
     <MainContentWrapper>
-      <div className='grid grid-cols-2 gap-6'>
-        <div>
+      <div className='grid gap-5 lg:grid-cols-2'>
+        <div className='no-scrollbar grid h-[55rem] grid-rows-[auto_1fr] overflow-y-auto'>
           <AuthenticatedLayoutHeader
             headerText='Shopping List'
             subText='Add your orders here as much as you need them and once you are ready to pay we will get them for you'
           />
           <ShoppingListForm {...props} />
         </div>
-        <ShoppingListCart cart={props.cart} />
+        <div className='h-[55rem] overflow-hidden pt-5'>
+          <ShoppingListCart {...props} />
+        </div>
       </div>
     </MainContentWrapper>
   );
