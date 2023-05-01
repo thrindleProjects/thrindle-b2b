@@ -81,7 +81,7 @@ const ShoppingListForm: ShoppingListFormType = ({
             error={errors.image && touched.image}
             errorText={errors.image}
             extensions='image/*'
-            showPreview={false}
+            showPreview={true}
           />
 
           <MultiLineInput
