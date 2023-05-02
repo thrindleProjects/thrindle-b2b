@@ -9,7 +9,7 @@ const AuthenticatedLayoutHeader: React.FC<{
       className={`flex w-full items-center justify-between py-6 ${headerClassName}`}
     >
       <section>
-        <h1 className='text-2xl font-medium'>{headerText}</h1>
+        <h1 className='text-2xl font-semibold'>{headerText}</h1>
         <p className='mt-1 w-3/5'>{subText}</p>
       </section>
       {component}

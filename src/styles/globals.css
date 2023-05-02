@@ -108,3 +108,12 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
   -moz-appearance: textfield;
 }
+
+.blue_linear_gradient {
+  background: linear-gradient(
+      0deg,
+      rgba(6, 93, 167, 0.08),
+      rgba(6, 93, 167, 0.08)
+    ),
+    #ffffff;
+}
