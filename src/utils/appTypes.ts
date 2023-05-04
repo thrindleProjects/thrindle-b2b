@@ -22,3 +22,27 @@ export interface FundsModalProps {
   title: string;
   text: string;
 }
+
+export interface ICompanyDetails {
+  id: string;
+  companyName: string;
+  email: string;
+  address: string;
+  state: string;
+  landmark: string;
+  contactPhone: string;
+  alternateContactPhone: string;
+  status: string;
+  token: string;
+  tokenExpiry: Date;
+}
+export interface LoginResponse {
+  token: string;
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  company: ICompanyDetails;
+  type: string;
+}

@@ -21,6 +21,12 @@ const Dashboard = () => {
   const [fundWalletModal, setFundWalletModal] = useState(false);
   const [orderSuccessModal, setOrderSuccessModal] = useState(false);
 
+  // const test = () => {
+  //   signOut({
+  //     callbackUrl: `/app/login`
+  //   })
+  // }
+
   const handleCloseModal = () => {
     setIsOpen((prev) => !prev);
   };
@@ -53,6 +59,7 @@ const Dashboard = () => {
           </div>
         }
       />
+
       <section className='mt-5 w-full border-t border-t-gray-200 lg:px-10'>
         <DashboardLayout />
       </section>

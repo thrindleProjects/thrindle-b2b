@@ -1,20 +1,30 @@
 import { useFormik } from 'formik';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 import Button from '@/components/buttons/Button';
 import Input from '@/components/shared/Input/Input';
 
+import { useCreateCompanyMutation } from '@/api/auth';
 import { TEXT } from '@/constant/constants';
 
 import { initialValues, validationSchema } from './validation';
 import { EMAIL, PASSWORD } from '../../../constant/constants';
+
 const RegisterForm = () => {
+  const [createCompany, { isLoading }] = useCreateCompanyMutation();
+  const router = useRouter();
+
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
-      //
+    onSubmit: async (values) => {
+      await createCompany({ ...values }).then((res) => {
+        if (res) {
+          router.push('/app/login');
+        }
+      });
     },
   });
 
@@ -47,20 +57,7 @@ const RegisterForm = () => {
             required={true}
           />
         </div>
-        <div className='mt-3'>
-          <Input
-            id='phone'
-            type={TEXT}
-            value={formik.values.phone}
-            placeholder='09055555555'
-            label='Phone Number'
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.errors.phone && formik.touched.phone}
-            errorText={formik.errors.phone}
-            required={true}
-          />
-        </div>
+
         <div className='mt-3'>
           <Input
             id='password'
@@ -92,7 +89,13 @@ const RegisterForm = () => {
           />
         </div>
 
-        <Button className='mt-10 h-[52px] w-full'>Create An Account</Button>
+        <Button
+          type='submit'
+          isLoading={isLoading}
+          className='mt-10 h-[52px] w-full'
+        >
+          Create An Account
+        </Button>
       </form>
       <Link href='/app/login'>
         <p className=' mt-4 text-xs font-[500]'>

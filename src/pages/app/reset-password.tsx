@@ -4,7 +4,9 @@ import FormContainer from '@/components/lib/formContainer/FormContainer';
 import ResetPasswordForm from '@/components/lib/resetPasswordForm/ResetPasswordForm';
 import Tips from '@/components/lib/tips/Tips';
 
-const ResetPassword = () => {
+import { NextPageWithLayout } from '@/pages/_app';
+
+const ResetPassword: NextPageWithLayout = () => {
   return (
     <div className='flex '>
       <div className='w-[50%]'>
@@ -22,6 +24,10 @@ email address enter this code here to reset password'
       </div>
     </div>
   );
+};
+
+ResetPassword.getLayout = function (page) {
+  return <>{page}</>;
 };
 
 export default ResetPassword;
