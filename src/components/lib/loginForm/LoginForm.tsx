@@ -1,6 +1,8 @@
 import { useFormik } from 'formik';
 import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/react';
+import React, { useState } from 'react';
 
 import Button from '@/components/buttons/Button';
 import Input from '@/components/shared/Input/Input';
@@ -9,10 +11,50 @@ import { PASSWORD, TEXT } from '@/constant/constants';
 
 import { initialValues, validationSchema } from './validation';
 const LoginForm = () => {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
+    onSubmit: async (values) => {
+      try {
+        setLoading(true);
+        const result = await signIn('login', {
+          ...values,
+          redirect: false,
+        });
+        // setLoading(false)
+
+        if (!result || result.error) {
+          if (result?.error === 'CredentialsSignin') {
+            // yes
+            (await import('react-hot-toast')).toast.error(
+              'Something went wrong'
+            );
+            return;
+          }
+          (await import('react-hot-toast')).toast.error(
+            result?.error ?? 'Something went wrong'
+          );
+
+          // setLoading(false)
+
+          return;
+        }
+
+        formik.resetForm();
+
+        if (typeof router.query.callbackUrl === 'string') {
+          return router.replace(new URL(router.query.callbackUrl));
+        }
+
+        router.push('/app/dashboard');
+      } catch (error) {
+        // setLoading(false)
+      } finally {
+        setLoading(false);
+      }
       //
     },
   });
@@ -21,11 +63,11 @@ const LoginForm = () => {
     <div className='mt-10 md:w-full xl:w-[80%]'>
       <form onSubmit={formik.handleSubmit}>
         <Input
-          id='phone'
+          id='email'
           type={TEXT}
           value={formik.values.email}
-          placeholder='Email Number'
-          label='Email Number'
+          placeholder='Email Address'
+          label='Email Address'
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={formik.errors.email && formik.touched.email}
@@ -51,7 +93,12 @@ const LoginForm = () => {
             Forgot Password?
           </p>
         </Link>
-        <Button className='mt-4 h-[52px] w-full' variant='primary'>
+        <Button
+          isLoading={loading}
+          className='mt-4 h-[52px] w-full'
+          variant='primary'
+          type='submit'
+        >
           Login
         </Button>
       </form>

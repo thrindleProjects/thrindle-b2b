@@ -11,6 +11,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+import { globalApi } from '@/api/globalApi';
 import userSlice from '@/slices/userSlice';
 
 const persistConfig = {
@@ -20,6 +21,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: userSlice,
+  [globalApi.reducerPath]: globalApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

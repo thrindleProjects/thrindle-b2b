@@ -1,9 +1,11 @@
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 import React from 'react';
 
 import ThrindleLogo from '@/components/shared/ThrindleLogo/ThrindleLogo';
 
 const NavBar = () => {
+  const { data } = useSession();
   return (
     <div className='border-b-thrindle-grey flex h-24 items-center justify-between border bg-white px-10 '>
       <ThrindleLogo variant='blue' />
@@ -28,7 +30,7 @@ const NavBar = () => {
               className='h-30 w-30 object-contain'
             />
           </div>
-          <p className='font-[500]'>Critters Vet</p>
+          <p className='font-[500]'>{data?.user.company.companyName}</p>
         </div>
       </div>
     </div>
