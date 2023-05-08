@@ -7,7 +7,7 @@ import { cardData } from './ui-data';
 const LandingWhatWeOffer: React.FC = () => {
   return (
     <div
-      className='flex flex-col gap-6 px-4 py-20 md:gap-9 md:px-10 lg:py-40 xl:gap-11 xl:px-16'
+      className='flex flex-col gap-6 bg-white px-4 py-20 md:gap-9 md:px-10 lg:py-40 xl:gap-11 xl:px-16'
       id='why-us'
     >
       <section className='flex w-full flex-col items-center gap-4 text-center'>

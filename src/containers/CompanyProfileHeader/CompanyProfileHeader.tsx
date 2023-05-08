@@ -1,7 +1,13 @@
 import { Icon } from '@iconify/react';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
+import Skeleton from 'react-loading-skeleton';
+
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const CompanyProfileHeader: React.FC = () => {
+  const { data } = useSession();
+
   return (
     <div className='border-primary-black/10 mt-4 flex items-center justify-between rounded-lg border p-5'>
       <div className='flex items-center gap-2'>
@@ -14,10 +20,24 @@ const CompanyProfileHeader: React.FC = () => {
         </figure>
         <p className='flex flex-col gap-px'>
           <span className='text-sm font-medium lg:text-base'>
-            Critters Veterinary Center
+            {data ? (
+              data.user.company.companyName
+            ) : (
+              <Skeleton
+                className='h-full w-full'
+                style={{ lineHeight: 'unset' }}
+              />
+            )}
           </span>
           <span className='text-primary-black/60 text-xs font-medium lg:text-sm'>
-            Maryland, Lagos
+            {data ? (
+              data.user.company.address || 'Incomplete Profile'
+            ) : (
+              <Skeleton
+                className='h-full w-full'
+                style={{ lineHeight: 'unset' }}
+              />
+            )}
           </span>
         </p>
       </div>

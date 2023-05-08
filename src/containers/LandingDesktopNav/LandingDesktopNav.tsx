@@ -7,13 +7,13 @@ const LandingDesktopNav: React.FC = () => {
     <>
       <nav className='hidden h-full items-center text-white/80 lg:flex'>
         <ul className='flex items-center gap-4 font-medium'>
-          <li>
+          <li className='hover:text-primary-yellow'>
             <ScrollLink href='#how-it-works'>How It Works</ScrollLink>
           </li>
-          <li>
+          <li className='hover:text-primary-yellow'>
             <ScrollLink href='#why-us'>Why Us</ScrollLink>
           </li>
-          <li>
+          <li className='hover:text-primary-yellow'>
             <ScrollLink href='#contact-us'>Contact Us</ScrollLink>
           </li>
         </ul>

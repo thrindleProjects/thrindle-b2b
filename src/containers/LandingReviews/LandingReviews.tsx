@@ -48,7 +48,7 @@ function getStarRatingEmoji(stars: number): JSX.Element {
 const LandingReviews: React.FC = () => {
   return (
     <div
-      className='flex flex-col items-center gap-6 bg-white px-4 pb-20 pt-[45rem] md:gap-9 md:px-10 md:pt-[50rem] lg:pb-20 lg:pt-44 xl:gap-11 xl:px-16'
+      className='flex flex-col items-center gap-6 bg-white px-4 pb-20 pt-[45rem] md:gap-9 md:px-10 md:pt-[50rem] lg:pb-20 lg:pt-64 xl:gap-11 xl:px-16'
       id='testimonials'
     >
       <section className='flex w-full flex-col items-center gap-4 text-center'>
@@ -103,7 +103,7 @@ const LandingReviews: React.FC = () => {
               >
                 <div className='border-primary-black/10 flex min-h-full w-full flex-col items-center justify-center gap-4 rounded-lg border p-6 lg:p-4'>
                   <div className='border-primary-black/10 flex w-full items-center gap-2 border-b pb-4'>
-                    <figure className='relative aspect-square w-1/6 overflow-hidden rounded-lg lg:w-2/6'>
+                    <figure className='relative aspect-square w-1/6 overflow-hidden rounded-lg lg:w-1/5'>
                       <Image src={review.logo} alt={review.title} fill={true} />
                     </figure>
                     <div className='flex flex-col'>

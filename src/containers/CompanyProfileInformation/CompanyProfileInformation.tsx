@@ -1,29 +1,41 @@
 import { Icon } from '@iconify/react';
+import { Session } from 'next-auth';
+import { useSession } from 'next-auth/react';
+import Skeleton from 'react-loading-skeleton';
 
-const companyData = [
+import 'react-loading-skeleton/dist/skeleton.css';
+
+// as keyof Session['user']['company']
+
+const companyData: {
+  title: string;
+  slug: keyof Session['user']['company'];
+}[] = [
   {
     title: 'Company Name',
-    value: 'Critters Veterinary Center',
+    slug: 'companyName',
   },
   {
     title: 'Contact Person Phone Number',
-    value: '09065434323',
+    slug: 'contactPhone',
   },
   {
     title: 'Address',
-    value: '20, Maryland, Lagos, Nigeria',
+    slug: 'address',
   },
   {
     title: 'Email Address',
-    value: 'crittersvet@gmail.com',
+    slug: 'email',
   },
   {
     title: 'Alternative Contact Person Number',
-    value: '08123456789',
+    slug: 'alternateContactPhone',
   },
 ];
 
 const CompanyProfileInformation: React.FC = () => {
+  const { data: session } = useSession();
+
   return (
     <div className='border-primary-black/10 mt-4 flex items-center justify-between rounded-lg border p-5'>
       <section className='space-y-10'>
@@ -37,7 +49,15 @@ const CompanyProfileInformation: React.FC = () => {
                     {data.title}
                   </span>
                   <span className='text-primary-black text-sm font-medium lg:text-base'>
-                    {data.value}
+                    {session ? (
+                      (session.user.company[data.slug] as string) ||
+                      'Not Provided'
+                    ) : (
+                      <Skeleton
+                        className='h-full w-full'
+                        style={{ lineHeight: 'unset' }}
+                      />
+                    )}
                   </span>
                 </div>
               );

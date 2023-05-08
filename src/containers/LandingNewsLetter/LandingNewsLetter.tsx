@@ -12,7 +12,7 @@ const LandingNewsLetter: React.FC = () => {
     e.preventDefault();
   };
   return (
-    <div className='bg-white px-4 py-4 md:px-10 lg:py-10 xl:px-16'>
+    <div className='bg-white px-4 py-4 pb-12 md:px-10 lg:py-10 lg:pb-32 xl:px-16'>
       <section
         className={`${styles.newsletter_container} flex flex-col gap-6 rounded-lg px-4 py-14 text-center`}
       >
