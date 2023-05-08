@@ -1,21 +1,22 @@
 import React from 'react';
 
 import FormContainer from '@/components/lib/formContainer/FormContainer';
-import RegisterForm from '@/components/lib/registerForm/RegisterForm';
+import Kycform from '@/components/lib/kycform/Kycform';
 import Tips from '@/components/lib/tips/Tips';
 
 import { NextPageWithLayout } from '@/pages/_app';
 
-const SignUp: NextPageWithLayout = () => {
+const KYC: NextPageWithLayout = () => {
   return (
     <div className='flex '>
       <div className='w-[50%]'>
         <FormContainer
-          title='Create Account'
-          subtitle='Provide us with few information to create an account for you'
+          title='You are almost there'
+          subtitle='Provide us with few other information 
+and your account set up is done'
           className='mt-6'
         >
-          <RegisterForm />
+          <Kycform />
         </FormContainer>
       </div>
       <div className=' w-[50%]'>
@@ -25,7 +26,8 @@ const SignUp: NextPageWithLayout = () => {
   );
 };
 
-SignUp.getLayout = function (page) {
+KYC.getLayout = function (page) {
   return <>{page}</>;
 };
-export default SignUp;
+
+export default KYC;

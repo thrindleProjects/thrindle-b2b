@@ -2,6 +2,7 @@ import { useFormik } from 'formik';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useEffect } from 'react';
 
 import Button from '@/components/buttons/Button';
 import Input from '@/components/shared/Input/Input';
@@ -13,18 +14,26 @@ import { initialValues, validationSchema } from './validation';
 import { EMAIL, PASSWORD } from '../../../constant/constants';
 
 const RegisterForm = () => {
-  const [createCompany, { isLoading }] = useCreateCompanyMutation();
+  const [createCompany, { isLoading, data }] = useCreateCompanyMutation();
   const router = useRouter();
+
+  useEffect(() => {
+    if (data?.success) {
+      router.push({
+        pathname: '/app/verify-email',
+        query: {
+          id: data?.data.company.id,
+          email: data?.data.company.email,
+        },
+      });
+    }
+  }, [data?.success, router, data?.data.company.id, data?.data.company.email]);
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: async (values) => {
-      await createCompany({ ...values }).then((res) => {
-        if (res) {
-          router.push('/app/login');
-        }
-      });
+    onSubmit: (values) => {
+      createCompany({ ...values });
     },
   });
 

@@ -1,6 +1,15 @@
-import { CreateCompanyPayload, ICreateNewCompanyData } from '@/api/auth/types';
+import {
+  CreateCompanyPayload,
+  ICreateNewCompanyData,
+  VerifyCompanyPayload,
+} from '@/api/auth/types';
 import { globalApi } from '@/api/globalApi';
-import { CREATE_NEW_COMPANY_API, POST_METHOD } from '@/constant/constants';
+import {
+  CREATE_NEW_COMPANY_API,
+  POST_METHOD,
+  PUT_METHOD,
+  VERIFY_COMPANY_API,
+} from '@/constant/constants';
 import { INetworkSuccessResponse } from '@/utils/appTypes';
 
 const AuthApi = globalApi.injectEndpoints({
@@ -15,8 +24,26 @@ const AuthApi = globalApi.injectEndpoints({
         data: data,
       }),
     }),
+    verifyCompanyEmail: build.mutation<void, VerifyCompanyPayload>({
+      query: (data) => ({
+        url: `${VERIFY_COMPANY_API}`,
+        method: PUT_METHOD,
+        data: data,
+      }),
+    }),
+    updateCompany: build.mutation<void, FormData>({
+      query: (data) => ({
+        url: `${VERIFY_COMPANY_API}`,
+        method: PUT_METHOD,
+        data: data,
+      }),
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useCreateCompanyMutation } = AuthApi;
+export const {
+  useCreateCompanyMutation,
+  useVerifyCompanyEmailMutation,
+  useUpdateCompanyMutation,
+} = AuthApi;
