@@ -8,6 +8,7 @@ import {
   CREATE_NEW_COMPANY_API,
   POST_METHOD,
   PUT_METHOD,
+  UPDATE_COMPANY_API,
   VERIFY_COMPANY_API,
 } from '@/constant/constants';
 import { INetworkSuccessResponse } from '@/utils/appTypes';
@@ -33,7 +34,7 @@ const AuthApi = globalApi.injectEndpoints({
     }),
     updateCompany: build.mutation<void, FormData>({
       query: (data) => ({
-        url: `${VERIFY_COMPANY_API}`,
+        url: `${UPDATE_COMPANY_API}`,
         method: PUT_METHOD,
         data: data,
       }),

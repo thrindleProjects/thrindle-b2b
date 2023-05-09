@@ -20,7 +20,7 @@ and your account set up is done'
         </FormContainer>
       </div>
       <div className=' w-[50%]'>
-        <Tips />
+        <Tips className='h-full' />
       </div>
     </div>
   );

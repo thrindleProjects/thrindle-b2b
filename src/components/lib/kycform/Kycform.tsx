@@ -1,10 +1,12 @@
 import { useFormik } from 'formik';
+import NaijaStates from 'naija-state-local-government';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 import Button from '@/components/buttons/Button';
 import Input from '@/components/shared/Input/Input';
 import InputFile from '@/components/shared/InputFile/InputFile';
+import Select from '@/components/shared/Select/Select';
 
 import { useUpdateCompanyMutation } from '@/api/auth';
 import { TEXT } from '@/constant/constants';
@@ -14,12 +16,12 @@ import { initialValues, validationSchema } from './validation';
 
 const Kycform = () => {
   const router = useRouter();
-  const [updateCompany] = useUpdateCompanyMutation();
+  const [updateCompany, { isLoading }] = useUpdateCompanyMutation();
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const formData = new FormData();
       formData.append('id', router.query.id as string | Blob);
       formData.append('contactPhone', values.phoneNumber as string | Blob);
@@ -30,14 +32,33 @@ const Kycform = () => {
       formData.append('state', values.state as string | Blob);
       formData.append('landmark', values.landmark as string | Blob);
       formData.append('address', values.officeAddress as string | Blob);
-      if (values.logo) {
-        if (values.logo[0]) {
-          formData.append('otherDocumentImages', values.logo[0] as Blob);
-        }
-      }
-      updateCompany(formData);
-      router.push('/app/login');
+      // if (values.logo) {
+      //   if (values.logo[0]) {
+      //     formData.append('logo', values.logo[0] as Blob | string);
+      //   }
+      // }
+      // if (values.logo) {
+      //   formData.append('logo', values.logo[0] as Blob | string);
+      // }
+      updateCompany(formData)
+        .unwrap()
+        .then(() => {
+          router.push('/app/login');
+        })
+        .catch(() => {
+          //
+        });
     },
+  });
+
+  const state = NaijaStates.all().map(
+    (state: { state: string }) => state.state
+  );
+  const mappedState = state.map((state: string) => {
+    return {
+      label: state,
+      value: state,
+    };
   });
 
   return (
@@ -73,6 +94,22 @@ const Kycform = () => {
             }
             errorText={formik.errors[CONSTANTS.ALTERNATE_PHONE]}
             required={true}
+          />
+        </div>
+        <div className='mt-3'>
+          <Select
+            label='State'
+            id={CONSTANTS.STATE}
+            name={CONSTANTS.STATE}
+            onChangeValue={formik.setFieldValue}
+            value={formik.values[CONSTANTS.STATE]}
+            onBlurEvent={formik.setFieldTouched}
+            error={
+              formik.errors[CONSTANTS.STATE] && formik.touched[CONSTANTS.STATE]
+            }
+            errorText={formik.errors[CONSTANTS.STATE]}
+            required={true}
+            options={mappedState}
           />
         </div>
         <div className='mt-3'>
@@ -124,17 +161,25 @@ const Kycform = () => {
               formik.errors[CONSTANTS.LOGO] && formik.touched[CONSTANTS.LOGO]
             }
             errorText={formik.errors[CONSTANTS.LOGO]}
-            required={true}
             extensions='image/*, .doc, .docx,'
             showPreview={true}
           />
         </div>
 
         <div className='mt-10 flex gap-6'>
-          <Button className='w-[203px]' variant='outline'>
+          <Button
+            onClick={() => router.push('app/login')}
+            className='w-[203px]'
+            variant='outline'
+          >
             <span>Back</span>
           </Button>
-          <Button className='w-[203px]' variant='primary'>
+          <Button
+            isLoading={isLoading}
+            className='w-[203px]'
+            type='submit'
+            variant='primary'
+          >
             <span>Proceed</span>
           </Button>
         </div>

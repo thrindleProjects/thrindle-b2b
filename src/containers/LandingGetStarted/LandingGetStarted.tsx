@@ -15,7 +15,7 @@ const LandingGetStarted: React.FC = () => {
         </h2>
         <Link
           href='/app/register'
-          className='bg-primary-blue min-w-[15%] rounded-lg px-5 py-3 text-xs font-semibold text-white md:text-sm lg:text-base xl:p-4'
+          className='bg-primary-blue min-w-[15%] rounded-lg px-5 py-3 text-xs font-semibold text-white md:text-sm lg:text-base xl:px-10 xl:py-4'
         >
           Get Started
         </Link>

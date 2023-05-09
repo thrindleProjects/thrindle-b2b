@@ -23,7 +23,7 @@ ${router.query.email}`}
         </FormContainer>
       </div>
       <div className=' w-[50%]'>
-        <Tips />
+        <Tips className='h-screen' />
       </div>
     </div>
   );

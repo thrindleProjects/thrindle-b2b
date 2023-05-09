@@ -13,6 +13,7 @@ export const SCHEDULED_PAYMENT = 'scheduled-payment';
 export const CREATE_NEW_COMPANY_API = '/company/signup';
 export const VERIFY_COMPANY_API = '/company/verify';
 export const UPDATE_COMPANY_API = '/company/update';
+export const LOGIN = '/user/signin';
 export const POST_METHOD = 'POST';
 export const GET_METHOD = 'GET';
 export const PUT_METHOD = 'PUT';

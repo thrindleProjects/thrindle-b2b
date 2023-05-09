@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { useEffect } from 'react';
 import OTPInput from 'react-otp-input';
 
 import Button from '@/components/buttons/Button';
@@ -15,20 +14,26 @@ const OTPForm = () => {
 
   const router = useRouter();
 
-  const [verify, { isLoading, isSuccess }] = useVerifyCompanyEmailMutation();
-
-  useEffect(() => {
-    if (isSuccess) {
-      router.push('/app/kyc');
-    }
-  }, [isSuccess, router]);
+  const [verify, { isLoading }] = useVerifyCompanyEmailMutation();
 
   const handleSubmit = () => {
     if (router.isReady) {
       verify({
         companyId: router.query.id,
         token: otp,
-      });
+      })
+        .unwrap()
+        .then(() => {
+          router.push({
+            pathname: '/app/kyc',
+            query: {
+              id: router.query.id,
+            },
+          });
+        })
+        .catch(() => {
+          //
+        });
     }
   };
 

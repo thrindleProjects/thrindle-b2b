@@ -20,7 +20,7 @@ email address enter this code here to reset password'
         </FormContainer>
       </div>
       <div className=' w-[50%]'>
-        <Tips />
+        <Tips className='h-screen' />
       </div>
     </div>
   );
