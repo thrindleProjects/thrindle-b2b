@@ -3,6 +3,7 @@ import { NextAuthOptions, Session } from 'next-auth';
 import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
+import { LOGIN } from '@/constant/constants';
 import { LoginResponse } from '@/utils/appTypes';
 
 export const authOptions: NextAuthOptions = {
@@ -31,7 +32,7 @@ export const authOptions: NextAuthOptions = {
             password: credentials?.password as string,
           };
           const user = await axios.post(
-            String(`${process.env.NEXT_PUBLIC_DEV_URL}/user/signin`),
+            String(`${process.env.NEXT_PUBLIC_DEV_URL}${LOGIN}`),
             data
           );
 

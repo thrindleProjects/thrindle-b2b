@@ -22,7 +22,7 @@ const Login: NextPageWithLayout = () => {
         </FormContainer>
       </div>
       <div className=' w-1/2'>
-        <Tips />
+        <Tips className='h-screen' />
       </div>
     </div>
   );

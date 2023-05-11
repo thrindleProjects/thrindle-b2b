@@ -7,7 +7,7 @@ export interface LoginData {
 export interface INetworkSuccessResponse<T> {
   data: T;
   message: string;
-  status?: number;
+  status?: string;
   success?: boolean;
 }
 

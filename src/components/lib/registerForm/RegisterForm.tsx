@@ -20,11 +20,26 @@ const RegisterForm = () => {
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      await createCompany({ ...values }).then((res) => {
-        if (res) {
-          router.push('/app/login');
-        }
-      });
+      createCompany({ ...values })
+        .unwrap()
+        .then((res) => {
+          if (res) {
+            router
+              .push(
+                {
+                  pathname: '/app/verify-email',
+                  query: {
+                    id: res?.data.company.id,
+                    email: res?.data.company.email,
+                  },
+                },
+                '/app/verify-email'
+              )
+              .catch(() => {
+                //
+              });
+          }
+        });
     },
   });
 
