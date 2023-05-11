@@ -14,7 +14,7 @@ export const CREATE_NEW_COMPANY_API = '/company/signup';
 export const VERIFY_COMPANY_API = '/company/verify';
 export const UPDATE_COMPANY_API = '/company/update';
 export const LOGIN = '/user/signin';
-const IMAGES_SUB_LINK = '/images/itemImages';
+const IMAGES_SUB_LINK = '/images';
 
 export const IMAGE_URL = `${process.env.NEXT_PUBLIC_DEV_URL}${IMAGES_SUB_LINK}`;
 export const POST_METHOD = 'POST';

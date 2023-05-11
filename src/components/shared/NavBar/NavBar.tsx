@@ -29,7 +29,7 @@ const NavBar = () => {
               src={`${IMAGE_URL}/${data?.user.company.logo}`}
               alt='bell'
               fill={true}
-              className='h-30 w-30 object-contain'
+              className='h-30 w-30 rounded-full object-contain'
             />
           </div>
           <p className='font-[500]'>{data?.user.company.companyName}</p>
