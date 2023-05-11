@@ -30,6 +30,7 @@ export const authOptions: NextAuthOptions = {
             email: credentials?.email as string,
             password: credentials?.password as string,
           };
+
           const user = await axios.post(
             String(`${process.env.NEXT_PUBLIC_DEV_URL}/user/signin`),
             data

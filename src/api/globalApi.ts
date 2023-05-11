@@ -39,13 +39,13 @@ const axiosBaseQuery =
         timeout: AXIOS_TIMEOUT_TIME,
         timeoutErrorMessage: 'Request Timeout',
       });
-      toast.success(result.data.message);
 
-      return { data: result.data };
+      return { data: result?.data ? result.data : null };
     } catch (axiosError) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const err = axiosError as any;
-      toast.error(err.response.data.data.error);
+
+      toast.error(err.response?.data?.data?.error);
       if (
         err?.response?.status === 401 &&
         err?.response?.data?.message === TOKEN_EXPIRED_MSG

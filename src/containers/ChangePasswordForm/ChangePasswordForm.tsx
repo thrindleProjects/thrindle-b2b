@@ -3,14 +3,25 @@ import { useFormik } from 'formik';
 import Button from '@/components/buttons/Button';
 import Input from '@/components/shared/Input';
 
+import { useChangePasswordMutation } from '@/api/auth';
+
 import { initialValues, validationSchema } from './validation';
 
 const ChangePasswordForm: React.FC = () => {
+  const [changePassword, { isLoading }] = useChangePasswordMutation();
+
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
+    onSubmit: async (values) => {
       // logic here
+      try {
+        await changePassword(values).unwrap();
+        // bola1999A@
+        // thisPass@123
+      } catch (error: unknown) {
+        // catch here
+      }
     },
   });
 
@@ -32,15 +43,15 @@ const ChangePasswordForm: React.FC = () => {
       <div className='flex flex-col gap-2 '>
         <Input
           type='password'
-          id='newPassword'
-          name='newPassword'
+          id='password'
+          name='password'
           label='New Password'
-          value={formik.values.newPassword}
+          value={formik.values.password}
           placeholder='*********'
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          error={formik.errors.newPassword && formik.touched.newPassword}
-          errorText={formik.errors.newPassword}
+          error={formik.errors.password && formik.touched.password}
+          errorText={formik.errors.password}
           required={true}
         />
         <span className='text-primary-blue/60 text-xs font-medium'>
@@ -49,20 +60,22 @@ const ChangePasswordForm: React.FC = () => {
       </div>
       <Input
         type='password'
-        id='confirmNewPassword'
-        name='confirmNewPassword'
+        id='confirmPassword'
+        name='confirmPassword'
         label='Confirm New Password'
-        value={formik.values.confirmNewPassword}
+        value={formik.values.confirmPassword}
         placeholder='*********'
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        error={
-          formik.errors.confirmNewPassword && formik.touched.confirmNewPassword
-        }
-        errorText={formik.errors.confirmNewPassword}
+        error={formik.errors.confirmPassword && formik.touched.confirmPassword}
+        errorText={formik.errors.confirmPassword}
         required={true}
       />
-      <Button type='submit' className='px-6 font-semibold'>
+      <Button
+        type='submit'
+        className='px-6 font-semibold'
+        isLoading={isLoading}
+      >
         Save Changes
       </Button>
     </form>
