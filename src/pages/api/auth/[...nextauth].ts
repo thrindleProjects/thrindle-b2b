@@ -3,6 +3,7 @@ import { NextAuthOptions, Session } from 'next-auth';
 import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
+import { LOGIN } from '@/constant/constants';
 import { LoginResponse } from '@/utils/appTypes';
 
 export const authOptions: NextAuthOptions = {
@@ -32,7 +33,7 @@ export const authOptions: NextAuthOptions = {
           };
 
           const user = await axios.post(
-            String(`${process.env.NEXT_PUBLIC_DEV_URL}/user/signin`),
+            String(`${process.env.NEXT_PUBLIC_DEV_URL}${LOGIN}`),
             data
           );
 
@@ -69,12 +70,13 @@ export const authOptions: NextAuthOptions = {
           lastName: token.user.lastName,
           email: token.user.email,
           phone: token.user.phone,
-          type: token.user.token,
+          type: token.user.type,
           company: {
             address: token.user.company.address,
             alternateContactPhone: token.user.company.alternateContactPhone,
             id: token.user.company.id,
             companyName: token.user.company.companyName,
+            logo: token.user.company.logo,
             email: token.user.company.email,
             state: token.user.company.state,
             landmark: token.user.company.landmark,
@@ -88,26 +90,6 @@ export const authOptions: NextAuthOptions = {
         expires: '',
       };
 
-      // session.token = token.user.token;
-      // session.user.id = token.user.id;
-      // session.user.firstName = token.user.firstName;
-      // session.user.lastName = token.user.lastName;
-      // session.user.email = token.user.email;
-      // session.user.type = token.user.token;
-      // // session.user.company.address = token.user.company.address;
-      // // session.user.company.id = token.user.company.id;
-      // // session.user.company.companyName = token.user.company.companyName;
-      // // session.user.company.email = token.user.company.email;
-      // // session.user.company.state = token.user.company.state;
-      // // session.user.company.landmark = token.user.company.landmark;
-      // // session.user.company.contactPhone = token.user.company.contactPhone;
-      // // session.user.company.alternateContactPhone =
-      // //   token.user.company.alternateContactPhone;
-      // // session.user.company.status = token.user.company.status;
-      // // session.user.company.token = token.user.company.token;
-      // // session.user.company.tokenExpiry = token.user.company.tokenExpiry;
-
-      // // console.log({ session });
       session = newSession;
 
       return session;

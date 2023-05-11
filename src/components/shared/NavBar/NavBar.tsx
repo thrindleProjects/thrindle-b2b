@@ -4,6 +4,8 @@ import React from 'react';
 
 import ThrindleLogo from '@/components/shared/ThrindleLogo/ThrindleLogo';
 
+import { IMAGE_URL } from '@/constant/constants';
+
 const NavBar = () => {
   const { data } = useSession();
   return (
@@ -24,7 +26,7 @@ const NavBar = () => {
         <div className='flex items-center justify-center gap-2 rounded-full'>
           <div className='border-thrindle-light-blue relative  h-[40px] w-[40px] rounded-full '>
             <Image
-              src='/assets/svg/critters.svg'
+              src={`${IMAGE_URL}/${data?.user.company.logo}`}
               alt='bell'
               fill={true}
               className='h-30 w-30 object-contain'

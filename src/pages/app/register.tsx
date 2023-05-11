@@ -15,14 +15,14 @@ const SignUp: NextPageWithLayout = () => {
       <div className='w-[50%]'>
         <FormContainer
           title='Create Account'
-          subtitle='Privide us with few information to create an account for you'
+          subtitle='Provide us with few information to create an account for you'
           className='mt-6'
         >
           <RegisterForm />
         </FormContainer>
       </div>
       <div className=' w-[50%]'>
-        <Tips />
+        <Tips className='h-screen' />
       </div>
     </div>
   );

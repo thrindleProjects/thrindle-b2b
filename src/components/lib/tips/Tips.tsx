@@ -1,9 +1,11 @@
 import { Carousel } from 'flowbite-react';
 import React from 'react';
 
-const Tips = () => {
+const Tips = ({ className }: { className: string }) => {
   return (
-    <div className='bg-pattern flex h-screen flex-col items-center justify-center bg-cover bg-no-repeat'>
+    <div
+      className={`bg-pattern flex ${className} flex-col items-center justify-center bg-cover bg-no-repeat`}
+    >
       <p className='relative top-10 text-center text-[24px] font-[600] text-white'>
         Quick Tips
       </p>

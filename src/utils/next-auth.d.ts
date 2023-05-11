@@ -16,6 +16,7 @@ declare module 'next-auth' {
       company: {
         id: string;
         companyName: string;
+        logo: string;
         email: string;
         address: string;
         state: string;
@@ -41,6 +42,8 @@ declare module 'next-auth' {
     company: {
       id: string;
       companyName: string;
+      logo: string;
+
       email: string;
       address: string;
       state: string;
@@ -69,6 +72,8 @@ declare module 'next-auth/jwt' {
       company: {
         id: string;
         companyName: string;
+        logo: string;
+
         email: string;
         address: string;
         state: string;

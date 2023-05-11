@@ -20,3 +20,8 @@ export interface CreateCompanyPayload {
   password: string;
   confirmPassword: string;
 }
+
+export interface VerifyCompanyPayload {
+  companyId: string | string[] | undefined;
+  token: string;
+}

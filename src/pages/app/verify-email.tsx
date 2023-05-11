@@ -1,22 +1,25 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 
 import FormContainer from '@/components/lib/formContainer/FormContainer';
-import ResetPasswordForm from '@/components/lib/resetPasswordForm/ResetPasswordForm';
+import OTPForm from '@/components/lib/oTPForm/OTPForm';
 import Tips from '@/components/lib/tips/Tips';
 
 import { NextPageWithLayout } from '@/pages/_app';
 
-const ResetPassword: NextPageWithLayout = () => {
+const VerifyEmail: NextPageWithLayout = () => {
+  const router = useRouter();
+
   return (
     <div className='flex '>
       <div className='w-[50%]'>
         <FormContainer
-          title='Reset Password,'
-          subtitle='A code has been sent to your registered 
-email address enter this code here to reset password'
-          className='mt-24'
+          title='Account Verification'
+          subtitle={`Enter the 6 digit code sent to 
+${router.query.email}`}
+          className='mt-6'
         >
-          <ResetPasswordForm />
+          <OTPForm />
         </FormContainer>
       </div>
       <div className=' w-[50%]'>
@@ -26,8 +29,7 @@ email address enter this code here to reset password'
   );
 };
 
-ResetPassword.getLayout = function (page) {
+VerifyEmail.getLayout = function (page) {
   return <>{page}</>;
 };
-
-export default ResetPassword;
+export default VerifyEmail;
