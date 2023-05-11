@@ -20,6 +20,8 @@ const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [fundWalletModal, setFundWalletModal] = useState(false);
   const [orderSuccessModal, setOrderSuccessModal] = useState(false);
+  // const session = useSession()
+  // console.log(session)
 
   // const test = () => {
   //   signOut({

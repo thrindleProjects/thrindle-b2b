@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 import { PropsWithChildren } from 'react';
 
@@ -17,9 +18,11 @@ const FormContainer: React.FC<IFormContainer> = ({
 }) => {
   return (
     <div className=' md:px-10 lg:px-20'>
-      <div className='h-20 py-10'>
-        <ThrindleLogo variant='blue' />
-      </div>
+      <Link href='/'>
+        <div className='h-20 py-10'>
+          <ThrindleLogo variant='blue' />
+        </div>
+      </Link>
       <div className={`flex h-max flex-col ${className}`}>
         <p className='text-primary-blue text-[24px] font-[600]'>{title}</p>
         <p className='md:w-full xl:w-[80%]'>{subtitle}</p>
