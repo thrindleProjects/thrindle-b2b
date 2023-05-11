@@ -24,12 +24,15 @@ const OTPForm = () => {
       })
         .unwrap()
         .then(() => {
-          router.push({
-            pathname: '/app/kyc',
-            query: {
-              id: router.query.id,
+          router.push(
+            {
+              pathname: '/app/kyc',
+              query: {
+                id: router.query.id,
+              },
             },
-          });
+            '/app/kyc'
+          );
         })
         .catch(() => {
           //

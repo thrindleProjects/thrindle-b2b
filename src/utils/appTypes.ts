@@ -35,6 +35,7 @@ export interface ICompanyDetails {
   status: string;
   token: string;
   tokenExpiry: Date;
+  logo: string;
 }
 export interface LoginResponse {
   token: string;

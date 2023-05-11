@@ -32,14 +32,12 @@ const Kycform = () => {
       formData.append('state', values.state as string | Blob);
       formData.append('landmark', values.landmark as string | Blob);
       formData.append('address', values.officeAddress as string | Blob);
-      // if (values.logo) {
-      //   if (values.logo[0]) {
-      //     formData.append('logo', values.logo[0] as Blob | string);
-      //   }
-      // }
-      // if (values.logo) {
-      //   formData.append('logo', values.logo[0] as Blob | string);
-      // }
+      if (values.logo) {
+        if (values.logo[0]) {
+          formData.append('logo', values.logo[0] as Blob);
+        }
+      }
+
       updateCompany(formData)
         .unwrap()
         .then(() => {
