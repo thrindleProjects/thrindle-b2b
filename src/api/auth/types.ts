@@ -25,3 +25,13 @@ export interface VerifyCompanyPayload {
   companyId: string | string[] | undefined;
   token: string;
 }
+
+export interface PasswordResetRequest {
+  email: string;
+}
+export interface PasswordReset {
+  email: string | string[] | undefined;
+  otp: string;
+  password: string;
+  confirmPassword: string;
+}

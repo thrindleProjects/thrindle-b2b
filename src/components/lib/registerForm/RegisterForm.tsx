@@ -19,7 +19,7 @@ const RegisterForm = () => {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: async (values) => {
+    onSubmit: (values) => {
       createCompany({ ...values })
         .unwrap()
         .then((res) => {
