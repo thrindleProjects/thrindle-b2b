@@ -45,6 +45,7 @@ const ChangePasswordForm: React.FC = () => {
         error={formik.errors.currentPassword && formik.touched.currentPassword}
         errorText={formik.errors.currentPassword}
         required={true}
+        autoComplete='off'
       />
       <div className='flex flex-col gap-2 '>
         <Input
@@ -59,6 +60,7 @@ const ChangePasswordForm: React.FC = () => {
           error={formik.errors.password && formik.touched.password}
           errorText={formik.errors.password}
           required={true}
+          autoComplete='off'
         />
         <span className='text-primary-blue/60 text-xs font-medium'>
           Your password must be at least 8 characters including numbers{' '}
@@ -76,6 +78,7 @@ const ChangePasswordForm: React.FC = () => {
         error={formik.errors.confirmPassword && formik.touched.confirmPassword}
         errorText={formik.errors.confirmPassword}
         required={true}
+        autoComplete='off'
       />
       <Button
         type='submit'
