@@ -1,4 +1,5 @@
 import { useFormik } from 'formik';
+import { toast } from 'react-hot-toast';
 
 import Button from '@/components/buttons/Button';
 import Input from '@/components/shared/Input';
@@ -16,11 +17,16 @@ const ChangePasswordForm: React.FC = () => {
     onSubmit: async (values) => {
       // logic here
       try {
-        await changePassword(values).unwrap();
+        const response = await changePassword(values).unwrap();
+
+        if (response.status === 'success') {
+          toast.success('Password updated successfully');
+        }
         // bola1999A@
         // thisPass@123
       } catch (error: unknown) {
         // catch here
+        toast.error('Something went wrong');
       }
     },
   });
