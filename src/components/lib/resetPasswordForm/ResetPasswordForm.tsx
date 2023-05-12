@@ -1,19 +1,30 @@
 import { useFormik } from 'formik';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 import Button from '@/components/buttons/Button';
 import Input from '@/components/shared/Input/Input';
 
+import { usePasswordResetMutation } from '@/api/auth';
 import { PASSWORD } from '@/constant/constants';
 
 import { initialValues, validationSchema } from './validation';
 const ResetPasswordForm = () => {
+  const router = useRouter();
+  const [reset, { isLoading }] = usePasswordResetMutation();
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
-      //
+    onSubmit: (values) => {
+      reset({ ...values, email: router.query.email })
+        .unwrap()
+        .then(() => {
+          router.push('/app/login');
+        })
+        .catch(() => {
+          //
+        });
     },
   });
 
@@ -21,15 +32,15 @@ const ResetPasswordForm = () => {
     <div className='mt-10 md:w-full xl:w-[80%]'>
       <form onSubmit={formik.handleSubmit}>
         <Input
-          id='code'
+          id='otp'
           type={PASSWORD}
-          value={formik.values.code}
+          value={formik.values.otp}
           placeholder='XXXXXX'
-          label='Enter Code'
+          label='Enter Otp'
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          error={formik.errors.code && formik.touched.code}
-          errorText={formik.errors.code}
+          error={formik.errors.otp && formik.touched.otp}
+          errorText={formik.errors.otp}
           required={true}
         />
         <div className='mt-3'>
@@ -46,10 +57,32 @@ const ResetPasswordForm = () => {
             required={true}
           />
         </div>
+        <div className='mt-3'>
+          <Input
+            id='confirmPassword'
+            type={PASSWORD}
+            value={formik.values.confirmPassword}
+            placeholder='XXXXXX'
+            label='Confirm Password'
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={
+              formik.errors.confirmPassword && formik.touched.confirmPassword
+            }
+            errorText={formik.errors.confirmPassword}
+            required={true}
+          />
+        </div>
         <p className='text-primary-blue mt-4 text-xs font-[500]'>
           Forgot Password?
         </p>
-        <Button className='mt-4 h-[52px] w-full'>Login</Button>
+        <Button
+          type='submit'
+          isLoading={isLoading}
+          className='mt-4 h-[52px] w-full'
+        >
+          Reset Password
+        </Button>
       </form>
       <Link href='/app/login'>
         <p className=' mt-4 text-xs font-[500]'>
