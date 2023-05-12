@@ -11,6 +11,16 @@ export const IMAGE = 'Image';
 export const SCHEDULED_PAYMENT = 'scheduled-payment';
 
 export const CREATE_NEW_COMPANY_API = '/company/signup';
+
+// METHODS
+export const POST_METHOD = 'POST';
+export const GET_METHOD = 'GET';
+export const PUT_METHOD = 'PUT';
+export const DELETE_METHOD = 'DELETE';
+export const PATCH_METHOD = 'PATCH';
+
+// Update Password Endpoint
+export const UPDATE_PASSWORD_ENDPOINT = '/user/updatePassword';
 export const VERIFY_COMPANY_API = '/company/verify';
 export const UPDATE_COMPANY_API = '/company/update';
 export const LOGIN = '/user/signin';
@@ -19,9 +29,7 @@ export const PASSWORD_RESET = '/user/resetPassword';
 const IMAGES_SUB_LINK = '/images';
 
 export const IMAGE_URL = `${process.env.NEXT_PUBLIC_DEV_URL}${IMAGES_SUB_LINK}`;
-export const POST_METHOD = 'POST';
-export const GET_METHOD = 'GET';
-export const PUT_METHOD = 'PUT';
+
 export const AXIOS_TIMEOUT_TIME = 30000;
 export const TOKEN_EXPIRED_MSG = 'Token has expired, please login again';
 

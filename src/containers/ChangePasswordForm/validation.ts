@@ -1,24 +1,28 @@
 import * as Yup from 'yup';
-
-export const initialValues: {
+export type ChangePasswordPayload = {
   currentPassword: string;
-  newPassword: string;
-  confirmNewPassword: string;
-} = {
+  password: string;
+  confirmPassword: string;
+};
+export const initialValues: ChangePasswordPayload = {
   currentPassword: '',
-  newPassword: '',
-  confirmNewPassword: '',
+  password: '',
+  confirmPassword: '',
 };
 
 export const validationSchema = Yup.object({
   currentPassword: Yup.string().required('Password is required'),
-  newPassword: Yup.string()
+  password: Yup.string()
     .required('Type in a new password')
     .matches(
-      /^(?=.*\d)[A-Za-z\d]{8,}$/,
-      'Must be 8 characters long and must have a number'
+      /^(?=.*\d).{8,}$/,
+      'Must be at least 8 characters long and must have a number'
     ),
-  confirmNewPassword: Yup.string()
+  //     .matches(
+  //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+  //   'Password must be a minimum of 8 characters including alphabets, numbers and symbols'
+  // ),
+  confirmPassword: Yup.string()
     .required('Please confirm new password')
-    .oneOf([Yup.ref('newPassword')], "Passwords don't match."),
+    .oneOf([Yup.ref('password')], "Passwords don't match."),
 });
