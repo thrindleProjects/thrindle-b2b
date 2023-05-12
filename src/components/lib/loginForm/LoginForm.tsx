@@ -88,7 +88,7 @@ const LoginForm = () => {
             required={true}
           />
         </div>
-        <Link href='/app/reset-password'>
+        <Link href='/app/password-reset'>
           <p className='text-primary-blue mt-4 text-xs font-[500]'>
             Forgot Password?
           </p>

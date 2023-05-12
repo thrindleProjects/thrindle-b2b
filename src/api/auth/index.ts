@@ -3,11 +3,15 @@ import { ChangePasswordPayload } from '@/containers/ChangePasswordForm/validatio
 import {
   CreateCompanyPayload,
   ICreateNewCompanyData,
+  PasswordReset,
+  PasswordResetRequest,
   VerifyCompanyPayload,
 } from '@/api/auth/types';
 import { globalApi } from '@/api/globalApi';
 import {
   CREATE_NEW_COMPANY_API,
+  PASSWORD_REQUEST,
+  PASSWORD_RESET,
   POST_METHOD,
   PUT_METHOD,
   UPDATE_COMPANY_API,
@@ -28,6 +32,7 @@ const AuthApi = globalApi.injectEndpoints({
         data: data,
       }),
     }),
+
     verifyCompanyEmail: build.mutation<void, VerifyCompanyPayload>({
       query: (data) => ({
         url: `${VERIFY_COMPANY_API}`,
@@ -35,6 +40,7 @@ const AuthApi = globalApi.injectEndpoints({
         data: data,
       }),
     }),
+
     updateCompany: build.mutation<void, FormData>({
       query: (data) => ({
         url: `${UPDATE_COMPANY_API}`,
@@ -53,6 +59,22 @@ const AuthApi = globalApi.injectEndpoints({
         data,
       }),
     }),
+
+    passwordResetRequest: build.mutation<void, PasswordResetRequest>({
+      query: (data) => ({
+        url: `${PASSWORD_REQUEST}`,
+        method: PUT_METHOD,
+        data: data,
+      }),
+    }),
+
+    passwordReset: build.mutation<void, PasswordReset>({
+      query: (data) => ({
+        url: `${PASSWORD_RESET}`,
+        method: PUT_METHOD,
+        data: data,
+      }),
+    }),
   }),
   overrideExisting: false,
 });
@@ -62,4 +84,6 @@ export const {
   useVerifyCompanyEmailMutation,
   useUpdateCompanyMutation,
   useChangePasswordMutation,
+  usePasswordResetRequestMutation,
+  usePasswordResetMutation,
 } = AuthApi;
