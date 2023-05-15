@@ -1,9 +1,9 @@
 import { BaseQueryFn, createApi } from '@reduxjs/toolkit/query/react';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { getSession, signOut } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
 
-import { AXIOS_TIMEOUT_TIME, TOKEN_EXPIRED_MSG } from '@/constant/constants';
+import { AXIOS_TIMEOUT_MSG, AXIOS_TIMEOUT_TIME } from '@/constant/constants';
 
 // initialize an empty api service that we'll inject endpoints into later as needed
 axios.defaults.timeout = AXIOS_TIMEOUT_TIME;
@@ -32,24 +32,18 @@ const axiosBaseQuery =
         data,
         params,
         headers: {
-          // Accept: 'application/json',
-          // 'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         timeout: AXIOS_TIMEOUT_TIME,
-        timeoutErrorMessage: 'Request Timeout',
+        timeoutErrorMessage: AXIOS_TIMEOUT_MSG,
       });
 
       return { data: result?.data ? result.data : null };
     } catch (axiosError) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const err = axiosError as any;
+      const err = axiosError as AxiosError;
 
-      toast.error(err.response?.data?.data?.error);
-      if (
-        err?.response?.status === 401 &&
-        err?.response?.data?.message === TOKEN_EXPIRED_MSG
-      ) {
+      if (err?.response?.status === 401) {
         toast.error('Session expired. Please login again.');
         signOut();
       }
@@ -68,4 +62,5 @@ export const globalApi = createApi({
   reducerPath: 'globalApi',
 
   endpoints: () => ({}),
+  tagTypes: ['Order', 'Wallet', 'Profile'],
 });

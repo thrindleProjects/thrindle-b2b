@@ -1,7 +1,8 @@
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
 import styles from './OrderListLayout.module.scss';
+
+import { useTimeFormatHook } from '@/hooks/useTimeFormakHook';
 
 import Button from '@/components/buttons/Button';
 import {
@@ -13,13 +14,24 @@ import GenModal from '@/components/shared/modal/Modal';
 import OrderStatusContainer from '@/components/shared/orderStatus/OrderStatusContainer';
 import ResponseStatusModal from '@/components/shared/responseStatusModal/ResponseStatusModal';
 
-import { recentPurchasesData } from '@/utils/devData';
+import { ISingleOrder, orderStatus } from '@/@types/appTypes';
+import { COMPLETED } from '@/constant/constants';
 
-const OrderListLayout = () => {
-  const { query } = useRouter();
+interface OrderListLayoutProps {
+  data: ISingleOrder;
+}
+
+const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
   const [paymentModal, setPaymentModal] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [optionsModal, setOptionsModal] = useState(false);
+
+  const { id, orderStatus, listItems, createdAt, paymentStatus } = data;
+
+  const { formattedDate } = useTimeFormatHook({
+    date: createdAt,
+    format: 'Do MMMM YYYY',
+  });
 
   return (
     <div className={`h-full w-full ${styles.order_list_wrapper}`}>
@@ -29,19 +41,19 @@ const OrderListLayout = () => {
         <div className='flex w-full flex-row items-center justify-between'>
           <div>
             <h6 className='font-clash-grotesk text-base font-semibold text-gray-900'>
-              Order {query?.orderId}
+              Order #{id}
             </h6>
             <p className='font-clash-grotesk pt-1 text-xs font-normal text-gray-400'>
-              Order Created 21st March 2023
+              Order created: {formattedDate}
             </p>
           </div>
           <div>
-            <OrderStatusContainer status='completed' />
+            <OrderStatusContainer status={orderStatus as orderStatus} />
           </div>
         </div>
         {/* Content */}
         <div className='mt-10 w-full'>
-          {recentPurchasesData.map((item, index) => (
+          {listItems.map((item, index) => (
             <SingleOrderList
               key={index}
               {...item}
@@ -51,31 +63,38 @@ const OrderListLayout = () => {
         </div>
       </div>
       {/* Order Payment Btn */}
-      {/* <div className='row-span-1 row-start-2 py-2'>
-        <Button onClick={() => setPaymentModal(true)} className='w-full'>
-          Proceed To Payment
-        </Button>
-        <Button variant='light' className='mt-4 w-full'>
-          Add More Items
-        </Button>
-      </div> */}
+      {!paymentStatus && (
+        <div className='row-span-1 row-start-2 px-5 py-2'>
+          <Button onClick={() => setPaymentModal(true)} className='w-full'>
+            Proceed To Payment
+          </Button>
+          <Button variant='light' className='mt-4 w-full'>
+            Add More Items
+          </Button>
+        </div>
+      )}
 
       {/* Paid order waiting for delivery */}
-      {/* <div className='row-span-1 row-start-2 flex flex-col items-center py-2'>
-        <p className='font-clash-grotesk w-[80%] pb-3 text-center text-lg font-normal text-gray-500'>
-          Payment made successfully, we are waiting for order delivery
-          confirmation
-        </p>
-        <Button onClick={() => setPaymentModal(true)} className='w-full'>
-          Confirm Delivery
-        </Button>
-      </div> */}
+      {paymentStatus && (
+        <div className='row-span-1 row-start-2 flex flex-col items-center px-5 py-2'>
+          <p className='font-clash-grotesk w-[80%] pb-3 text-center text-lg font-normal text-gray-500'>
+            Payment made successfully, we are waiting for order delivery
+            confirmation
+          </p>
+          <Button onClick={() => setPaymentModal(true)} className='w-full'>
+            Confirm Delivery
+          </Button>
+        </div>
+      )}
+
       {/* Buy order again */}
-      <div className='row-span-1 row-start-2 px-5 py-2'>
-        <Button onClick={() => setPaymentModal(true)} className='w-full'>
-          Buy Again
-        </Button>
-      </div>
+      {orderStatus === COMPLETED && (
+        <div className='row-span-1 row-start-2 px-5 py-2 '>
+          <Button onClick={() => setPaymentModal(true)} className='w-full'>
+            Buy Again
+          </Button>
+        </div>
+      )}
 
       <GenModal
         isOpen={paymentModal}

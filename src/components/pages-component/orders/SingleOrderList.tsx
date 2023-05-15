@@ -1,40 +1,45 @@
 import Image from 'next/image';
+import { FC } from 'react';
 import { FaTimes } from 'react-icons/fa';
 
 import Button from '@/components/buttons/Button';
 
-const SingleOrderList = ({
-  quantity,
-  price,
-  name,
-  is_available,
-  toggleOptionsModal,
-}: {
-  quantity: number;
-  price: number;
-  name: string;
-  date: string;
-  is_available: boolean;
+import { IOrderItem } from '@/@types/appTypes';
+import { IMAGE_URL_PATH } from '@/constant/constants';
+
+interface SingleOrderListProps extends IOrderItem {
   toggleOptionsModal: () => void;
+}
+
+const SingleOrderList: FC<SingleOrderListProps> = ({
+  name,
+  quantity,
+  // substitutes,
+  toggleOptionsModal,
+  price,
+  image,
+  isAvailable,
 }) => {
   return (
     <div className='mb-5 flex w-full flex-row items-center justify-between border-b border-b-gray-100 pb-4'>
       <div className='flex w-[70%] flex-row '>
-        <div className='relative h-[40px] w-[40px]'>
+        <div className='relative h-[40px] w-[40px] bg-gray-100'>
           <Image
             fill={true}
-            src='/images/dev-order.png'
+            src={`${process.env.NEXT_PUBLIC_DEV_URL}${IMAGE_URL_PATH}/${image}`}
             alt='order'
             className=' rounded object-contain'
+            placeholder='blur'
+            blurDataURL='/assets/images/placeholder-image.png'
           />
         </div>
 
         <div className='ml-4'>
-          <p className=' truncate... text-xs font-medium text-gray-700 xl:text-sm'>
+          <p className=' truncate... text-xs font-medium capitalize text-gray-700 xl:text-sm'>
             {name}
           </p>
 
-          {is_available ? (
+          {isAvailable ? (
             <>
               <p className='font-clash-grotesk text-[10px] font-normal text-gray-400 '>
                 {quantity} pieces
@@ -67,8 +72,7 @@ const SingleOrderList = ({
           <FaTimes className='text-base text-red-500' />
         </button>
         <p className='font-clash-grotesk pt-5 text-xs font-semibold text-gray-800'>
-          {' '}
-          ₦{price.toLocaleString()}
+          ₦{price ? price?.toLocaleString() : '0.0'}
         </p>
       </div>
     </div>
