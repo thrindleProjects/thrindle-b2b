@@ -42,3 +42,10 @@ export const CREATE_NEW_COMPANY_API = '/company/signup';
 export const GET_ALL_ORDERS_PATH = '/order/getCompanyOrders';
 export const GET_SINGLE_ORDER_PATH = '/order';
 export const IMAGE_URL_PATH = '/images';
+
+export const PHONE_NUMBER = 'phoneNumber';
+export const ALTERNATE_PHONE = 'alternatePhone';
+export const OFFICE_ADDRESS = 'officeAddress';
+export const STATE = 'state';
+export const LANDMARK = 'landmark';
+export const LOGO = 'logo';
