@@ -40,7 +40,6 @@ const axiosBaseQuery =
 
       return { data: result?.data ? result.data : null };
     } catch (axiosError) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const err = axiosError as AxiosError;
 
       if (err?.response?.status === 401) {
@@ -62,5 +61,5 @@ export const globalApi = createApi({
   reducerPath: 'globalApi',
 
   endpoints: () => ({}),
-  tagTypes: ['Order', 'Wallet', 'Profile'],
+  tagTypes: ['Order', 'Wallet', 'Profile', 'ShoppingItems'],
 });

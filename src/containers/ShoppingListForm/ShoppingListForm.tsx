@@ -1,7 +1,9 @@
 import { FormikErrors, FormikTouched, FormikValues } from 'formik';
 import Image from 'next/image';
-import { ChangeEventHandler, FormEvent, useState } from 'react';
+import { ChangeEventHandler, FormEvent } from 'react';
 import { MdAdd } from 'react-icons/md';
+
+import logger from '@/lib/logger';
 
 import Button from '@/components/buttons/Button';
 import CartCounter from '@/components/shared/CartCounter';
@@ -28,6 +30,9 @@ interface ShoppingListProps {
   ) => Promise<FormikErrors<FormikValues>> | Promise<void>;
   increaseQuantity: () => void;
   decreaseQuantity: () => void;
+  isLoading: boolean;
+  isOpen: boolean;
+  closeModal: () => void;
 }
 
 type ShoppingListFormType = React.FC<ShoppingListProps>;
@@ -42,35 +47,36 @@ const ShoppingListForm: ShoppingListFormType = ({
   setFieldValue,
   increaseQuantity,
   decreaseQuantity,
+  isLoading,
+  isOpen,
+  closeModal,
 }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    onSubmit(e);
-    setIsOpen(true);
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    try {
+      onSubmit(e);
+    } catch (error) {
+      logger(error);
+    }
   }
 
-  function handleCloseAddedModal() {
-    setIsOpen(false);
-  }
   return (
     <>
       <div className='border-primary-black/10 w-full border p-5 py-10'>
-        <form onSubmit={handleSubmit} className='flex flex-col gap-5'>
+        <form onSubmit={handleSubmit} className='flex h-full flex-col gap-5'>
           <Input
-            id='title'
-            name='title'
+            id='name'
+            name='name'
             type='text'
-            value={values.title}
+            value={values.name}
             label='Item Name'
             onChange={onChange}
             onBlur={onBlur}
-            error={errors.title && touched.title}
-            errorText={errors.title}
+            error={errors.name && touched.name}
+            errorText={errors.name}
             required={true}
           />
           <InputFile
-            label='Sample Image (Optional)'
+            label='Sample Image'
             id='image'
             name='image'
             type='file'
@@ -82,6 +88,7 @@ const ShoppingListForm: ShoppingListFormType = ({
             errorText={errors.image}
             extensions='image/*'
             showPreview={true}
+            required={true}
           />
 
           <MultiLineInput
@@ -96,27 +103,30 @@ const ShoppingListForm: ShoppingListFormType = ({
             value={values.description}
             numbOfRows={5}
           />
-          <CartCounter
-            decreaseQuantity={decreaseQuantity}
-            increaseQuantity={increaseQuantity}
-            value={values.quantity}
-            onBlur={onBlur}
-            onChange={onChange}
-            error={errors.quantity}
-            touched={touched.quantity}
-          />
+          <div className='w-1/3'>
+            <CartCounter
+              decreaseQuantity={decreaseQuantity}
+              increaseQuantity={increaseQuantity}
+              value={values.quantity}
+              onBlur={onBlur}
+              onChange={onChange}
+              error={errors.quantity}
+              touched={touched.quantity}
+            />
+          </div>
           <Button
             type='submit'
             leftIcon={MdAdd}
             leftIconClassName='text-primary-blue text-xl'
-            className='hover:bg-primary-blue mt-8 w-full py-5 hover:text-white'
+            className='hover:bg-primary-blue mt-auto w-full py-5 hover:text-white'
             variant='outline'
+            isLoading={isLoading}
           >
             Add
           </Button>
         </form>
       </div>
-      <GenModal isOpen={isOpen} handleCloseModal={handleCloseAddedModal}>
+      <GenModal isOpen={isOpen} handleCloseModal={closeModal}>
         <section className='flex w-full flex-col gap-3 text-center'>
           <figure className='relative mx-auto aspect-square w-4/5'>
             <Image
@@ -136,7 +146,7 @@ const ShoppingListForm: ShoppingListFormType = ({
             type='submit'
             className='hover:bg-primary-blue mt-8 w-full py-5 font-medium hover:text-white'
             variant='outline'
-            onClick={handleCloseAddedModal}
+            onClick={closeModal}
           >
             Back
           </Button>

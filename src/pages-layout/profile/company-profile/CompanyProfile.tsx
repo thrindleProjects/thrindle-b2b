@@ -6,7 +6,7 @@ import CompanyProfileInformation from '@/containers/CompanyProfileInformation/Co
 import EditProfileForm from '@/containers/EditProfileForm/EditProfileForm';
 
 const CompanyProfileLayout: React.FC = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleOpen = () => {
     setIsOpen(true);

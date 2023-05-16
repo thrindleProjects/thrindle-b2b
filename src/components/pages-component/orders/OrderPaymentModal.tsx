@@ -2,6 +2,8 @@ import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 
+import logger from '@/lib/logger';
+
 import Button from '@/components/buttons/Button';
 import SingleOrderPaymentOption from '@/components/pages-component/orders/SingleOrderPaymentOption';
 import SingleOrderPriceDetail from '@/components/pages-component/orders/SingleOrderPriceDetail';
@@ -22,7 +24,7 @@ const PaymentModal = ({
 
   const pay = (values: { date: string }) => {
     /* eslint-disable */
-    console.log(values);
+    logger(values);
   };
 
   const formik = useFormik({
