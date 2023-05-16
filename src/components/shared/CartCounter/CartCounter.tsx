@@ -34,7 +34,7 @@ const CartCounter: CartCounterType = ({
   return (
     <div className='flex flex-col gap-2'>
       <InputLabel id='quantity' label='Quantity' />
-      <div className='grid w-1/3 grid-cols-3 gap-4'>
+      <div className='grid w-full grid-cols-3 grid-rows-1 gap-4'>
         <button
           type='button'
           onClick={decreaseQuantity}
@@ -52,7 +52,7 @@ const CartCounter: CartCounterType = ({
           value={value}
           onChange={onChange}
           onBlur={onBlur}
-          className='border-primary-black/10 rounded-lg text-center'
+          className='border-primary-black/10 rounded-lg p-0 text-center'
         />
         <button
           type='button'
