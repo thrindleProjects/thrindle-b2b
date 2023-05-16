@@ -1,6 +1,8 @@
 import { IOrder, ISingleOrder } from '@/@types/appTypes';
 import { globalApi } from '@/api/globalApi';
 import {
+  DELETE,
+  DELETE_ORDER_ITEM_PATH,
   GET,
   GET_ALL_ORDERS_PATH,
   GET_SINGLE_ORDER_PATH,
@@ -23,8 +25,20 @@ const orderApi = globalApi.injectEndpoints({
         url: `${GET_SINGLE_ORDER_PATH}/${id}`,
         method: GET,
       }),
+      providesTags: ['OrderItem'],
+    }),
+    deleteItem: build.mutation<INetworkSuccessResponse<null>, string>({
+      query: (id) => ({
+        url: `${DELETE_ORDER_ITEM_PATH}/${id}`,
+        method: DELETE,
+      }),
+      invalidatesTags: ['OrderItem', 'Order'],
     }),
   }),
 });
 
-export const { useGetOrdersQuery, useGetSingleOrderQuery } = orderApi;
+export const {
+  useGetOrdersQuery,
+  useGetSingleOrderQuery,
+  useDeleteItemMutation,
+} = orderApi;

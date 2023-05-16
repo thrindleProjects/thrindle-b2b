@@ -1,14 +1,20 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
+import { toast } from 'react-hot-toast';
 import { FaTimes } from 'react-icons/fa';
 
 import Button from '@/components/buttons/Button';
+import { SpinnerLoader } from '@/components/common/loader';
 
 import { IOrderItem } from '@/@types/appTypes';
-import { IMAGE_URL_PATH } from '@/constant/constants';
+import { useDeleteItemMutation } from '@/api/order/orderServices';
+import { COMPLETED, IMAGE_URL_PATH, IN_PROGRESS } from '@/constant/constants';
+import { mainErrorHandler } from '@/utils/networkHandler';
 
 interface SingleOrderListProps extends IOrderItem {
   toggleOptionsModal: () => void;
+  chooseActiveItem: () => void;
 }
 
 const SingleOrderList: FC<SingleOrderListProps> = ({
@@ -19,7 +25,22 @@ const SingleOrderList: FC<SingleOrderListProps> = ({
   price,
   image,
   isAvailable,
+  chooseActiveItem,
+  id,
 }) => {
+  const { query } = useRouter();
+  const [deleteOrderItem, { isLoading }] = useDeleteItemMutation();
+
+  const deleteItem = () => {
+    deleteOrderItem(id)
+      .unwrap()
+      .then((res) => {
+        toast.success(`${res?.message}`);
+      })
+      .catch((err) => {
+        mainErrorHandler(err);
+      });
+  };
   return (
     <div className='mb-5 flex w-full flex-row items-center justify-between border-b border-b-gray-100 pb-4'>
       <div className='flex w-[70%] flex-row '>
@@ -44,11 +65,18 @@ const SingleOrderList: FC<SingleOrderListProps> = ({
               <p className='font-clash-grotesk text-[10px] font-normal text-gray-400 '>
                 {quantity} pieces
               </p>
-              <button className='block pt-0'>
-                <span className='text-primary-blue font-clash-grotesk text-[10px] font-medium'>
-                  View Details
-                </span>
-              </button>
+              {query?.status !== COMPLETED && (
+                <button
+                  className='block pt-0'
+                  onClick={() => {
+                    chooseActiveItem();
+                  }}
+                >
+                  <span className='text-primary-blue font-clash-grotesk text-[10px] font-medium'>
+                    View Details
+                  </span>
+                </button>
+              )}
             </>
           ) : (
             <>
@@ -68,9 +96,18 @@ const SingleOrderList: FC<SingleOrderListProps> = ({
         </div>
       </div>
       <div className='flex flex-col items-end'>
-        <button>
-          <FaTimes className='text-base text-red-500' />
-        </button>
+        {isLoading && id ? (
+          <SpinnerLoader type='default' size='sm' />
+        ) : (
+          <>
+            {query?.status === IN_PROGRESS && (
+              <button onClick={deleteItem}>
+                <FaTimes className='text-base text-red-500' />
+              </button>
+            )}
+          </>
+        )}
+
         <p className='font-clash-grotesk pt-5 text-xs font-semibold text-gray-800'>
           ₦{price ? price?.toLocaleString() : '0.0'}
         </p>

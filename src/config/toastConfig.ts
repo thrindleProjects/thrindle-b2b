@@ -2,10 +2,10 @@ export const toastOptions = {
   success: {
     iconTheme: {
       primary: 'white',
-      secondary: '#065DA7',
+      secondary: 'green',
     },
     style: {
-      background: '#065DA7',
+      background: 'green',
       color: 'white',
     },
   },

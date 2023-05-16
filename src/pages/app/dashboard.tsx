@@ -20,6 +20,7 @@ const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [fundWalletModal, setFundWalletModal] = useState(false);
   const [orderSuccessModal, setOrderSuccessModal] = useState(false);
+
   // const session = useSession()
   // console.log(session)
 
@@ -45,7 +46,7 @@ const Dashboard = () => {
               leftIconClassName='text-primary-blue text-xl'
               className='h-[56px] w-[192px] text-[18px]'
               onClick={() => setFundWalletModal(!fundWalletModal)}
-              // onClick={() => setOrderSuccessModal(!orderSuccessModal)}
+              // onClick={() => dispatch(togglePaymentModal())}
             >
               Fund Wallet
             </Button>

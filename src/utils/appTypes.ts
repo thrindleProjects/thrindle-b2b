@@ -10,6 +10,13 @@ export interface INetworkSuccessResponse<T> {
   status?: string;
   success?: boolean;
 }
+export interface INetworkErrorResponse {
+  data: {
+    message: string;
+    errors: string;
+  };
+  status?: number;
+}
 
 export type InputPasswordType = 'password';
 export type InputTextType = 'text';

@@ -1,12 +1,21 @@
 import React, { PropsWithChildren } from 'react';
+import { toast } from 'react-hot-toast';
 
 import { useMediaQuery } from '@/hooks';
 
+import { OrderPaymentModal } from '@/components/pages-component/orders';
+import GenModal from '@/components/shared/modal/Modal';
 import NavBar from '@/components/shared/NavBar/NavBar';
 import NavItem from '@/components/shared/NavItem/NavItem';
 
+import { useAppDispatch, useAppSelector } from '@/store/store.hooks';
+
+import { togglePaymentModal } from '@/slices/appSlice';
+
 const AuthenticatedLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const isMobile = useMediaQuery('(max-width: 767px)');
+  const { isPaymentModalOpen } = useAppSelector((state) => state.app);
+  const dispatch = useAppDispatch();
 
   if (isMobile) {
     return (
@@ -21,6 +30,12 @@ const AuthenticatedLayout: React.FC<PropsWithChildren> = ({ children }) => {
       <NavBar />
       <NavItem />
       {children}
+      <GenModal
+        isOpen={isPaymentModalOpen}
+        handleCloseModal={() => dispatch(togglePaymentModal())}
+      >
+        <OrderPaymentModal handleCompleteOrder={() => toast.success('Hello')} />
+      </GenModal>
     </div>
   );
 };

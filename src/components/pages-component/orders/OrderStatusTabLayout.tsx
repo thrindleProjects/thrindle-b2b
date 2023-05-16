@@ -39,7 +39,7 @@ const OrderStatusTabLayout = () => {
       setActiveOrder(data?.data[0]?.id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query.orderId, data?.data]);
+  }, [query?.status, query.orderId, data?.data]);
 
   return (
     <BorderContainer className='h-[530px] w-full overflow-y-scroll p-5'>

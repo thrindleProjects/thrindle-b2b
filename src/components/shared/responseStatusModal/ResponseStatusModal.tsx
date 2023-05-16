@@ -37,6 +37,7 @@ const ResponseStatusModal = ({
       </p>
 
       <Button
+        // onClick={togglePaymentModal}
         onClick={onClick}
         size='base'
         className='mt-10 w-full'

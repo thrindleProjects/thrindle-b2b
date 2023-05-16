@@ -1,4 +1,4 @@
-import { Spinner } from 'flowbite-react';
+import { Spinner, SpinnerSizes } from 'flowbite-react';
 import React from 'react';
 
 type spinnerType = 'default' | 'fullScreen';
@@ -6,9 +6,11 @@ type spinnerType = 'default' | 'fullScreen';
 const SpinnerLoader = ({
   className,
   type = 'default',
+  size = 'xl',
 }: {
   className?: string;
   type?: spinnerType;
+  size?: keyof SpinnerSizes | undefined;
 }) => {
   return (
     <div
@@ -17,7 +19,7 @@ const SpinnerLoader = ({
         'flex h-full w-full flex-col items-center justify-center'
       } ${className}`}
     >
-      <Spinner aria-label='Extra large spinner example' size='xl' />
+      <Spinner aria-label='Extra large spinner example' size={size} />
     </div>
   );
 };
