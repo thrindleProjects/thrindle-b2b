@@ -35,7 +35,7 @@ const ShoppingListApi = globalApi.injectEndpoints({
         method: PUT_METHOD,
         data: payload,
       }),
-      invalidatesTags: ['ShoppingItems'],
+      invalidatesTags: ['ShoppingItems', 'OrderItem', 'Order'],
     }),
 
     getShoppingItems: build.query<
@@ -59,7 +59,7 @@ const ShoppingListApi = globalApi.injectEndpoints({
         method: POST_METHOD,
         data: data,
       }),
-      invalidatesTags: ['ShoppingItems'],
+      invalidatesTags: ['ShoppingItems', 'Order', 'OrderItem'],
     }),
   }),
 });

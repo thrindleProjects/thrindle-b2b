@@ -14,6 +14,7 @@ export const mainErrorHandler = (error: INetworkErrorResponse) => {
     toast.error(`'Check your connection and try again.'`);
   }
 };
+
 // export const axiosErrorHandler = (error: any) => {
 //   if (error && error?.response && error?.response?.data?.message) {
 //     return showToast({

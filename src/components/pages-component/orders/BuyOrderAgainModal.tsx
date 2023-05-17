@@ -1,15 +1,51 @@
 import { useRouter } from 'next/router';
 import React from 'react';
+import { toast } from 'react-hot-toast';
 import { BsSend } from 'react-icons/bs';
-import { MdAdd } from 'react-icons/md';
 
+// import { MdAdd } from 'react-icons/md';
 import styles from './OrderListLayout.module.scss';
 
+import logger from '@/lib/logger';
+
 import Button from '@/components/buttons/Button';
+import SingleShoppingListItem from '@/components/lib/SingleShoppingListItem/SingleShoppingListItem';
 import BorderContainer from '@/components/shared/borderContainer/BorderContainer';
 
-const BuyOrderAgainModal = () => {
+import { IOrderItem } from '@/@types/appTypes';
+import {
+  useCreateOrderMutation,
+  useDeleteShoppingItemMutation,
+} from '@/api/shopping-list';
+import { mainErrorHandler } from '@/utils/networkHandler';
+
+const BuyOrderAgainModal = ({ listItems }: { listItems: IOrderItem[] }) => {
   const { query } = useRouter();
+
+  const [deleteOrderItem, { isLoading }] = useDeleteShoppingItemMutation();
+  const [createNewOrder, { isLoading: isCreateOrderLoading }] =
+    useCreateOrderMutation();
+
+  const deleteItem = async (id: string) => {
+    // todo: use id to delete item
+    try {
+      await deleteOrderItem(id).unwrap();
+
+      toast.success('Item removed successfully');
+    } catch (error) {
+      logger(error);
+    }
+  };
+
+  const createOrder = () => {
+    const orderList = listItems.map((item) => item?.id);
+    createNewOrder({ list: orderList })
+      .unwrap()
+      .then((res) => {
+        toast.success(`${res?.message}`);
+      })
+      .catch((err) => mainErrorHandler(err));
+  };
 
   return (
     <div className={`mt-5 h-full w-full ${styles.buy_again_modal}`}>
@@ -22,16 +58,30 @@ const BuyOrderAgainModal = () => {
           className='w-[30%]'
           leftIconClassName='text-xl mr-2'
           leftIcon={BsSend}
+          isLoading={isCreateOrderLoading}
+          onClick={createOrder}
         >
           Send List
         </Button>
       </div>
 
       <BorderContainer
-        className={`row-span-1 row-start-2 mt-10  w-full ${styles.order_list_wrapper}`}
+        className={`row-span-1 row-start-2 mt-10  w-full ${styles.buy_again_list}  px-4 py-4`}
       >
-        <h1>Hello</h1>
-        <div className='row-span-1 row-start-2 px-5 pb-5 '>
+        <div>
+          {listItems.map((item) => {
+            return (
+              <SingleShoppingListItem
+                key={item.id}
+                item={item}
+                onDelete={deleteItem}
+                className='mb-5'
+                isLoading={isLoading}
+              />
+            );
+          })}
+        </div>
+        {/* <div className='row-span-1 row-start-2 px-5 pb-5 '>
           <Button
             variant='outline'
             className='w-full'
@@ -40,7 +90,7 @@ const BuyOrderAgainModal = () => {
           >
             Add New Items
           </Button>
-        </div>
+        </div> */}
       </BorderContainer>
     </div>
   );

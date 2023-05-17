@@ -7,10 +7,13 @@ import EditShoppingItemForm from '@/containers/EditShoppingItemForm/EditShopping
 
 import { CreateShoppingItemResponse } from '@/api/shopping-list/types';
 import { IMAGE_URL_PATH } from '@/constant/constants';
+// import { SpinnerLoader } from '@/components/common/loader';
 
 interface SingleShoppingListItemProps {
   item: CreateShoppingItemResponse;
   onDelete: (id: string) => Promise<void>;
+  className?: string;
+  isLoading?: boolean;
 }
 
 type SingleShoppingListItemType = React.FC<SingleShoppingListItemProps>;
@@ -18,6 +21,8 @@ type SingleShoppingListItemType = React.FC<SingleShoppingListItemProps>;
 const SingleShoppingListItem: SingleShoppingListItemType = ({
   item,
   onDelete,
+  className,
+  // isLoading,
 }) => {
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
 
@@ -61,7 +66,9 @@ const SingleShoppingListItem: SingleShoppingListItemType = ({
 
   return (
     <>
-      <div className='flex items-start gap-3 rounded-lg border px-5 py-8'>
+      <div
+        className={`flex items-start gap-3 rounded-lg border px-5 py-8 ${className}`}
+      >
         <figure className='relative aspect-square w-12 flex-shrink-0'>
           <Image src={image} alt={item.name} fill={true} />
         </figure>
@@ -82,6 +89,13 @@ const SingleShoppingListItem: SingleShoppingListItemType = ({
           <button className='text-primary-red text-xl' onClick={handleDelete}>
             <Icon icon='ph:trash' />
           </button>
+          {/* {isLoading && item?.id ? (
+            <SpinnerLoader size='sm' />
+          ) : (
+            <button className='text-primary-red text-xl' onClick={handleDelete}>
+              <Icon icon='ph:trash' />
+            </button>
+          )} */}
         </div>
       </div>
 

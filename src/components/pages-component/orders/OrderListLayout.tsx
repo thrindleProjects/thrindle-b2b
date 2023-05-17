@@ -19,7 +19,7 @@ import ResponseStatusModal from '@/components/shared/responseStatusModal/Respons
 import { useAppDispatch, useAppSelector } from '@/store/store.hooks';
 
 import { IOrderItem, ISingleOrder, orderStatus } from '@/@types/appTypes';
-import { COMPLETED, PENDING } from '@/constant/constants';
+import { COMPLETED, IN_PROGRESS, PENDING } from '@/constant/constants';
 import { togglePaymentModal } from '@/slices/appSlice';
 
 interface OrderListLayoutProps {
@@ -35,7 +35,14 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
   const { isPaymentModalOpen } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
 
-  const { id, orderStatus, listItems, createdAt, paymentStatus } = data;
+  const {
+    id,
+    orderStatus,
+    listItems,
+    createdAt,
+    // paymentStatus,
+    // deliveryConfirmation,
+  } = data;
 
   const { formattedDate } = useTimeFormatHook({
     date: createdAt,
@@ -76,7 +83,7 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
         </div>
       </div>
       {/* Order Payment Btn */}
-      {orderStatus === PENDING && (
+      {orderStatus === IN_PROGRESS && (
         <div className='row-span-1 row-start-2 px-5 py-2'>
           <Button
             onClick={() => dispatch(togglePaymentModal())}
@@ -91,7 +98,7 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
       )}
 
       {/* Paid order waiting for delivery */}
-      {paymentStatus && (
+      {orderStatus === PENDING && (
         <div className='row-span-1 row-start-2 flex flex-col items-center px-5 py-2'>
           <p className='font-clash-grotesk w-[80%] pb-3 text-center text-lg font-normal text-gray-500'>
             Payment made successfully, we are waiting for order delivery
@@ -107,6 +114,7 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
       )}
 
       {/* Buy order again */}
+
       {orderStatus === COMPLETED && (
         <div className='row-span-1 row-start-2 px-5 py-2 '>
           <Button onClick={() => setBuyAgainModal(true)} className='w-full'>
@@ -162,7 +170,7 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
         handleCloseModal={() => setBuyAgainModal(false)}
         className='lg:w-[580px]'
       >
-        <BuyAgainModal />
+        <BuyAgainModal listItems={listItems} />
       </GenModal>
     </div>
   );

@@ -18,14 +18,14 @@ const orderApi = globalApi.injectEndpoints({
         method: GET,
         params: { status },
       }),
-      providesTags: ['Order'],
+      providesTags: ['Order', 'ShoppingItems'],
     }),
     getSingleOrder: build.query<INetworkSuccessResponse<ISingleOrder>, string>({
       query: (id) => ({
         url: `${GET_SINGLE_ORDER_PATH}/${id}`,
         method: GET,
       }),
-      providesTags: ['OrderItem'],
+      providesTags: ['OrderItem', 'ShoppingItems'],
     }),
     deleteItem: build.mutation<INetworkSuccessResponse<null>, string>({
       query: (id) => ({

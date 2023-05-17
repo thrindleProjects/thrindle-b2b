@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 
 import { SpinnerLoader } from '@/components/common/loader';
 import OrderListLayout from '@/components/pages-component/orders/OrderListLayout';
+import OrderPricePending from '@/components/pages-component/orders/OrderPricePending';
 import BorderContainer from '@/components/shared/borderContainer/BorderContainer';
 
 import { useGetSingleOrderQuery } from '@/api/order/orderServices';
@@ -25,14 +26,14 @@ const OrderStatusLayout = () => {
         !isError &&
         data &&
         data?.data?.listItems.length > 0 &&
-        !data?.data?.priceUpdated && <OrderListLayout data={data?.data} />}
-      {/* {query &&
+        data?.data?.priceUpdated && <OrderListLayout data={data?.data} />}
+      {query &&
         query?.orderId &&
         !isFetching &&
         !isError &&
         data &&
         data?.data &&
-        !data?.data?.priceUpdated && <OrderPricePending />} */}
+        !data?.data?.priceUpdated && <OrderPricePending />}
 
       {query && !query?.orderId && !isFetching && (
         <div className='border-primary-black/10 flex h-full flex-col items-center justify-center border pb-10'>

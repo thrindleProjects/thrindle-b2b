@@ -37,6 +37,8 @@ export interface IOrderItem {
   volumeDiscount: boolean;
   volumeDiscountAmt: number;
   isAvailable: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface IOrder {
