@@ -14,8 +14,8 @@ import BorderContainer from '@/components/shared/borderContainer/BorderContainer
 
 import { IOrderItem } from '@/@types/appTypes';
 import {
-  useCreateOrderMutation,
   useDeleteShoppingItemMutation,
+  useResendOrderMutation,
 } from '@/api/shopping-list';
 import { mainErrorHandler } from '@/utils/networkHandler';
 
@@ -23,8 +23,8 @@ const BuyOrderAgainModal = ({ listItems }: { listItems: IOrderItem[] }) => {
   const { query } = useRouter();
 
   const [deleteOrderItem, { isLoading }] = useDeleteShoppingItemMutation();
-  const [createNewOrder, { isLoading: isCreateOrderLoading }] =
-    useCreateOrderMutation();
+  const [resendNewOrder, { isLoading: isCreateOrderLoading }] =
+    useResendOrderMutation();
 
   const deleteItem = async (id: string) => {
     // todo: use id to delete item
@@ -37,9 +37,9 @@ const BuyOrderAgainModal = ({ listItems }: { listItems: IOrderItem[] }) => {
     }
   };
 
-  const createOrder = () => {
+  const resendOrder = () => {
     const orderList = listItems.map((item) => item?.id);
-    createNewOrder({ list: orderList })
+    resendNewOrder({ list: orderList })
       .unwrap()
       .then((res) => {
         toast.success(`${res?.message}`);
@@ -59,7 +59,7 @@ const BuyOrderAgainModal = ({ listItems }: { listItems: IOrderItem[] }) => {
           leftIconClassName='text-xl mr-2'
           leftIcon={BsSend}
           isLoading={isCreateOrderLoading}
-          onClick={createOrder}
+          onClick={resendOrder}
         >
           Send List
         </Button>

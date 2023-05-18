@@ -91,9 +91,9 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
           >
             Proceed To Payment
           </Button>
-          <Button variant='light' className='mt-4 w-full'>
+          {/* <Button variant='light' className='mt-4 w-full'>
             Add More Items
-          </Button>
+          </Button> */}
         </div>
       )}
 

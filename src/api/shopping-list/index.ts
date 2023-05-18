@@ -5,6 +5,7 @@ import {
   GET_METHOD,
   POST_METHOD,
   PUT_METHOD,
+  RESEND_ORDER_PATH,
 } from '@/constant/constants';
 import { INetworkSuccessResponse } from '@/utils/appTypes';
 
@@ -61,6 +62,17 @@ const ShoppingListApi = globalApi.injectEndpoints({
       }),
       invalidatesTags: ['ShoppingItems', 'Order', 'OrderItem'],
     }),
+    resendOrder: build.mutation<
+      INetworkSuccessResponse<unknown>,
+      { list: string[] }
+    >({
+      query: (data) => ({
+        url: `${RESEND_ORDER_PATH}`,
+        method: POST_METHOD,
+        data: data,
+      }),
+      invalidatesTags: ['ShoppingItems', 'Order', 'OrderItem'],
+    }),
   }),
 });
 
@@ -70,4 +82,5 @@ export const {
   useGetShoppingItemsQuery,
   useEditShoppingItemMutation,
   useCreateOrderMutation,
+  useResendOrderMutation,
 } = ShoppingListApi;

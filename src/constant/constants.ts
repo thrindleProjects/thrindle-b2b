@@ -45,6 +45,7 @@ export const GET_ALL_ORDERS_PATH = '/order/getCompanyOrders';
 export const GET_SINGLE_ORDER_PATH = '/order';
 export const DELETE_ORDER_ITEM_PATH = '/order/item';
 export const IMAGE_URL_PATH = '/images';
+export const RESEND_ORDER_PATH = '/order/resend';
 
 export const PHONE_NUMBER = 'phoneNumber';
 export const ALTERNATE_PHONE = 'alternatePhone';
