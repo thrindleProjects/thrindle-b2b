@@ -1,10 +1,7 @@
-export interface ListData {
-  title: string;
-  orderDate: string;
-  msg: string;
-  pieces: string;
-}
+import { IRecurrentItems, ISingleRecurrentItem } from '@/api/recurrent/types';
 
 export interface IListCardProps {
-  data: ListData[];
+  data: ISingleRecurrentItem[] | IRecurrentItems[] | undefined;
+  active?: string;
+  setActive?: React.Dispatch<React.SetStateAction<string>>;
 }

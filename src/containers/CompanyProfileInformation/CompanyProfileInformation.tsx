@@ -33,7 +33,15 @@ const companyData: {
   },
 ];
 
-const CompanyProfileInformation: React.FC = () => {
+interface CompanyProfileInformationProps {
+  openModal: () => void;
+}
+
+type CompanyProfileInformationType = React.FC<CompanyProfileInformationProps>;
+
+const CompanyProfileInformation: CompanyProfileInformationType = ({
+  openModal,
+}) => {
   const { data: session } = useSession();
 
   return (
@@ -66,7 +74,10 @@ const CompanyProfileInformation: React.FC = () => {
         </div>
       </section>
       <div>
-        <button className='border-primary-black/10 text-primary-black/60 flex items-center gap-1 rounded-lg border px-4 py-2 text-sm font-medium lg:text-base'>
+        <button
+          className='border-primary-black/10 text-primary-black/60 flex items-center gap-1 rounded-lg border px-4 py-2 text-sm font-medium lg:text-base'
+          onClick={openModal}
+        >
           <span>Edit</span>
           <Icon icon='ph:pencil-line' />
         </button>

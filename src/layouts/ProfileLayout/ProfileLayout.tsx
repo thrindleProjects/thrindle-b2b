@@ -1,3 +1,4 @@
+import { useSession } from 'next-auth/react';
 import { PropsWithChildren } from 'react';
 
 import ActiveLink from '@/components/shared/ActiveLink';
@@ -13,18 +14,27 @@ const links = [
     title: 'Company Profile',
     link: '/app/profile',
     index: true,
+    access: ['owner'],
   },
   {
     title: 'Password',
     link: '/app/profile/password',
+    access: ['owner'],
   },
   {
     title: 'Team Access',
     link: '/app/profile/team',
+    access: 'owner',
   },
 ];
 
 const ProfileLayout: ProfileLayoutType = ({ children }) => {
+  const { data } = useSession();
+
+  if (!data) {
+    return <></>;
+  }
+
   return (
     <AuthenticatedLayout>
       <MainContentWrapper>
@@ -35,18 +45,21 @@ const ProfileLayout: ProfileLayoutType = ({ children }) => {
             <nav className='h-full'>
               <ul className='flex h-full flex-col items-start gap-4 rounded-lg'>
                 {links.map((link) => {
-                  return (
-                    <li key={link.link} title={link.title}>
-                      <ActiveLink
-                        href={link.link}
-                        className='text-primary-black/60 block rounded-lg p-3 text-sm font-medium lg:text-base'
-                        activeClassName='blue_linear_gradient'
-                        index={link.index}
-                      >
-                        {link.title}
-                      </ActiveLink>
-                    </li>
-                  );
+                  if (link.access.includes(data.user.type)) {
+                    return (
+                      <li key={link.link} title={link.title}>
+                        <ActiveLink
+                          href={link.link}
+                          className='text-primary-black/60 block rounded-lg p-3 text-sm font-medium lg:text-base'
+                          activeClassName='blue_linear_gradient'
+                          index={link.index}
+                        >
+                          {link.title}
+                        </ActiveLink>
+                      </li>
+                    );
+                  }
+                  return <></>;
                 })}
               </ul>
             </nav>

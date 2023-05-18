@@ -3,19 +3,14 @@ const nextConfig = {
   eslint: {
     dirs: ['src'],
   },
-
-  reactStrictMode: true,
   images: {
-    remotePatterns: [
-      {
-        protocol: 'http',
-        hostname:
-          'thrindle-b2b-staging-env.eba-6hrseqxn.eu-west-1.elasticbeanstalk.com',
-        port: '',
-        // pathname: '/account123/**',
-      },
+    domains: [
+      'thrindle-b2b-staging-env.eba-6hrseqxn.eu-west-1.elasticbeanstalk.com',
     ],
   },
+
+  reactStrictMode: true,
+
   swcMinify: true,
 
   // Uncoment to add domain whitelist

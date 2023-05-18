@@ -5,7 +5,13 @@ import Skeleton from 'react-loading-skeleton';
 
 import 'react-loading-skeleton/dist/skeleton.css';
 
-const CompanyProfileHeader: React.FC = () => {
+interface CompanyProfileHeaderProps {
+  openModal: () => void;
+}
+
+type CompanyProfileHeaderType = React.FC<CompanyProfileHeaderProps>;
+
+const CompanyProfileHeader: CompanyProfileHeaderType = ({ openModal }) => {
   const { data } = useSession();
 
   return (
@@ -42,7 +48,10 @@ const CompanyProfileHeader: React.FC = () => {
         </p>
       </div>
       <div>
-        <button className='border-primary-black/10 text-primary-black/60 flex items-center gap-1 rounded-lg border px-4 py-2 text-sm font-medium lg:text-base'>
+        <button
+          className='border-primary-black/10 text-primary-black/60 flex items-center gap-1 rounded-lg border px-4 py-2 text-sm font-medium lg:text-base'
+          onClick={openModal}
+        >
           <span>Edit</span>
           <Icon icon='ph:pencil-line' />
         </button>

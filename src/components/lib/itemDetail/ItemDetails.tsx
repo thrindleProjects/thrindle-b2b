@@ -1,7 +1,11 @@
 import Image from 'next/image';
 import React from 'react';
 
-const ItemDetails = () => {
+interface IItemDetailsProps {
+  active: string | undefined;
+}
+
+const ItemDetails: React.FC<IItemDetailsProps> = () => {
   return (
     <div className='mt-6'>
       <div className='grid grid-cols-4 gap-6'>

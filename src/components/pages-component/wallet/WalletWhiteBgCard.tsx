@@ -28,11 +28,11 @@ const WalletWhiteBgCard: React.FC<WalletWhiteCardProps> = ({
           recurrent ? 'text-primary-blue' : ''
         }`}
       >
-        {amount}
+        Amount: {amount === null ? 'N/A ' : amount}
       </p>
       {recurrent ? (
         <p className='text-[16px] font-[600] text-[#767778]'>
-          Request Day: 30th{' '}
+          Request Day: {recurrent}th{' '}
         </p>
       ) : (
         <div className='flex items-center justify-between'>

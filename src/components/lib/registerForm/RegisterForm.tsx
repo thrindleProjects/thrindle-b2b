@@ -2,6 +2,7 @@ import { useFormik } from 'formik';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { toast } from 'react-hot-toast';
 
 import Button from '@/components/buttons/Button';
 import Input from '@/components/shared/Input/Input';
@@ -23,6 +24,7 @@ const RegisterForm = () => {
       createCompany({ ...values })
         .unwrap()
         .then((res) => {
+          toast.success(res.message);
           if (res) {
             router
               .push(

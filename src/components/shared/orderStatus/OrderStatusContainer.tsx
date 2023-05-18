@@ -16,7 +16,7 @@ const OrderStatusContainer = ({
   });
   return (
     <div
-      className={` flex flex-row items-center justify-center rounded-sm px-3 py-2 ${orderStyle.bgColor} ${className}`}
+      className={`flex flex-row items-center justify-center rounded-sm px-3 py-2 ${orderStyle.bgColor} ${className}`}
     >
       <p
         className={`font-clash-grotesk text-xs font-medium ${orderStyle.textColor}`}
