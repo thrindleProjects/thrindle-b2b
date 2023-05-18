@@ -13,7 +13,7 @@ const TableCell: FC<PropsWithChildren<TableCellProps>> = ({
   return (
     <td onClick={onClick} className={styles.table__cell}>
       {url ? (
-        <Link href={url} className='w-full' passHref>
+        <Link href={url} className='w-full ' passHref>
           <a>{children}</a>
         </Link>
       ) : (

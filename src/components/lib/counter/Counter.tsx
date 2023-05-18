@@ -5,7 +5,7 @@ import { CounterProps } from '@/components/lib/counter/types';
 import BorderContainer from '@/components/shared/borderContainer/BorderContainer';
 import InputLabel from '@/components/shared/InputLabel/InputLabel';
 
-const Counter: React.FC<CounterProps> = ({ counter, add, subtract }) => {
+const Counter: React.FC<CounterProps> = ({ counter, add, subtract, error }) => {
   return (
     <div className='mt-2'>
       <InputLabel id='quantity' label='Quantity' />
@@ -28,6 +28,7 @@ const Counter: React.FC<CounterProps> = ({ counter, add, subtract }) => {
           <Icon icon='material-symbols:add' className='text-2xl text-white' />
         </button>
       </div>
+      {counter == 0 ? <p className='mt-2 text-xs text-red-500'>{error}</p> : ''}
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { MdAdd } from 'react-icons/md';
 
 import Button from '@/components/buttons/Button';
@@ -9,26 +10,87 @@ import Input from '@/components/shared/Input/Input';
 import InputFile from '@/components/shared/InputFile/InputFile';
 import MultiLineInput from '@/components/shared/multilineInput/MultiLineInput';
 
+import {
+  useAddItemToRecurrentOrderMutation,
+  useCreateRecurrentListMutation,
+} from '@/api/recurrent';
 import * as CONSTANTS from '@/constant/constants';
+import { mainErrorHandler } from '@/utils/networkHandler';
 
 import { initialValues, validationSchema } from './validation';
 
-const AddItemForm: React.FC<IAddItemFormProps> = ({ asModal }) => {
+const AddItemForm: React.FC<IAddItemFormProps> = ({
+  asModal,
+  id,
+  handleCloseModal,
+}) => {
   const [counter, setCounter] = useState(0);
+  const [error, setError] = useState('');
 
   const increaseCounter = () => {
     setCounter((prev) => prev + 1);
   };
 
   const decreaseCounter = () => {
-    setCounter((prev) => prev + 1);
+    if (counter > 0) setCounter((prev) => prev - 1);
   };
+
+  const [createItem, { isLoading }] = useCreateRecurrentListMutation();
+  const [addItem, { isLoading: addLoading }] =
+    useAddItemToRecurrentOrderMutation();
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
-      //
+    onSubmit: (values, { resetForm }) => {
+      const formData = new FormData();
+      formData.append('name', values['Item Name'] as string | Blob);
+      formData.append(
+        'description',
+        values['Item Description'] as string | Blob
+      );
+      formData.append('recurrent', 'true' as string | Blob);
+      formData.append('quantity', String(counter) as string | Blob);
+      if (values.Image) {
+        if (values.Image[0]) {
+          formData.append('image', values.Image[0] as Blob);
+        }
+      }
+      if (counter === 0) {
+        setError('Quantity must be greater than zero');
+        return;
+      }
+      if (asModal) {
+        addItem({
+          data: formData,
+          id: id,
+        })
+          .unwrap()
+          .then((res) => {
+            toast.success(`${res.message}`);
+            resetForm();
+            setError('');
+            setCounter(0);
+            if (handleCloseModal) {
+              handleCloseModal();
+            }
+          })
+          .catch((err) => {
+            mainErrorHandler(err);
+          });
+      } else {
+        createItem(formData)
+          .unwrap()
+          .then((res) => {
+            toast.success(`${res.message}`);
+            resetForm();
+            setError('');
+            setCounter(0);
+          })
+          .catch((err) => {
+            mainErrorHandler(err);
+          });
+      }
     },
   });
   return (
@@ -95,13 +157,15 @@ const AddItemForm: React.FC<IAddItemFormProps> = ({ asModal }) => {
         add={decreaseCounter}
         subtract={increaseCounter}
         counter={counter}
+        error={error}
       />
       <Button
         type='submit'
         leftIcon={MdAdd}
-        leftIconClassName='text-primary-blue text-xl'
-        className='mt-8 h-[52px] w-full'
-        variant='outline'
+        leftIconClassName='text-primary-blue  text-xl'
+        className=' mt-8 h-[52px] w-full '
+        variant='primary'
+        isLoading={isLoading || addLoading}
       >
         Add
       </Button>

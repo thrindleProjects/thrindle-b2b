@@ -2,6 +2,7 @@ import { useFormik } from 'formik';
 import NaijaStates from 'naija-state-local-government';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { toast } from 'react-hot-toast';
 
 import Button from '@/components/buttons/Button';
 import Input from '@/components/shared/Input/Input';
@@ -11,6 +12,7 @@ import Select from '@/components/shared/Select/Select';
 import { useUpdateCompanyMutation } from '@/api/auth';
 import { TEXT } from '@/constant/constants';
 import * as CONSTANTS from '@/constant/constants';
+import { mainErrorHandler } from '@/utils/networkHandler';
 
 import { initialValues, validationSchema } from './validation';
 
@@ -41,10 +43,11 @@ const Kycform = () => {
       updateCompany(formData)
         .unwrap()
         .then(() => {
+          toast.success('Registration Successful');
           router.push('/app/login');
         })
-        .catch(() => {
-          //
+        .catch((err) => {
+          mainErrorHandler(err);
         });
     },
   });

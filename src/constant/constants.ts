@@ -28,6 +28,7 @@ export const UPDATE_COMPANY_API = '/company/update';
 export const LOGIN = '/user/signin';
 export const PASSWORD_REQUEST = '/user/passwordResetRequest';
 export const PASSWORD_RESET = '/user/resetPassword';
+
 const IMAGES_SUB_LINK = '/images';
 
 export const IMAGE_URL = `${process.env.NEXT_PUBLIC_DEV_URL}${IMAGES_SUB_LINK}`;
@@ -47,6 +48,17 @@ export const GET_SINGLE_ORDER_PATH = '/order';
 export const DELETE_ORDER_ITEM_PATH = '/order/item';
 export const IMAGE_URL_PATH = '/images';
 export const RESEND_ORDER_PATH = '/order/resend';
+
+// Recurrent List Api Endpoints
+export const CREATE_RECURRENT_LIST = '/order/item/create';
+export const CREATE_RECURRENT_ORDER = '/recurrent/create';
+export const DELETE_ITEM_FROM_RECURRENT_ORDER = '/order/item';
+export const ADD_ITEM_TO_RECURRENT_ORDER = '/recurrent/addItemToRecurrentOrder';
+export const GET_RECURRENT_ITEMS = '/recurrent/getRecurrentItems';
+export const GET_COMPANY_RECURRENT_ORDERS =
+  '/recurrent/getRecurrentCompanyOrders';
+export const GET_SINGLE_RECURRENT_ORDER = '/recurrent';
+export const GET_ITEM_BY_ITEM = '/order/item';
 
 export const PHONE_NUMBER = 'phoneNumber';
 export const ALTERNATE_PHONE = 'alternatePhone';

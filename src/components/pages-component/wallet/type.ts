@@ -1,7 +1,7 @@
 export interface WalletWhiteCardProps {
   title: string;
-  amount: string;
+  amount: number | string | null | undefined;
   date: string;
   className?: string;
-  recurrent?: boolean;
+  recurrent?: number | undefined;
 }

@@ -60,5 +60,12 @@ export const globalApi = createApi({
   reducerPath: 'globalApi',
 
   endpoints: () => ({}),
-  tagTypes: ['Order', 'Wallet', 'Profile', 'OrderItem', 'ShoppingItems'],
+  tagTypes: [
+    'Order',
+    'Wallet',
+    'Profile',
+    'OrderItem',
+    'Recurrent',
+    'ShoppingItems',
+  ],
 });

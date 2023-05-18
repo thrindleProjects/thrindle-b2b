@@ -14,6 +14,7 @@ export interface INetworkErrorResponse {
   data: {
     message: string;
     errors: string;
+    error?: string;
   };
   status?: number;
 }

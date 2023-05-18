@@ -2,6 +2,7 @@ import { useFormik } from 'formik';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { toast } from 'react-hot-toast';
 
 import Button from '@/components/buttons/Button';
 import Input from '@/components/shared/Input/Input';
@@ -23,22 +24,20 @@ const RegisterForm = () => {
       createCompany({ ...values })
         .unwrap()
         .then((res) => {
-          if (res) {
-            router
-              .push(
-                {
-                  pathname: '/app/verify-email',
-                  query: {
-                    id: res?.data.company.id,
-                    email: res?.data.company.email,
-                  },
-                },
-                '/app/verify-email'
-              )
-              .catch(() => {
-                //
-              });
-          }
+          toast.success(res.message);
+          router.push(
+            {
+              pathname: '/app/verify-email',
+              query: {
+                id: res?.data.company.id,
+                email: res?.data.company.email,
+              },
+            },
+            '/app/verify-email'
+          );
+        })
+        .catch((err) => {
+          toast.error(err.data.data.error);
         });
     },
   });

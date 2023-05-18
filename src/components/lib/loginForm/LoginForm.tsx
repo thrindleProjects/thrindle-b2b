@@ -24,7 +24,6 @@ const LoginForm = () => {
           ...values,
           redirect: false,
         });
-        // setLoading(false)
 
         if (!result || result.error) {
           if (result?.error === 'CredentialsSignin') {

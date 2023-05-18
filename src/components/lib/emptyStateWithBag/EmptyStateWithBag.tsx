@@ -10,7 +10,7 @@ const EmptyStateWithBag = ({
 }) => {
   return (
     <div
-      className={`flex h-full w-full flex-col items-center justify-center ${className}`}
+      className={`mt-40 flex h-full w-full flex-col items-center justify-center ${className}`}
     >
       <Image
         width={176}

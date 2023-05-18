@@ -5,6 +5,8 @@ import { INetworkErrorResponse } from '@/utils/appTypes';
 export const mainErrorHandler = (error: INetworkErrorResponse) => {
   if (error?.status === undefined) {
     toast.error('Request timeout. Try again');
+  } else if (error?.data && error?.data?.error) {
+    toast.error(`${error?.data?.error}`);
   } else if (error?.data && !error?.data?.message) {
     toast.error(`${error?.data}`);
   } else if (error?.data && error?.data?.message) {
