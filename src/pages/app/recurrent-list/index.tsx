@@ -19,7 +19,7 @@ const RecurrentList = () => {
  so we can get them for you automatically'
         component={
           <div className='z-50 flex gap-2'>
-            {!hasData ? (
+            {hasData ? (
               <Button
                 leftIcon={MdAdd}
                 leftIconClassName='text-2xl'

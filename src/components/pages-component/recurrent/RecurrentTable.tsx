@@ -55,7 +55,10 @@ const RecurrentTable: React.FC<ITableProps> = ({ data }) => {
                 </TableCell>
 
                 <TableCell> {item.listItems.length} items</TableCell>
-                <TableCell> {item.recurringDeliveryDay} </TableCell>
+                <TableCell>
+                  {' '}
+                  {item.recurringDeliveryDay}th day of every month{' '}
+                </TableCell>
                 <TableCell>
                   <Button
                     onClick={() =>

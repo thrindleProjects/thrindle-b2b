@@ -1,6 +1,7 @@
 import moment from 'moment';
 import Image from 'next/image';
 import React from 'react';
+import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { IListCardProps } from '@/components/lib/listCard/types';
@@ -24,6 +25,12 @@ const ListCard: React.FC<IListCardProps> = ({ data, active, setActive }) => {
       });
   };
 
+  useEffect(() => {
+    if (setActive && data) {
+      const firstId = data[0].id;
+      setActive(firstId);
+    }
+  }, [data, setActive]);
   return (
     <div className='mt-6 overflow-y-auto'>
       {data &&

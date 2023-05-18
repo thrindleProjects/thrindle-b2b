@@ -7,17 +7,23 @@ import React, { useState } from 'react';
 import Button from '@/components/buttons/Button';
 import Input from '@/components/shared/Input/Input';
 
+import { useAppDispatch } from '@/store/store.hooks';
+
+import { globalApi } from '@/api/globalApi';
 import { PASSWORD, TEXT } from '@/constant/constants';
 
 import { initialValues, validationSchema } from './validation';
 const LoginForm = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
+      dispatch(globalApi.util.resetApiState());
+
       try {
         setLoading(true);
         const result = await signIn('login', {
