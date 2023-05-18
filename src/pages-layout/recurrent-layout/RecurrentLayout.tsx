@@ -19,7 +19,7 @@ const RecurrentLayout: React.FC<IProps> = ({ setHasData }) => {
   );
 
   useEffect(() => {
-    if (data) {
+    if (data && data?.data.length > 0) {
       setHasData(true);
     }
   }, [setHasData, data]);
