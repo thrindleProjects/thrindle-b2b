@@ -12,6 +12,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 
 import { globalApi } from '@/api/globalApi';
+import appSlice from '@/slices/appSlice';
 import userSlice from '@/slices/userSlice';
 
 const persistConfig = {
@@ -21,6 +22,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: userSlice,
+  app: appSlice,
   [globalApi.reducerPath]: globalApi.reducer,
 });
 

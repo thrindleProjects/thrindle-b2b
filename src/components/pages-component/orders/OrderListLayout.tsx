@@ -6,6 +6,8 @@ import { useTimeFormatHook } from '@/hooks/useTimeFormakHook';
 
 import Button from '@/components/buttons/Button';
 import {
+  BuyAgainModal,
+  OrderItemDetailModal,
   OrderPaymentModal,
   OrderSuggestedOptions,
 } from '@/components/pages-component/orders';
@@ -14,19 +16,33 @@ import GenModal from '@/components/shared/modal/Modal';
 import OrderStatusContainer from '@/components/shared/orderStatus/OrderStatusContainer';
 import ResponseStatusModal from '@/components/shared/responseStatusModal/ResponseStatusModal';
 
-import { ISingleOrder, orderStatus } from '@/@types/appTypes';
-import { COMPLETED } from '@/constant/constants';
+import { useAppDispatch, useAppSelector } from '@/store/store.hooks';
+
+import { IOrderItem, ISingleOrder, orderStatus } from '@/@types/appTypes';
+import { COMPLETED, IN_PROGRESS, PENDING } from '@/constant/constants';
+import { togglePaymentModal } from '@/slices/appSlice';
 
 interface OrderListLayoutProps {
   data: ISingleOrder;
 }
 
 const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
-  const [paymentModal, setPaymentModal] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [buyAgainModal, setBuyAgainModal] = useState(false);
   const [optionsModal, setOptionsModal] = useState(false);
+  const [orderDetailModal, setOrderDetailModal] = useState(false);
+  const [activeItem, setActiveItem] = useState<IOrderItem | null>(null);
+  const { isPaymentModalOpen } = useAppSelector((state) => state.app);
+  const dispatch = useAppDispatch();
 
-  const { id, orderStatus, listItems, createdAt, paymentStatus } = data;
+  const {
+    id,
+    orderStatus,
+    listItems,
+    createdAt,
+    // paymentStatus,
+    // deliveryConfirmation,
+  } = data;
 
   const { formattedDate } = useTimeFormatHook({
     date: createdAt,
@@ -58,14 +74,21 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
               key={index}
               {...item}
               toggleOptionsModal={() => setOptionsModal(!optionsModal)}
+              chooseActiveItem={() => {
+                setOrderDetailModal(true);
+                setActiveItem(item);
+              }}
             />
           ))}
         </div>
       </div>
       {/* Order Payment Btn */}
-      {!paymentStatus && (
+      {orderStatus === IN_PROGRESS && (
         <div className='row-span-1 row-start-2 px-5 py-2'>
-          <Button onClick={() => setPaymentModal(true)} className='w-full'>
+          <Button
+            onClick={() => dispatch(togglePaymentModal())}
+            className='w-full'
+          >
             Proceed To Payment
           </Button>
           <Button variant='light' className='mt-4 w-full'>
@@ -75,34 +98,37 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
       )}
 
       {/* Paid order waiting for delivery */}
-      {paymentStatus && (
+      {orderStatus === PENDING && (
         <div className='row-span-1 row-start-2 flex flex-col items-center px-5 py-2'>
           <p className='font-clash-grotesk w-[80%] pb-3 text-center text-lg font-normal text-gray-500'>
             Payment made successfully, we are waiting for order delivery
             confirmation
           </p>
-          <Button onClick={() => setPaymentModal(true)} className='w-full'>
+          <Button
+            onClick={() => dispatch(togglePaymentModal())}
+            className='w-full'
+          >
             Confirm Delivery
           </Button>
         </div>
       )}
 
       {/* Buy order again */}
+
       {orderStatus === COMPLETED && (
         <div className='row-span-1 row-start-2 px-5 py-2 '>
-          <Button onClick={() => setPaymentModal(true)} className='w-full'>
+          <Button onClick={() => setBuyAgainModal(true)} className='w-full'>
             Buy Again
           </Button>
         </div>
       )}
 
       <GenModal
-        isOpen={paymentModal}
-        handleCloseModal={() => setPaymentModal(false)}
+        isOpen={isPaymentModalOpen}
+        handleCloseModal={() => dispatch(togglePaymentModal())}
       >
         <OrderPaymentModal
           handleCompleteOrder={() => {
-            setPaymentModal(false);
             setPaymentSuccess(true);
           }}
         />
@@ -116,7 +142,10 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
           title='Proceed To Orders'
           msg='Your payment of #231,000 has been made successfully and charged from your wallet, our representatives will contact you to give you delivery information'
           btnText='Proceed To orders'
-          onClick={() => setPaymentSuccess(false)}
+          onClick={() => {
+            dispatch(togglePaymentModal());
+            setPaymentSuccess(false);
+          }}
           icon_src='order-success'
         />
       </GenModal>
@@ -126,6 +155,22 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
         handleCloseModal={() => setOptionsModal(false)}
       >
         <OrderSuggestedOptions />
+      </GenModal>
+      {/* Order detail modal */}
+      <GenModal
+        isOpen={orderDetailModal}
+        handleCloseModal={() => setOrderDetailModal(false)}
+        className='lg:w-[580px]'
+      >
+        <OrderItemDetailModal activeItem={activeItem} />
+      </GenModal>
+      {/* Buy again modal */}
+      <GenModal
+        isOpen={buyAgainModal}
+        handleCloseModal={() => setBuyAgainModal(false)}
+        className='lg:w-[580px]'
+      >
+        <BuyAgainModal listItems={listItems} />
       </GenModal>
     </div>
   );

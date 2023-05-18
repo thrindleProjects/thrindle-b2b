@@ -12,6 +12,7 @@ import Select from '@/components/shared/Select/Select';
 import { useUpdateCompanyMutation } from '@/api/auth';
 import { TEXT } from '@/constant/constants';
 import * as CONSTANTS from '@/constant/constants';
+import { mainErrorHandler } from '@/utils/networkHandler';
 
 import { initialValues, validationSchema } from './validation';
 
@@ -45,8 +46,8 @@ const Kycform = () => {
           toast.success('Registration Successful');
           router.push('/app/login');
         })
-        .catch(() => {
-          //
+        .catch((err) => {
+          mainErrorHandler(err);
         });
     },
   });

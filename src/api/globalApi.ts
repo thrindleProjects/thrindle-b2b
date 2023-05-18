@@ -1,7 +1,6 @@
 import { BaseQueryFn, createApi } from '@reduxjs/toolkit/query/react';
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { getSession, signOut } from 'next-auth/react';
-import { toast } from 'react-hot-toast';
 
 import { AXIOS_TIMEOUT_MSG, AXIOS_TIMEOUT_TIME } from '@/constant/constants';
 
@@ -40,11 +39,10 @@ const axiosBaseQuery =
 
       return { data: result?.data ? result.data : null };
     } catch (axiosError) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const err = axiosError as AxiosError;
 
       if (err?.response?.status === 401) {
-        toast.error('Session expired. Please login again.');
+        // toast.error('Session expired. Please login again.');
         signOut();
       }
       return {
@@ -62,5 +60,12 @@ export const globalApi = createApi({
   reducerPath: 'globalApi',
 
   endpoints: () => ({}),
-  tagTypes: ['Order', 'Wallet', 'Profile', 'Recurrent'],
+  tagTypes: [
+    'Order',
+    'Wallet',
+    'Profile',
+    'OrderItem',
+    'Recurrent',
+    'ShoppingItems',
+  ],
 });

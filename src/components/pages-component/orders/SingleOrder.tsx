@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { MdOutlineFileDownload } from 'react-icons/md';
 
 import { useTimeFormatHook } from '@/hooks/useTimeFormakHook';
 
@@ -52,9 +53,21 @@ const SingleOrder: FC<SingleOrderProps> = ({
           />
         </div>
         <div>
-          <p className='font-clash-grotesk text-sm font-semibold text-gray-800'>
+          <p className='font-clash-grotesk text-right text-sm font-semibold text-gray-800'>
             {listItems?.length} {listItems?.length > 1 ? 'Items' : 'Item'}
           </p>
+          <div
+            className='mt-10 flex flex-row items-center text-xs font-medium'
+            role='button'
+          >
+            {orderStatus === 'completed' ? (
+              <p className='text-primary-blue pr-2'>Download Receipt</p>
+            ) : (
+              <p className='text-primary-blue pr-2'>Download Invoice</p>
+            )}
+
+            <MdOutlineFileDownload className='text-primary-blue' />
+          </div>
         </div>
       </div>
     </div>

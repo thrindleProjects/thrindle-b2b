@@ -35,6 +35,7 @@ const RecurrentTable: React.FC<ITableProps> = ({ data }) => {
 
             'Number of Items',
             'Delivery Date (th)',
+            'Action',
           ]}
         />
         <TableBody>
@@ -60,6 +61,7 @@ const RecurrentTable: React.FC<ITableProps> = ({ data }) => {
                     onClick={() =>
                       router.push(`/app/recurrent-list/${item.id}`)
                     }
+                    className='w-[100px]'
                   >
                     View
                   </Button>

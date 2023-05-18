@@ -15,6 +15,7 @@ import {
   useCreateRecurrentListMutation,
 } from '@/api/recurrent';
 import * as CONSTANTS from '@/constant/constants';
+import { mainErrorHandler } from '@/utils/networkHandler';
 
 import { initialValues, validationSchema } from './validation';
 
@@ -74,8 +75,8 @@ const AddItemForm: React.FC<IAddItemFormProps> = ({
               handleCloseModal();
             }
           })
-          .catch(() => {
-            toast.error('An error occurred');
+          .catch((err) => {
+            mainErrorHandler(err);
           });
       } else {
         createItem(formData)
@@ -86,8 +87,8 @@ const AddItemForm: React.FC<IAddItemFormProps> = ({
             setError('');
             setCounter(0);
           })
-          .catch(() => {
-            toast.error('An error occurred');
+          .catch((err) => {
+            mainErrorHandler(err);
           });
       }
     },

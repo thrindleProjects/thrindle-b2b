@@ -8,6 +8,7 @@ import BorderContainer from '@/components/shared/borderContainer/BorderContainer
 
 import { useDeleteItemFromRecurrentOrderMutation } from '@/api/recurrent';
 import { IMAGE_URL } from '@/constant/constants';
+import { mainErrorHandler } from '@/utils/networkHandler';
 
 const ListCard: React.FC<IListCardProps> = ({ data, active, setActive }) => {
   const [deleteItem] = useDeleteItemFromRecurrentOrderMutation();
@@ -18,8 +19,8 @@ const ListCard: React.FC<IListCardProps> = ({ data, active, setActive }) => {
       .then((res) => {
         toast.success(res.message);
       })
-      .catch(() => {
-        //
+      .catch((err) => {
+        mainErrorHandler(err);
       });
   };
 

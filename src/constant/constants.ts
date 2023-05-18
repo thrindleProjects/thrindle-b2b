@@ -6,6 +6,8 @@ export const DATE = 'date';
 export const FILE = 'file';
 export const ALL = 'all';
 export const COMPLETED = 'completed';
+export const PENDING = 'pending';
+export const IN_PROGRESS = 'in-progress';
 
 export const ITEMNAME = 'Item Name';
 export const ITEMDESCRIPTION = 'Item Description';
@@ -42,6 +44,7 @@ export const DELETE = 'DELETE';
 export const CREATE_NEW_COMPANY_API = '/company/signup';
 export const GET_ALL_ORDERS_PATH = '/order/getCompanyOrders';
 export const GET_SINGLE_ORDER_PATH = '/order';
+export const DELETE_ORDER_ITEM_PATH = '/order/item';
 export const IMAGE_URL_PATH = '/images';
 
 // Recurrent List Api Endpoints
@@ -53,6 +56,7 @@ export const GET_RECURRENT_ITEMS = '/recurrent/getRecurrentItems';
 export const GET_COMPANY_RECURRENT_ORDERS =
   '/recurrent/getRecurrentCompanyOrders';
 export const GET_SINGLE_RECURRENT_ORDER = '/recurrent';
+export const GET_ITEM_BY_ITEM = '/order/item';
 
 export const PHONE_NUMBER = 'phoneNumber';
 export const ALTERNATE_PHONE = 'alternatePhone';

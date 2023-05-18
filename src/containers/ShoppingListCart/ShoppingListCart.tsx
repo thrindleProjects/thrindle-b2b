@@ -1,32 +1,37 @@
 import { Icon } from '@iconify/react';
-import Image from 'next/image';
-import { useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { ImSpinner } from 'react-icons/im';
 
 import Button from '@/components/buttons/Button';
 import SingleShoppingListItem from '@/components/lib/SingleShoppingListItem/SingleShoppingListItem';
-import GenModal from '@/components/shared/modal/Modal';
 
-import {
-  ShoppingListCart as CartType,
-  ShoppingListItem as ListItem,
-} from '@/pages-layout/shopping-list/validation';
+import { useGetShoppingItemsQuery } from '@/api/shopping-list';
+import { CreateShoppingItemResponse } from '@/api/shopping-list/types';
 
 interface ShoppingListCartProps {
-  cart: CartType;
-  deleteItem: (date: string) => void;
-  editItem: (date: ListItem & { date: string }) => void;
+  deleteItem: (id: string) => Promise<void>;
+  createOrder: (list: CreateShoppingItemResponse[]) => void;
+  creatingOrder: boolean;
 }
 
 type ShoppingListCartType = React.FC<ShoppingListCartProps>;
 
 const ShoppingListCart: ShoppingListCartType = ({
-  cart,
   deleteItem,
-  editItem,
+  createOrder,
+  creatingOrder,
 }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { isLoading, currentData } = useGetShoppingItemsQuery('');
 
-  if (!cart || !cart.length) {
+  if (isLoading || !currentData) {
+    return (
+      <div className='text-primary-blue flex h-full w-full items-center justify-center'>
+        <ImSpinner className='animate-spin' />
+      </div>
+    );
+  }
+
+  if (!isLoading && !currentData.data.length) {
     return (
       <div className='border-primary-black/10 flex h-full flex-col items-center justify-center border pb-10'>
         <div className='aspect-square w-1/3'>
@@ -42,12 +47,15 @@ const ShoppingListCart: ShoppingListCartType = ({
     );
   }
 
-  function handleSubmit() {
-    setIsOpen(true);
+  async function handleCreateOrder() {
+    if (!currentData) {
+      return toast.error('Please add at least one item to your list');
+    }
+
+    createOrder(currentData.data);
   }
-  function handleCloseModal() {
-    setIsOpen(false);
-  }
+
+  const { data: cart } = currentData;
 
   return (
     <>
@@ -60,13 +68,12 @@ const ShoppingListCart: ShoppingListCartType = ({
         <div className='h-full w-full overflow-hidden'>
           <div className='h-full w-full overflow-y-auto px-5'>
             <div className='flex h-full flex-col gap-3'>
-              {cart.map((item, index) => {
+              {cart.map((item) => {
                 return (
                   <SingleShoppingListItem
-                    key={index}
+                    key={item.id}
                     item={item}
                     onDelete={deleteItem}
-                    editItem={editItem}
                   />
                 );
               })}
@@ -74,42 +81,16 @@ const ShoppingListCart: ShoppingListCartType = ({
           </div>
         </div>
         <div className='px-5'>
-          <button
+          <Button
             className='bg-primary-blue hover:border-primary-blue hover:bg-primary-blue/90 flex w-full items-center justify-center gap-4 rounded-md border border-transparent py-5 text-xs font-semibold text-white md:text-sm'
-            onClick={handleSubmit}
+            onClick={handleCreateOrder}
+            isLoading={creatingOrder}
           >
             <Icon icon='ph:paper-plane-tilt' />
             <span>Send List</span>
-          </button>
+          </Button>
         </div>
       </div>
-      <GenModal isOpen={isOpen} handleCloseModal={handleCloseModal}>
-        <section className='flex w-full flex-col gap-3 text-center'>
-          <figure className='relative mx-auto aspect-square w-4/5'>
-            <Image
-              fill={true}
-              src='/assets/svg/added-success.svg'
-              alt='Successfully Added'
-            />
-          </figure>
-          <h4 className='text-primary-blue text-2xl font-semibold'>
-            Order List Recieved
-          </h4>
-          <p>
-            We have gotten the list and we will be responding with a quote in
-            less than 5 hours, check your order page to monitor update and make
-            payment
-          </p>
-          <Button
-            type='submit'
-            className='hover:bg-primary-blue mt-8 w-full py-5 font-medium hover:text-white'
-            variant='primary'
-            onClick={handleCloseModal}
-          >
-            Proceed to Orders
-          </Button>
-        </section>
-      </GenModal>
     </>
   );
 };

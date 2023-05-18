@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import { MdAdd } from 'react-icons/md';
 
 import Button from '@/components/buttons/Button';
@@ -9,6 +9,8 @@ import MainContentWrapper from '@/components/shared/MainContentWrapper/MainConte
 import RecurrentLayout from '@/pages-layout/recurrent-layout/RecurrentLayout';
 const RecurrentList = () => {
   const router = useRouter();
+
+  const [hasData, setHasData] = useState(false);
   return (
     <MainContentWrapper>
       <AuthenticatedLayoutHeader
@@ -17,21 +19,25 @@ const RecurrentList = () => {
  so we can get them for you automatically'
         component={
           <div className='z-50 flex gap-2'>
-            <Button
-              leftIcon={MdAdd}
-              leftIconClassName='text-2xl'
-              className='h-[56px] w-[229px] '
-              onClick={() =>
-                router.push('/app/recurrent-list/create-new-recurrent-list')
-              }
-            >
-              Create New List
-            </Button>
+            {!hasData ? (
+              <Button
+                leftIcon={MdAdd}
+                leftIconClassName='text-2xl'
+                className='h-[56px] w-[229px] '
+                onClick={() =>
+                  router.push('/app/recurrent-list/create-new-recurrent-list')
+                }
+              >
+                Create New List
+              </Button>
+            ) : (
+              <></>
+            )}
           </div>
         }
       />
 
-      <RecurrentLayout />
+      <RecurrentLayout setHasData={setHasData} />
     </MainContentWrapper>
   );
 };

@@ -36,8 +36,8 @@ const OTPForm = () => {
             '/app/kyc'
           );
         })
-        .catch(() => {
-          //
+        .catch((err) => {
+          toast.error(err.data.data.error);
         });
     }
   };

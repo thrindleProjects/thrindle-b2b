@@ -8,6 +8,7 @@ import Select from '@/components/shared/Select/Select';
 
 import { useCreateRecurrentOrderMutation } from '@/api/recurrent';
 import { ISingleRecurrentItem } from '@/api/recurrent/types';
+import { mainErrorHandler } from '@/utils/networkHandler';
 
 import { useGenerateNumber } from '../../../hooks/useGenerateNumbers';
 
@@ -38,6 +39,9 @@ const RecurrentOrderList: React.FC<IProps> = ({
         .then((res) => {
           toast.success(`${res.message}`);
           handleCloseModal();
+        })
+        .catch((err) => {
+          mainErrorHandler(err);
         });
     },
   });

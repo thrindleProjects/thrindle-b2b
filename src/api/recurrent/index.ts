@@ -13,6 +13,7 @@ import {
   DELETE_METHOD,
   GET,
   GET_COMPANY_RECURRENT_ORDERS,
+  GET_ITEM_BY_ITEM,
   GET_RECURRENT_ITEMS,
   GET_SINGLE_RECURRENT_ORDER,
   POST_METHOD,
@@ -98,6 +99,16 @@ const recurrentApi = globalApi.injectEndpoints({
       }),
       providesTags: ['Recurrent'],
     }),
+    getSingleItem: build.query<
+      INetworkSuccessResponse<ISingleRecurrentItem>,
+      string | undefined
+    >({
+      query: (id) => ({
+        url: `${GET_ITEM_BY_ITEM}/${id}`,
+        method: GET,
+      }),
+      providesTags: ['Recurrent'],
+    }),
   }),
 });
 
@@ -109,4 +120,5 @@ export const {
   useGetRecurrentItemsQuery,
   useGetAllRecurrentOrdersQuery,
   useGetSingleRecurrentOrderQuery,
+  useGetSingleItemQuery,
 } = recurrentApi;

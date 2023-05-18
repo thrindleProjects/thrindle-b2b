@@ -14,14 +14,17 @@ import { REFETCH_TIME } from '@/constant/constants';
 const OrderStatusTabLayout = () => {
   const { query, push } = useRouter();
   const [activeTab, setActiveTab] = useState<orderStatus>('all');
+  const { data, isError, isLoading, isFetching } = useGetOrdersQuery(
+    activeTab,
+    {
+      pollingInterval: REFETCH_TIME,
+      refetchOnReconnect: true,
+      refetchOnMountOrArgChange: true,
+    }
+  );
   const [activeOrder, setActiveOrder] = useState<string | null>(
     query?.orderId as string
   );
-
-  const { data, isError, isLoading } = useGetOrdersQuery(activeTab, {
-    pollingInterval: REFETCH_TIME,
-    refetchOnReconnect: true,
-  });
 
   useEffect(() => {
     if (query && query?.status) {
@@ -30,8 +33,9 @@ const OrderStatusTabLayout = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query?.status]);
+
   useEffect(() => {
-    if (query && !query.orderId && data && data?.data?.length) {
+    if (data && data?.data) {
       push({
         pathname: '/app/orders',
         query: { status: activeTab, orderId: data?.data[0]?.id },
@@ -39,20 +43,30 @@ const OrderStatusTabLayout = () => {
       setActiveOrder(data?.data[0]?.id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query.orderId, data?.data]);
+  }, [activeTab, isFetching]);
+
+  const changeTab = (val: orderStatus) => {
+    setActiveTab(val);
+    if (data && data?.data.length) {
+      push({
+        pathname: '/app/orders',
+        query: { status: `${val}`, orderId: data?.data[0]?.id },
+      });
+      setActiveOrder(data?.data[0]?.id);
+    } else {
+      push({
+        pathname: '/app/orders',
+        query: { status: `${val}` },
+      });
+    }
+  };
 
   return (
     <BorderContainer className='h-[530px] w-full overflow-y-scroll p-5'>
       <OrderStatusTab
         className='md:w-[80%] lg:w-full xl:w-[80%]'
         activeTab={activeTab}
-        changeTab={(val: orderStatus) => {
-          push({
-            pathname: '/app/orders',
-            query: { status: `${val}` },
-          });
-          setActiveTab(val);
-        }}
+        changeTab={changeTab}
       />
       {!isError && isLoading && <SpinnerLoader type='fullScreen' />}
       {!isLoading && !isError && data && data?.data?.length === 0 && (

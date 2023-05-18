@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { SpinnerLoader } from '@/components/common/loader';
 import NoList from '@/components/pages-component/recurrent/NoList';
@@ -6,13 +6,23 @@ import RecurrentTable from '@/components/pages-component/recurrent/RecurrentTabl
 
 import { useGetAllRecurrentOrdersQuery } from '@/api/recurrent';
 
-const RecurrentLayout = () => {
+interface IProps {
+  setHasData: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const RecurrentLayout: React.FC<IProps> = ({ setHasData }) => {
   const { data, isError, isLoading } = useGetAllRecurrentOrdersQuery(
     'in-progress',
     {
       refetchOnReconnect: true,
     }
   );
+
+  useEffect(() => {
+    if (data) {
+      setHasData(true);
+    }
+  }, [setHasData, data]);
 
   return (
     <div className=''>

@@ -36,7 +36,7 @@ const List: React.FC<IListProps> = ({ data }) => {
             />
           </div>
         </BorderContainer>
-        <BorderContainer className=' w-[48%]  overflow-y-auto p-6'>
+        <BorderContainer className=' h-max w-[48%]  overflow-y-auto p-6'>
           <p className='text-primary-blue text-[18px]'>Your Order</p>
           <ItemDetails active={active} />
         </BorderContainer>

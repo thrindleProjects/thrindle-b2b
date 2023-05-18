@@ -25,22 +25,19 @@ const RegisterForm = () => {
         .unwrap()
         .then((res) => {
           toast.success(res.message);
-          if (res) {
-            router
-              .push(
-                {
-                  pathname: '/app/verify-email',
-                  query: {
-                    id: res?.data.company.id,
-                    email: res?.data.company.email,
-                  },
-                },
-                '/app/verify-email'
-              )
-              .catch(() => {
-                //
-              });
-          }
+          router.push(
+            {
+              pathname: '/app/verify-email',
+              query: {
+                id: res?.data.company.id,
+                email: res?.data.company.email,
+              },
+            },
+            '/app/verify-email'
+          );
+        })
+        .catch((err) => {
+          toast.error(err.data.data.error);
         });
     },
   });
