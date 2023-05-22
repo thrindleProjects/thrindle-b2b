@@ -27,7 +27,7 @@ const ListCard: React.FC<IListCardProps> = ({ data, active, setActive }) => {
 
   useEffect(() => {
     if (setActive && data) {
-      const firstId = data[0].id;
+      const firstId = data[0]?.id;
       setActive(firstId);
     }
   }, [data, setActive]);
