@@ -3,8 +3,14 @@ const nextConfig = {
   eslint: {
     dirs: ['src'],
   },
+  images: {
+    domains: [
+      'thrindle-b2b-staging-env.eba-6hrseqxn.eu-west-1.elasticbeanstalk.com',
+    ],
+  },
 
   reactStrictMode: true,
+
   swcMinify: true,
 
   // Uncoment to add domain whitelist
