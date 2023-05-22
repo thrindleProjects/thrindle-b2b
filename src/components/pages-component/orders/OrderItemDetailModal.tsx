@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import { IOrderItem } from '@/@types/appTypes';
+import { IMAGE_URL_PATH } from '@/constant/constants';
 
 const images = [
   '/images/landing-hero-bg.png',
@@ -26,24 +27,33 @@ const OrderItemDetailModal = ({
   return (
     <div className='mt-10 w-full'>
       {/* Image section */}
-      <section className='grid w-full grid-cols-3 gap-5'>
-        {images.map((img, index) => (
-          <div
-            key={index}
-            className='relative h-[150px] max-h-[150px] w-full rounded-sm bg-gray-100 lg:h-[120px] lg:max-h-[120px]'
-          >
-            <Image
-              src={img}
-              alt={`Order Item ${img}`}
-              fill={true}
-              className='rounded-sm object-contain'
-            />
-          </div>
-        ))}
-      </section>
+      {activeItem?.images?.length ? (
+        <section className='grid w-full grid-cols-3 gap-5'>
+          {images.map((img, index) => (
+            <div
+              key={index}
+              className='relative h-[150px] max-h-[150px] w-full rounded-sm bg-gray-100 lg:h-[120px] lg:max-h-[120px]'
+            >
+              <Image
+                src={`${process.env.NEXT_PUBLIC_DEV_URL}${IMAGE_URL_PATH}/${img}`}
+                alt={`Order Item ${img}`}
+                fill={true}
+                className='rounded-sm object-contain'
+              />
+            </div>
+          ))}
+        </section>
+      ) : (
+        <section className='w-full'>
+          <h6 className='font-clash-grotesk text-center text-xl font-medium'>
+            No Image available for this product
+          </h6>
+        </section>
+      )}
+
       {/* Detail Section */}
       <section className='mt-5 w-full'>
-        <h6 className='font-clash-grotesk text-base font-semibold text-black'>
+        <h6 className='font-clash-grotesk text-base font-semibold capitalize text-black'>
           {activeItem && activeItem?.name}
         </h6>
         <p className='font-clash-grotesk pt-3 text-sm font-normal text-black/60'>

@@ -36,7 +36,7 @@ const OrderStatusLayout = () => {
         data.data.listItems.length > 0 &&
         !data?.data?.priceUpdated && <OrderPricePending />}
 
-      {/* {query && !query?.orderId && !isFetching && (
+      {query && !query?.orderId && !isFetching && (
         <div className='border-primary-black/10 flex h-full flex-col items-center justify-center border pb-10'>
           <div className='aspect-square w-1/3'>
             <Icon
@@ -48,7 +48,7 @@ const OrderStatusLayout = () => {
             No item added yet
           </div>
         </div>
-      )} */}
+      )}
       {query &&
         query?.orderId &&
         !isFetching &&
