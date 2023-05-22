@@ -14,6 +14,7 @@ export const ITEMDESCRIPTION = 'Item Description';
 export const IMAGE = 'Image';
 export const SCHEDULED_PAYMENT = 'scheduled-payment';
 
+// Methods
 export const POST_METHOD = 'POST';
 export const GET_METHOD = 'GET';
 export const PUT_METHOD = 'PUT';
@@ -46,6 +47,7 @@ export const GET_ALL_ORDERS_PATH = '/order/getCompanyOrders';
 export const GET_SINGLE_ORDER_PATH = '/order';
 export const DELETE_ORDER_ITEM_PATH = '/order/item';
 export const IMAGE_URL_PATH = '/images';
+export const RESEND_ORDER_PATH = '/order/resend';
 
 // Recurrent List Api Endpoints
 export const CREATE_RECURRENT_LIST = '/order/item/create';
@@ -64,3 +66,13 @@ export const OFFICE_ADDRESS = 'officeAddress';
 export const STATE = 'state';
 export const LANDMARK = 'landmark';
 export const LOGO = 'logo';
+
+// SHOPPING LIST ENDPOINTS START
+export const BASE_URL_SHOPPING_LIST_PATH = '/order/item' as const;
+export const CREATE_SHOPPING_LIST_ITEM_PATH =
+  `${BASE_URL_SHOPPING_LIST_PATH}/create` as const;
+export const GET_ALL_SHOPPING_LIST_ITEMS_PATH =
+  `${BASE_URL_SHOPPING_LIST_PATH}/getAllItems` as const;
+export const CREATE_ORDER_PATH = '/order/create' as const;
+
+// SHOPPING LIST ENDPOINTS END

@@ -1,10 +1,15 @@
 import { globalApi } from '@/api/globalApi';
 import { CreateShoppingItemResponse } from '@/api/shopping-list/types';
 import {
+  BASE_URL_SHOPPING_LIST_PATH,
+  CREATE_ORDER_PATH,
+  CREATE_SHOPPING_LIST_ITEM_PATH,
   DELETE_METHOD,
+  GET_ALL_SHOPPING_LIST_ITEMS_PATH,
   GET_METHOD,
   POST_METHOD,
   PUT_METHOD,
+  RESEND_ORDER_PATH,
 } from '@/constant/constants';
 import { INetworkSuccessResponse } from '@/utils/appTypes';
 
@@ -16,14 +21,17 @@ const ShoppingListApi = globalApi.injectEndpoints({
       FormData
     >({
       query: (data) => ({
-        url: '/order/item/create',
+        url: CREATE_SHOPPING_LIST_ITEM_PATH,
         method: POST_METHOD,
         data: data,
       }),
       invalidatesTags: ['ShoppingItems'],
     }),
     deleteShoppingItem: build.mutation<INetworkSuccessResponse<null>, string>({
-      query: (data) => ({ url: `/order/item/${data}`, method: DELETE_METHOD }),
+      query: (data) => ({
+        url: `${BASE_URL_SHOPPING_LIST_PATH}/${data}`,
+        method: DELETE_METHOD,
+      }),
       invalidatesTags: ['ShoppingItems'],
     }),
     editShoppingItem: build.mutation<
@@ -31,7 +39,7 @@ const ShoppingListApi = globalApi.injectEndpoints({
       { id: string; payload: FormData }
     >({
       query: ({ id, payload }) => ({
-        url: `/order/item/${id}`,
+        url: `${BASE_URL_SHOPPING_LIST_PATH}/${id}`,
         method: PUT_METHOD,
         data: payload,
       }),
@@ -43,7 +51,7 @@ const ShoppingListApi = globalApi.injectEndpoints({
       string
     >({
       query: (params) => ({
-        url: '/order/item/getAllItems',
+        url: GET_ALL_SHOPPING_LIST_ITEMS_PATH,
         method: GET_METHOD,
         params: params,
       }),
@@ -55,7 +63,18 @@ const ShoppingListApi = globalApi.injectEndpoints({
       { list: string[] }
     >({
       query: (data) => ({
-        url: '/order/create',
+        url: CREATE_ORDER_PATH,
+        method: POST_METHOD,
+        data: data,
+      }),
+      invalidatesTags: ['ShoppingItems', 'Order', 'OrderItem'],
+    }),
+    resendOrder: build.mutation<
+      INetworkSuccessResponse<unknown>,
+      { list: string[] }
+    >({
+      query: (data) => ({
+        url: `${RESEND_ORDER_PATH}`,
         method: POST_METHOD,
         data: data,
       }),
@@ -70,4 +89,5 @@ export const {
   useGetShoppingItemsQuery,
   useEditShoppingItemMutation,
   useCreateOrderMutation,
+  useResendOrderMutation,
 } = ShoppingListApi;
