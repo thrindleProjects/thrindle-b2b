@@ -33,6 +33,7 @@ const OrderStatusLayout = () => {
         !isError &&
         data &&
         data?.data &&
+        data.data.listItems.length > 0 &&
         !data?.data?.priceUpdated && <OrderPricePending />}
 
       {query && !query?.orderId && !isFetching && (

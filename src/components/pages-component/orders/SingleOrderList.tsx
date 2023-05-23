@@ -23,10 +23,10 @@ const SingleOrderList: FC<SingleOrderListProps> = ({
   // substitutes,
   toggleOptionsModal,
   price,
-  image,
   isAvailable,
   chooseActiveItem,
   id,
+  images,
 }) => {
   const { query } = useRouter();
   const [deleteOrderItem, { isLoading }] = useDeleteItemMutation();
@@ -44,16 +44,29 @@ const SingleOrderList: FC<SingleOrderListProps> = ({
   return (
     <div className='mb-5 flex w-full flex-row items-center justify-between border-b border-b-gray-100 pb-4'>
       <div className='flex w-[70%] flex-row '>
-        <div className='relative h-[40px] w-[40px] bg-gray-100'>
-          <Image
-            fill={true}
-            src={`${process.env.NEXT_PUBLIC_DEV_URL}${IMAGE_URL_PATH}/${image}`}
-            alt='order'
-            className=' rounded object-contain'
-            placeholder='blur'
-            blurDataURL='/assets/images/placeholder-image.png'
-          />
-        </div>
+        {images.length ? (
+          <div className='relative h-[40px] w-[40px] bg-gray-100'>
+            <Image
+              fill={true}
+              src={`${process.env.NEXT_PUBLIC_DEV_URL}${IMAGE_URL_PATH}/${images[0]}`}
+              alt='order'
+              className=' rounded object-contain'
+              placeholder='blur'
+              blurDataURL='/assets/images/placeholder-image.png'
+            />
+          </div>
+        ) : (
+          <div className='relative h-[40px] w-[40px] bg-gray-100'>
+            <Image
+              fill={true}
+              src='/images/placeholder-image.png'
+              alt='order'
+              className=' h-full w-full rounded '
+              placeholder='blur'
+              blurDataURL='/assets/images/placeholder-image.png'
+            />
+          </div>
+        )}
 
         <div className='ml-4'>
           <p className=' truncate... text-xs font-medium capitalize text-gray-700 xl:text-sm'>

@@ -39,6 +39,7 @@ export interface IOrderItem {
   isAvailable: boolean;
   createdAt: string;
   updatedAt: string;
+  images: string[];
 }
 
 export interface IOrder {
