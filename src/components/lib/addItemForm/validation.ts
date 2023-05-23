@@ -30,7 +30,8 @@ export const validationSchema = Yup.object({
 
         return isValid;
       }
-    ),
+    )
+    .max(6, 'you can not upload more than 6 Images'),
 });
 
 export const initialValues: {

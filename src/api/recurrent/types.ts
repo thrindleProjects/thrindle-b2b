@@ -2,7 +2,7 @@ export interface IRecurrentItems {
   id: string;
   name: string;
   description: string;
-  image: string;
+  images: string[];
   recurrent: boolean;
   companyId: string;
   isAvailable: boolean;
@@ -49,7 +49,7 @@ export interface ISingleRecurrentItem {
   id: string;
   name: string;
   description: string;
-  image: string;
+  images: string[];
   isSubstitute: boolean;
   substitutes: [];
   recurrent: boolean;

@@ -52,9 +52,10 @@ const AddItemForm: React.FC<IAddItemFormProps> = ({
       formData.append('recurrent', 'true' as string | Blob);
       formData.append('quantity', String(counter) as string | Blob);
       if (values.Image) {
-        if (values.Image[0]) {
-          formData.append('image', values.Image[0] as Blob);
-        }
+        // if (values.Image[0]) {
+        //   formData.append('image', values.Image[0] as Blob);
+        // }
+        values.Image.forEach((item) => formData.append('image', item));
       }
       if (counter === 0) {
         setError('Quantity must be greater than zero');
@@ -137,6 +138,7 @@ const AddItemForm: React.FC<IAddItemFormProps> = ({
           required={true}
           extensions='image/*, .doc, .docx,'
           showPreview={true}
+          multiple={true}
         />
       </div>
       <div className='mt-4'>
