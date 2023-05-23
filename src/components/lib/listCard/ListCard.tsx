@@ -49,7 +49,7 @@ const ListCard: React.FC<IListCardProps> = ({ data, active, setActive }) => {
             <div className='flex items-center justify-between'>
               <div className='flex items-center gap-6'>
                 <Image
-                  src={`${IMAGE_URL}/${item.image}`}
+                  src={`${IMAGE_URL}/${item.images[0]}`}
                   alt=''
                   width={40}
                   height={40}

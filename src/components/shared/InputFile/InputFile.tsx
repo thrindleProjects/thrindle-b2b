@@ -7,6 +7,20 @@ import InputLabel from '@/components/shared/InputLabel';
 import { FileInput } from './styled';
 import { InputFileProps } from './types';
 
+function uniqueFileArray(arr: File[]): File[] {
+  const uniqueMap = new Map<string, File>();
+
+  uniqueMap.values();
+  arr.forEach((file) => {
+    const key = `${file.name}-${file.type}`;
+    if (!uniqueMap.has(key)) {
+      uniqueMap.set(key, file);
+    }
+  });
+
+  return Array.from(uniqueMap.values());
+}
+
 const InputFile: React.FC<InputFileProps<HTMLInputElement>> = (props) => {
   const {
     error,
@@ -26,12 +40,25 @@ const InputFile: React.FC<InputFileProps<HTMLInputElement>> = (props) => {
     // previewAt,
   } = props;
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files && Array.from(e.target.files);
-    if (!files) {
+    if (!files || !files.length) {
       return;
     }
-    onChange(id, files);
+    if (!multiple) {
+      onChange(id, files);
+      return;
+    }
+    const fileArrayNoDuplicates = uniqueFileArray([...(value || []), ...files]);
+    onChange(id, fileArrayNoDuplicates, true);
+    return;
+  };
+
+  const handleRemoveFile = (removeFile: File) => {
+    if (!value || !value.length) return;
+
+    const updatedValue = value.filter((file) => file.name !== removeFile.name);
+    onChange(id, updatedValue, true);
     return;
   };
 
@@ -54,7 +81,7 @@ const InputFile: React.FC<InputFileProps<HTMLInputElement>> = (props) => {
           multiple={Boolean(multiple)}
           accept={`${extensions ? extensions : '.doc, .docx, '}`}
         />
-        <div className='text-primary-black/60 grid grid-cols-7 font-medium'>
+        <div className='grid grid-cols-7'>
           <span className='col-span-1 grid place-items-center text-xl'>
             <Icon icon='material-symbols:photo-camera-outline' />
           </span>
@@ -81,7 +108,7 @@ const InputFile: React.FC<InputFileProps<HTMLInputElement>> = (props) => {
         )}
       </AnimatePresence>
       {showPreview && value && !!value.length && (
-        <InputFilePreview value={value} />
+        <InputFilePreview value={value} onRemove={handleRemoveFile} />
       )}
     </div>
   );

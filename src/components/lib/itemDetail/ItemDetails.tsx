@@ -20,15 +20,16 @@ const ItemDetails: React.FC<IItemDetailsProps> = ({ active }) => {
   return (
     <div className='mt-6'>
       <div className='grid grid-cols-4 gap-6'>
-        {[1, 2, 3, 4].map((_, index) => (
-          <Image
-            src={`${IMAGE_URL}/${data?.data.image}`}
-            alt=''
-            key={index}
-            width={127}
-            height={127}
-          />
-        ))}
+        {data &&
+          data.data.images.map((item, index) => (
+            <Image
+              src={`${IMAGE_URL}/${item}`}
+              alt=''
+              key={index}
+              width={127}
+              height={127}
+            />
+          ))}
       </div>
       <div className='my-6'>
         <p className='text-[18px] font-[600]'>{data?.data.name}</p>
