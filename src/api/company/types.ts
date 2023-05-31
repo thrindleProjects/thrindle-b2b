@@ -19,7 +19,7 @@ export type CompanyMember = {
   firstName: string;
   id: string;
   lastName: string;
-
+  newPassword: string;
   phone: null | string;
   type: 'owner' | 'teamMember';
 };

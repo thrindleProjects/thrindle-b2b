@@ -7,7 +7,7 @@ const TeamAccessHeader: React.FC = () => {
   const { data } = useSession();
 
   return (
-    <div className='border-primary-black/10 mt-4 flex items-center justify-between rounded-lg border p-5'>
+    <div className='border-primary-black/10 flex items-center justify-between rounded-lg border p-5'>
       <div className='flex items-center gap-2'>
         <figure className='border-primary-black/10 relative aspect-square w-24 overflow-hidden rounded-full border'>
           <Image

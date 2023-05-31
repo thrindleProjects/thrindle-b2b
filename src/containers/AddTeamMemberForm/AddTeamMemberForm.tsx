@@ -1,12 +1,15 @@
 import { useFormik } from 'formik';
 import { useState } from 'react';
 
+import logger from '@/lib/logger';
+
 import Button from '@/components/buttons/Button';
 import Input from '@/components/shared/Input';
-import Select from '@/components/shared/Select/Select';
 import TeamMemberAddedModal from '@/containers/TeamMemberAddedModal/TeamMemberAddedModal';
 
-import { accessOptions, initialValues, validationSchema } from './validation';
+import { useAddTeamMemberMutation } from '@/api/company';
+
+import { initialValues, validationSchema } from './validation';
 
 interface AddTeamMemberFormProps {
   onClose: () => void;
@@ -15,19 +18,47 @@ interface AddTeamMemberFormProps {
 type AddTeamMemberFormType = React.FC<AddTeamMemberFormProps>;
 
 const AddTeamMemberForm: AddTeamMemberFormType = ({ onClose }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [memberSuccess, setMemberSuccess] = useState<{
+    isOpen: boolean;
+    pass: string;
+    firstName: string;
+    lastName: string;
+  }>({
+    isOpen: false,
+    pass: '',
+    firstName: '',
+    lastName: '',
+  });
+
+  const [createMember, { isLoading }] = useAddTeamMemberMutation();
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
+    onSubmit: async (values) => {
       // logic here
-      setIsOpen(true);
+      try {
+        const teamMember = await createMember(values).unwrap();
+
+        setMemberSuccess({
+          isOpen: true,
+          pass: teamMember.data.newPassword,
+          firstName: teamMember.data.firstName,
+          lastName: teamMember.data.lastName,
+        });
+      } catch (error) {
+        logger(error);
+      }
     },
   });
 
   const handleCloseAll = () => {
-    setIsOpen(false);
+    setMemberSuccess({
+      isOpen: false,
+      pass: '',
+      firstName: '',
+      lastName: '',
+    });
     onClose();
   };
 
@@ -35,17 +66,30 @@ const AddTeamMemberForm: AddTeamMemberFormType = ({ onClose }) => {
     <>
       <form onSubmit={formik.handleSubmit} className='mt-6 flex flex-col gap-5'>
         <Input
-          id='name'
-          name='name'
+          id='firstName'
+          name='firstName'
           type='text'
-          label='Name'
-          value={formik.values.name}
+          label='First Name'
+          value={formik.values.firstName}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          error={formik.errors.name && formik.touched.name}
-          errorText={formik.errors.name}
+          error={formik.errors.firstName && formik.touched.firstName}
+          errorText={formik.errors.firstName}
           required={true}
         />
+        <Input
+          id='lastName'
+          name='lastName'
+          type='text'
+          label='Last Name'
+          value={formik.values.lastName}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.errors.lastName && formik.touched.lastName}
+          errorText={formik.errors.lastName}
+          required={true}
+        />
+
         <Input
           id='email'
           name='email'
@@ -58,8 +102,7 @@ const AddTeamMemberForm: AddTeamMemberFormType = ({ onClose }) => {
           errorText={formik.errors.email}
           required={true}
         />
-
-        <Select
+        {/* <Select
           id='access'
           name='access'
           label='Access'
@@ -75,14 +118,17 @@ const AddTeamMemberForm: AddTeamMemberFormType = ({ onClose }) => {
           errorText={formik.errors.access}
           required={true}
           options={accessOptions}
-        />
-
-        <Button className='mt-4 w-full py-4' type='submit'>
+        /> */}
+        <Button
+          className='mt-4 w-full py-4'
+          type='submit'
+          isLoading={isLoading}
+        >
           Add Member
         </Button>
       </form>
 
-      <TeamMemberAddedModal isOpen={isOpen} onClose={handleCloseAll} />
+      <TeamMemberAddedModal {...memberSuccess} onClose={handleCloseAll} />
     </>
   );
 };

@@ -67,5 +67,6 @@ export const globalApi = createApi({
     'OrderItem',
     'Recurrent',
     'ShoppingItems',
+    'CompanyUsers',
   ],
 });
