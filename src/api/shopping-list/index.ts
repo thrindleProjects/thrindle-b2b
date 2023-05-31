@@ -4,6 +4,7 @@ import {
   BASE_URL_SHOPPING_LIST_PATH,
   CREATE_ORDER_PATH,
   CREATE_SHOPPING_LIST_ITEM_PATH,
+  DELETE_IMAGE_SHOPPING_LIST_ITEM_PATH,
   DELETE_METHOD,
   GET_ALL_SHOPPING_LIST_ITEMS_PATH,
   GET_METHOD,
@@ -80,6 +81,19 @@ const ShoppingListApi = globalApi.injectEndpoints({
       }),
       invalidatesTags: ['ShoppingItems', 'Order', 'OrderItem'],
     }),
+
+    deleteImageFromItem: build.mutation<
+      INetworkSuccessResponse<unknown>,
+      string
+    >({
+      query: (data) => ({
+        url: `${DELETE_IMAGE_SHOPPING_LIST_ITEM_PATH}/${encodeURIComponent(
+          data
+        )}`,
+        method: DELETE_METHOD,
+      }),
+      invalidatesTags: ['ShoppingItems'],
+    }),
   }),
 });
 
@@ -90,4 +104,5 @@ export const {
   useEditShoppingItemMutation,
   useCreateOrderMutation,
   useResendOrderMutation,
+  useDeleteImageFromItemMutation,
 } = ShoppingListApi;

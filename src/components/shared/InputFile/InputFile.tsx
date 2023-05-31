@@ -1,5 +1,8 @@
 import { Icon } from '@iconify/react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { toast } from 'react-hot-toast';
+
+import logger from '@/lib/logger';
 
 import InputFilePreview from '@/components/shared/inputFilePreview/InputFilePreview';
 import InputLabel from '@/components/shared/InputLabel';
@@ -7,12 +10,11 @@ import InputLabel from '@/components/shared/InputLabel';
 import { FileInput } from './styled';
 import { InputFileProps } from './types';
 
-function uniqueFileArray(arr: File[]): File[] {
-  const uniqueMap = new Map<string, File>();
+function uniqueFileArray(arr: (File | string)[] | File[]): (File | string)[] {
+  const uniqueMap = new Map<string, File | string>();
 
-  uniqueMap.values();
   arr.forEach((file) => {
-    const key = `${file.name}-${file.type}`;
+    const key = typeof file === 'string' ? file : `${file.name}-${file.type}`;
     if (!uniqueMap.has(key)) {
       uniqueMap.set(key, file);
     }
@@ -37,7 +39,7 @@ const InputFile: React.FC<InputFileProps<HTMLInputElement>> = (props) => {
     multiple,
     extensions,
     showPreview,
-    // previewAt,
+    onDelete,
   } = props;
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,17 +51,65 @@ const InputFile: React.FC<InputFileProps<HTMLInputElement>> = (props) => {
       onChange(id, files);
       return;
     }
-    const fileArrayNoDuplicates = uniqueFileArray([...(value || []), ...files]);
-    onChange(id, fileArrayNoDuplicates, true);
+    const fileArrayNoDuplicates: (string | File)[] = uniqueFileArray([
+      ...(value || []),
+      ...files,
+    ]);
+    (
+      onChange as (
+        id: string,
+        value: (File | string)[],
+        shouldValidate: boolean
+      ) => void
+    )(id, fileArrayNoDuplicates, true);
+
     return;
   };
 
-  const handleRemoveFile = (removeFile: File) => {
-    if (!value || !value.length) return;
+  const handleRemoveFile = async (removeFile: File | string) => {
+    if (!value || !value.length) return false;
 
-    const updatedValue = value.filter((file) => file.name !== removeFile.name);
-    onChange(id, updatedValue, true);
-    return;
+    const updatedValue: (File | string)[] = value.filter((file) => {
+      if (file instanceof File && removeFile instanceof File) {
+        return file.name !== removeFile.name;
+      }
+
+      if (typeof file === 'string' && typeof removeFile === 'string') {
+        return file !== removeFile;
+      }
+
+      return true;
+    });
+
+    if (typeof removeFile === 'string' && onDelete) {
+      try {
+        await onDelete(removeFile);
+        toast.success('image removed successfully');
+        (
+          onChange as (
+            id: string,
+            value: (File | string)[],
+            shouldValidate: boolean
+          ) => void
+        )(id, updatedValue, true);
+        return true;
+      } catch (error: unknown) {
+        // logic here
+        logger(error);
+        toast.error('Something went wrong');
+        return false;
+      }
+    }
+
+    (
+      onChange as (
+        id: string,
+        value: (File | string)[],
+        shouldValidate: boolean
+      ) => void
+    )(id, updatedValue, true);
+
+    return true;
   };
 
   return (
@@ -86,11 +136,18 @@ const InputFile: React.FC<InputFileProps<HTMLInputElement>> = (props) => {
             <Icon icon='material-symbols:photo-camera-outline' />
           </span>
           <span className='col-span-5 flex items-center py-4 pl-2 lg:py-4 xl:py-5'>
-            {value && value.length
-              ? value.length === 1
-                ? value[0].name
-                : 'Upload more'
-              : placeholder}
+            {!value?.length && placeholder}
+            {!!multiple && value && !!value.length && 'Upload more'}
+            {!multiple &&
+              value &&
+              !!value.length &&
+              value[0] instanceof File &&
+              value[0].name}
+            {!multiple &&
+              value &&
+              !!value.length &&
+              typeof value[0] === 'string' &&
+              value[0]}
           </span>
         </div>
       </FileInput>

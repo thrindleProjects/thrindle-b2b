@@ -75,4 +75,11 @@ export const GET_ALL_SHOPPING_LIST_ITEMS_PATH =
   `${BASE_URL_SHOPPING_LIST_PATH}/getAllItems` as const;
 export const CREATE_ORDER_PATH = '/order/create' as const;
 
+export const DELETE_IMAGE_SHOPPING_LIST_ITEM_PATH = '/order/itemImage' as const;
+
 // SHOPPING LIST ENDPOINTS END
+
+// ROLES AND PERMISSIONS ENDPOINTS START
+
+export const GET_ALL_COMPANY_USERS_PATH = '/user/getAllCompanyUsers';
+// ROLES AND PERMISSIONS ENDPOINTS END

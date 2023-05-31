@@ -89,6 +89,7 @@ const ShoppingListForm: ShoppingListFormType = ({
             extensions='image/*'
             showPreview={true}
             required={true}
+            multiple={true}
           />
 
           <MultiLineInput

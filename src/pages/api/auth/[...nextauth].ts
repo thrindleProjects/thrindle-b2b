@@ -136,7 +136,7 @@ export const authOptions: NextAuthOptions = {
             lastName: (credentials?.lastName || '') as string,
             email: (credentials?.email || '') as string,
             phone: (credentials?.phone || '') as string,
-            type: (credentials?.type || '') as string,
+            type: (credentials?.type || '') as 'owner' | 'teamMember',
             company: {
               address: (credentials?.address || '') as string,
               alternateContactPhone: (credentials?.alternateContactPhone ||

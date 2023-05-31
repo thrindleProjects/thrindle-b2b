@@ -27,8 +27,8 @@ const SingleShoppingListItem: SingleShoppingListItemType = ({
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
 
   const image = useMemo(() => {
-    return `${process.env.NEXT_PUBLIC_DEV_URL}${IMAGE_URL_PATH}/${item.image}`;
-  }, [item.image]);
+    return `${process.env.NEXT_PUBLIC_DEV_URL}${IMAGE_URL_PATH}/${item.images[0]}`;
+  }, [item.images]);
 
   const date = useMemo(() => {
     // todo: change this date to the date coming from the backend

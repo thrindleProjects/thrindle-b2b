@@ -3,7 +3,10 @@ import { toast } from 'react-hot-toast';
 
 import logger from '@/lib/logger';
 
-import { useEditShoppingItemMutation } from '@/api/shopping-list';
+import {
+  useDeleteImageFromItemMutation,
+  useEditShoppingItemMutation,
+} from '@/api/shopping-list';
 import {
   editInitialShoppingListItem,
   EditInitialShoppingListItemType,
@@ -12,7 +15,7 @@ import {
 
 const useEditShoppingListItem = (props: {
   initialValues: {
-    image: string | File[];
+    images: (File | string)[];
     id: string;
     name: string;
     description: string;
@@ -22,6 +25,8 @@ const useEditShoppingListItem = (props: {
   const { initialValues } = props;
 
   const [editItem, { isLoading }] = useEditShoppingItemMutation();
+  const [deleteImage, { isLoading: imageDeleting }] =
+    useDeleteImageFromItemMutation();
 
   const formik = useFormik({
     initialValues: { ...editInitialShoppingListItem, ...initialValues },
@@ -31,7 +36,7 @@ const useEditShoppingListItem = (props: {
       const formData = new FormData();
 
       const updateData = {
-        image: values.image,
+        images: values.images,
         name: values.name,
         description: values.description,
         quantity: values.quantity,
@@ -44,12 +49,15 @@ const useEditShoppingListItem = (props: {
       keys.forEach((key) => {
         const value = updateData[key];
         if (
-          key === 'image' &&
+          key === 'images' &&
           typeof value !== 'string' &&
           typeof value !== 'number'
         ) {
-          formData.append(key, value[0] as Blob);
-
+          value.forEach((item) => {
+            if (item instanceof File) {
+              formData.append('image', item);
+            }
+          });
           return;
         }
         formData.append(key, value as string | Blob);
@@ -87,6 +95,10 @@ const useEditShoppingListItem = (props: {
     return;
   };
 
+  const handleDelete = async (image: string) => {
+    await deleteImage(image).unwrap();
+  };
+
   return Object.freeze({
     onChange: formik.handleChange,
     onSubmit: formik.handleSubmit,
@@ -100,6 +112,8 @@ const useEditShoppingListItem = (props: {
     isLoading,
     increaseQuantity,
     decreaseQuantity,
+    imageDeleting,
+    deleteImage: handleDelete,
   });
 };
 
