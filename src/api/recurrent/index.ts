@@ -67,6 +67,7 @@ const recurrentApi = globalApi.injectEndpoints({
       }),
       invalidatesTags: ['Recurrent'],
     }),
+
     getRecurrentItems: build.query<
       INetworkSuccessResponse<ISingleRecurrentItem[]>,
       void

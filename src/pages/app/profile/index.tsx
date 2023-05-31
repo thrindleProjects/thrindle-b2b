@@ -1,5 +1,9 @@
+import { GetServerSideProps } from 'next';
+import { getServerSession, Session } from 'next-auth';
+
 import ProfileLayout from '@/layouts/ProfileLayout/ProfileLayout';
 import { NextPageWithLayout } from '@/pages/_app';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import CompanyProfileLayout from '@/pages-layout/profile/company-profile';
 
 const CompanyProfile: NextPageWithLayout = () => {
@@ -12,27 +16,23 @@ CompanyProfile.getLayout = function (page) {
 
 export default CompanyProfile;
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const session = await getServerSession(context.req, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = (await getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  )) as Session;
 
-//   if (!session) {
-//     return {
-//       redirect: {
-//         statusCode: 401,
-//         destination: '/app/login',
-//       },
-//       props: {},
-//     };
-//   }
+  if (session.user.type !== 'owner') {
+    return {
+      redirect: {
+        destination: '/app/profile/password',
+        permanent: false,
+      },
+    };
+  }
 
-//   if (session.user.type === 'owner') {
-//     return {
-//       notFound: true,
-//       props: {},
-//     };
-//   }
-
-//   return {
-//     props: {},
-//   };
-// };
+  return {
+    props: {},
+  };
+};

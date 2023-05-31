@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react';
-import { PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
 
 import ActiveLink from '@/components/shared/ActiveLink';
 import AuthenticatedLayoutHeader from '@/components/shared/AuthenticatedLayoutHeader/AuthenticatedLayoutHeader';
@@ -19,12 +19,12 @@ const links = [
   {
     title: 'Password',
     link: '/app/profile/password',
-    access: ['owner'],
+    access: ['owner', 'teamMember'],
   },
   {
     title: 'Team Access',
     link: '/app/profile/team',
-    access: 'owner',
+    access: ['owner'],
   },
 ];
 
@@ -59,7 +59,7 @@ const ProfileLayout: ProfileLayoutType = ({ children }) => {
                       </li>
                     );
                   }
-                  return <></>;
+                  return <React.Fragment key={link.link}></React.Fragment>;
                 })}
               </ul>
             </nav>

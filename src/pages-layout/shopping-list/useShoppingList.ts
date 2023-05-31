@@ -52,7 +52,9 @@ const useShoppingList = (props: {
           typeof value !== 'string' &&
           typeof value !== 'number'
         ) {
-          formData.append(key, value[0] as Blob);
+          value.forEach((image) => {
+            formData.append(`${key}`, image as Blob);
+          });
           return;
         }
 

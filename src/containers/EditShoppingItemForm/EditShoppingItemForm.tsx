@@ -2,14 +2,12 @@ import React from 'react';
 
 import Button from '@/components/buttons/Button';
 import CartCounter from '@/components/shared/CartCounter/CartCounter';
-import ImageComponent from '@/components/shared/ImageComponent/ImageComponent';
 import Input from '@/components/shared/Input';
 import InputFile from '@/components/shared/InputFile/InputFile';
 import { ModalHeader } from '@/components/shared/modal';
 import MultiLineInput from '@/components/shared/multilineInput/MultiLineInput';
 
 import { CreateShoppingItemResponse } from '@/api/shopping-list/types';
-import { IMAGE_URL_PATH } from '@/constant/constants';
 import useEditShoppingListItem from '@/pages-layout/shopping-list/useEditShoppingListItem';
 
 interface EditShoppingItemFormProps {
@@ -30,11 +28,12 @@ const EditShoppingItemForm: EditShoppingItemFormType = ({ item }) => {
     decreaseQuantity,
     increaseQuantity,
     isLoading,
+    deleteImage,
   } = useEditShoppingListItem({
     initialValues: {
       description: item.description,
       id: item.id,
-      image: item.image,
+      images: item.images,
       name: item.name,
       quantity: item.quantity,
     },
@@ -56,46 +55,22 @@ const EditShoppingItemForm: EditShoppingItemFormType = ({ item }) => {
           errorText={errors.name}
           required={true}
         />
-
-        {typeof values.image === 'string' && (
-          <div className='flex flex-col gap-2'>
-            <InputFile
-              label='Sample Image'
-              id='image'
-              name='image'
-              type='file'
-              placeholder='Click to upload image or drag image here '
-              onChange={setFieldValue}
-              onBlur={onBlur}
-              extensions='image/*'
-            />
-            <div className='flex h-20 w-full gap-4 overflow-x-auto '>
-              <div className='relative h-full w-full'>
-                <ImageComponent
-                  alt={item.name}
-                  src={`${process.env.NEXT_PUBLIC_DEV_URL}${IMAGE_URL_PATH}/${item.image}`}
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {typeof values.image !== 'string' && (
-          <InputFile
-            label='Sample Image'
-            id='image'
-            name='image'
-            type='file'
-            placeholder='Click to upload image or drag image here '
-            onChange={setFieldValue}
-            onBlur={onBlur}
-            value={values.image}
-            error={errors.image && touched.image}
-            errorText={errors.image}
-            extensions='image/*'
-            showPreview={true}
-          />
-        )}
+        <InputFile
+          label='Sample Image'
+          id='images'
+          name='images'
+          type='file'
+          placeholder='Click to upload image or drag image here '
+          onChange={setFieldValue}
+          onBlur={onBlur}
+          value={values.images}
+          error={errors.images && touched.images}
+          errorText={errors.images as string}
+          extensions='image/*'
+          showPreview={true}
+          multiple={true}
+          onDelete={deleteImage}
+        />
 
         <MultiLineInput
           label='Description'
