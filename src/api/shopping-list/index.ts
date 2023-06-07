@@ -15,7 +15,7 @@ import {
 import { INetworkSuccessResponse } from '@/utils/appTypes';
 
 const ShoppingListApi = globalApi.injectEndpoints({
-  overrideExisting: false,
+  overrideExisting: true,
   endpoints: (build) => ({
     createShoppingItem: build.mutation<
       INetworkSuccessResponse<CreateShoppingItemResponse>,
@@ -84,13 +84,12 @@ const ShoppingListApi = globalApi.injectEndpoints({
 
     deleteImageFromItem: build.mutation<
       INetworkSuccessResponse<unknown>,
-      string
+      { imageKey: string; id: string }
     >({
-      query: (data) => ({
-        url: `${DELETE_IMAGE_SHOPPING_LIST_ITEM_PATH}/${encodeURIComponent(
-          data
-        )}`,
-        method: DELETE_METHOD,
+      query: ({ id, imageKey }) => ({
+        url: `${DELETE_IMAGE_SHOPPING_LIST_ITEM_PATH}/${id}`,
+        method: PUT_METHOD,
+        data: { imageKey },
       }),
       invalidatesTags: ['ShoppingItems'],
     }),

@@ -3,6 +3,8 @@ import { signIn, useSession } from 'next-auth/react';
 import { useMemo } from 'react';
 import { toast } from 'react-hot-toast';
 
+import logger from '@/lib/logger';
+
 import Button from '@/components/buttons/Button';
 import Input from '@/components/shared/Input';
 import { ModalHeader } from '@/components/shared/modal';
@@ -43,7 +45,10 @@ const EditProfileForm = () => {
     onSubmit: async (value) => {
       // logic here
       try {
-        const resp = await updateDetails(value).unwrap();
+        const resp = await updateDetails({
+          ...value,
+          id: data?.user.company.id as string,
+        }).unwrap();
 
         const user = {
           email: resp.data.email,
@@ -77,6 +82,8 @@ const EditProfileForm = () => {
         toast.success('Company Profile Updated Successfully');
       } catch (error: unknown) {
         // handle catch
+
+        logger(error);
       }
     },
     validateOnChange: false,

@@ -83,6 +83,7 @@ export const DELETE_IMAGE_SHOPPING_LIST_ITEM_PATH = '/order/itemImage' as const;
 // SHOPPING LIST ENDPOINTS END
 
 // ROLES AND PERMISSIONS ENDPOINTS START
-
+export const DELETE_TEAM_MEMBER_PATH = '/user';
 export const GET_ALL_COMPANY_USERS_PATH = '/user/getAllCompanyUsers';
+export const CREATE_TEAM_MEMBER_PATH = '/user/create';
 // ROLES AND PERMISSIONS ENDPOINTS END

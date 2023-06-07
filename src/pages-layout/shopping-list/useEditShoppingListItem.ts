@@ -95,8 +95,8 @@ const useEditShoppingListItem = (props: {
     return;
   };
 
-  const handleDelete = async (image: string) => {
-    await deleteImage(image).unwrap();
+  const handleDelete = async (imageKey: string) => {
+    await deleteImage({ id: initialValues.id, imageKey }).unwrap();
   };
 
   return Object.freeze({
