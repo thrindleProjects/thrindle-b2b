@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import ThrindleLogo from '@/components/shared/ThrindleLogo/ThrindleLogo';
 
@@ -8,6 +8,12 @@ import { IMAGE_URL } from '@/constant/constants';
 
 const NavBar = () => {
   const { data } = useSession();
+  const image = useMemo(() => {
+    return data?.user.company.logo
+      ? `${IMAGE_URL}/${data?.user.company.logo}`
+      : '/assets/svg/buildings.svg';
+  }, [data?.user.company.logo]);
+
   return (
     <div className='border-b-thrindle-grey flex h-24 items-center justify-between border bg-white px-10 '>
       <ThrindleLogo variant='blue' />
@@ -26,7 +32,7 @@ const NavBar = () => {
         <div className='flex items-center justify-center gap-2 rounded-full'>
           <div className='border-thrindle-light-blue relative  h-[40px] w-[40px] rounded-full '>
             <Image
-              src={`${IMAGE_URL}/${data?.user.company.logo}`}
+              src={image}
               alt='bell'
               fill={true}
               className='h-30 w-30 rounded-full object-contain'
