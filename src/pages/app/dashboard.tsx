@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { MdAdd } from 'react-icons/md';
@@ -11,15 +10,12 @@ import {
 import AuthenticatedLayoutHeader from '@/components/shared/AuthenticatedLayoutHeader/AuthenticatedLayoutHeader';
 import MainContentWrapper from '@/components/shared/MainContentWrapper';
 import GenModal from '@/components/shared/modal/Modal';
-import ResponseStatusModal from '@/components/shared/responseStatusModal/ResponseStatusModal';
 
 import DashboardLayout from '@/pages-layout/dashboardLayout/DashboardLayout';
 
 const Dashboard = () => {
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [fundWalletModal, setFundWalletModal] = useState(false);
-  const [orderSuccessModal, setOrderSuccessModal] = useState(false);
 
   // const session = useSession()
   // console.log(session)
@@ -76,19 +72,6 @@ const Dashboard = () => {
         <FundWalletModal
           title='Fund Wallet'
           text='An account has been set up for you, make a transfer and it will automatically reflect in your wallet once it is seen'
-        />
-      </GenModal>
-      <GenModal
-        isOpen={orderSuccessModal}
-        handleCloseModal={() => setOrderSuccessModal(!orderSuccessModal)}
-      >
-        <ResponseStatusModal
-          onClick={() => router.push('/app/orders')}
-          title='Order Recieved'
-          msg='     We have gotten the list and we will be responding with a quote in less
-        than 5 hours, check your order page to monitor update and make payment'
-          icon_src='order_received'
-          btnText='Proceed To Orders'
         />
       </GenModal>
     </MainContentWrapper>

@@ -9,6 +9,12 @@ export type navItemType =
 export type orderStatus = 'all' | 'pending' | 'in-progress' | 'completed';
 
 export type orderPaymentOptions = 'now' | 'scheduled-payment';
+export type IGlobalError = {
+  status: number;
+  data: {
+    message: string;
+  };
+};
 
 export interface IOrderItemSubstitute {
   id: string;
