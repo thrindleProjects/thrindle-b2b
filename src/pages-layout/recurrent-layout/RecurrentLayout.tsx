@@ -12,7 +12,7 @@ interface IProps {
 
 const RecurrentLayout: React.FC<IProps> = ({ setHasData }) => {
   const { data, isError, isLoading } = useGetAllRecurrentOrdersQuery(
-    'in-progress',
+    'requested',
     {
       refetchOnReconnect: true,
     }
