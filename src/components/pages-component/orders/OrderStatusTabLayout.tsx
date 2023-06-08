@@ -36,11 +36,19 @@ const OrderStatusTabLayout = () => {
 
   useEffect(() => {
     if (data && data?.data) {
-      push({
-        pathname: '/app/orders',
-        query: { status: activeTab, orderId: data?.data[0]?.id },
-      });
-      setActiveOrder(data?.data[0]?.id);
+      if (data?.data[0]) {
+        push({
+          pathname: '/app/orders',
+          query: { status: activeTab, orderId: data?.data[0]?.id },
+        });
+        setActiveOrder(data?.data[0]?.id);
+      } else {
+        push({
+          pathname: '/app/orders',
+          query: { status: activeTab },
+        });
+        setActiveOrder(null);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, isFetching]);
@@ -64,7 +72,7 @@ const OrderStatusTabLayout = () => {
   return (
     <BorderContainer className='h-[530px] w-full overflow-y-scroll p-5'>
       <OrderStatusTab
-        className='md:w-[80%] lg:w-full xl:w-[80%]'
+        className='md:w-[95%] lg:w-full xl:w-[95%]'
         activeTab={activeTab}
         changeTab={changeTab}
       />

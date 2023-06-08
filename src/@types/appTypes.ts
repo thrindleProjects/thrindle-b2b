@@ -6,7 +6,12 @@ export type navItemType =
   | 'recurrent-list'
   | 'orders';
 
-export type orderStatus = 'all' | 'pending' | 'in-progress' | 'completed';
+export type orderStatus =
+  | 'all'
+  | 'requested'
+  | 'pending'
+  | 'in-progress'
+  | 'completed';
 
 export type orderPaymentOptions = 'now' | 'scheduled-payment';
 export type IGlobalError = {

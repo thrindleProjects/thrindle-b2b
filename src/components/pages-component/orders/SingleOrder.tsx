@@ -60,13 +60,19 @@ const SingleOrder: FC<SingleOrderProps> = ({
             className='mt-10 flex flex-row items-center text-xs font-medium'
             role='button'
           >
-            {orderStatus === 'completed' ? (
-              <p className='text-primary-blue pr-2'>Download Receipt</p>
-            ) : (
+            {orderStatus === 'in-progress' && (
               <p className='text-primary-blue pr-2'>Download Invoice</p>
             )}
+            {orderStatus === 'completed' ||
+              (orderStatus === 'pending' && (
+                <p className='text-primary-blue pr-2'>Download Receipt</p>
+              ))}
 
-            <MdOutlineFileDownload className='text-primary-blue' />
+            {orderStatus === 'completed' ||
+              orderStatus === 'in-progress' ||
+              (orderStatus === 'pending' && (
+                <MdOutlineFileDownload className='text-primary-blue' />
+              ))}
           </div>
         </div>
       </div>
