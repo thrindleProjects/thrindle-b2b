@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import { IOrderItem } from '@/@types/appTypes';
+import { BASE_URL } from '@/api/globalApi';
 import { IMAGE_URL_PATH } from '@/constant/constants';
 
 const images = [
@@ -35,7 +36,7 @@ const OrderItemDetailModal = ({
               className='relative h-[150px] max-h-[150px] w-full rounded-sm bg-gray-100 lg:h-[120px] lg:max-h-[120px]'
             >
               <Image
-                src={`${process.env.NEXT_PUBLIC_DEV_URL}${IMAGE_URL_PATH}/${img}`}
+                src={`${BASE_URL}${IMAGE_URL_PATH}/${img}`}
                 alt={`Order Item ${img}`}
                 fill={true}
                 className='rounded-sm object-contain'

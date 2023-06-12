@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 
 import ImageComponent from '@/components/shared/ImageComponent';
 
+import { BASE_URL } from '@/api/globalApi';
 import { IMAGE_URL_PATH } from '@/constant/constants';
 
 type InputFilePreviewProps = React.FC<{
@@ -52,7 +53,7 @@ const InputFilePreview: InputFilePreviewProps = ({ value, onRemove }) => {
               ) : (
                 <ImageComponent
                   alt='Product Image'
-                  src={`${process.env.NEXT_PUBLIC_DEV_URL}${IMAGE_URL_PATH}/${file}`}
+                  src={`${BASE_URL}${IMAGE_URL_PATH}/${file}`}
                 />
               )}
               <button
@@ -115,7 +116,7 @@ const InputFilePreview: InputFilePreviewProps = ({ value, onRemove }) => {
           <div className='relative mx-auto aspect-square w-1/2'>
             <ImageComponent
               alt='Product Image'
-              src={`${process.env.NEXT_PUBLIC_DEV_URL}${IMAGE_URL_PATH}/${modalDetails.image}`}
+              src={`${BASE_URL}${IMAGE_URL_PATH}/${modalDetails.image}`}
             />
           </div>
           <p className='text-primary-yellow font-medium'>

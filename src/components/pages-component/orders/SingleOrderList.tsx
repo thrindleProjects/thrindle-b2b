@@ -8,6 +8,7 @@ import Button from '@/components/buttons/Button';
 import { SpinnerLoader } from '@/components/common/loader';
 
 import { IOrderItem } from '@/@types/appTypes';
+import { BASE_URL } from '@/api/globalApi';
 import { useDeleteItemMutation } from '@/api/order/orderServices';
 import { COMPLETED, IMAGE_URL_PATH, IN_PROGRESS } from '@/constant/constants';
 import { mainErrorHandler } from '@/utils/networkHandler';
@@ -48,7 +49,7 @@ const SingleOrderList: FC<SingleOrderListProps> = ({
           <div className='relative h-[40px] w-[40px] bg-gray-100'>
             <Image
               fill={true}
-              src={`${process.env.NEXT_PUBLIC_DEV_URL}${IMAGE_URL_PATH}/${images[0]}`}
+              src={`${BASE_URL}${IMAGE_URL_PATH}/${images[0]}`}
               alt='order'
               className=' rounded object-contain'
               placeholder='blur'

@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react';
 import GenModal from '@/components/shared/modal/Modal';
 import EditShoppingItemForm from '@/containers/EditShoppingItemForm/EditShoppingItemForm';
 
+import { BASE_URL } from '@/api/globalApi';
 import { CreateShoppingItemResponse } from '@/api/shopping-list/types';
 import { IMAGE_URL_PATH } from '@/constant/constants';
 // import { SpinnerLoader } from '@/components/common/loader';
@@ -27,7 +28,7 @@ const SingleShoppingListItem: SingleShoppingListItemType = ({
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
 
   const image = useMemo(() => {
-    return `${process.env.NEXT_PUBLIC_DEV_URL}${IMAGE_URL_PATH}/${item.images[0]}`;
+    return `${BASE_URL}${IMAGE_URL_PATH}/${item.images[0]}`;
   }, [item.images]);
 
   const date = useMemo(() => {

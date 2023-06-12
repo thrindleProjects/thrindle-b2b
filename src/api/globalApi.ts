@@ -8,6 +8,11 @@ import { AXIOS_TIMEOUT_MSG, AXIOS_TIMEOUT_TIME } from '@/constant/constants';
 axios.defaults.timeout = AXIOS_TIMEOUT_TIME;
 axios.defaults.timeoutErrorMessage = 'Request Timeout';
 
+export const BASE_URL =
+  process.env.NODE_ENV === 'production'
+    ? process.env.NEXT_PUBLIC_PROD_URL
+    : process.env.NEXT_PUBLIC_DEV_URL;
+
 const axiosBaseQuery =
   (
     { baseUrl }: { baseUrl: string } = { baseUrl: '' }
@@ -55,7 +60,7 @@ const axiosBaseQuery =
   };
 export const globalApi = createApi({
   baseQuery: axiosBaseQuery({
-    baseUrl: String(process.env.NEXT_PUBLIC_DEV_URL),
+    baseUrl: String(BASE_URL),
   }),
   reducerPath: 'globalApi',
 

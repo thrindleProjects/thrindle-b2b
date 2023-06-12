@@ -5,6 +5,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 
 import logger from '@/lib/logger';
 
+import { BASE_URL } from '@/api/globalApi';
 import { LOGIN } from '@/constant/constants';
 import { LoginResponse } from '@/utils/appTypes';
 
@@ -34,10 +35,7 @@ export const authOptions: NextAuthOptions = {
             password: credentials?.password as string,
           };
 
-          const user = await axios.post(
-            String(`${process.env.NEXT_PUBLIC_DEV_URL}${LOGIN}`),
-            data
-          );
+          const user = await axios.post(String(`${BASE_URL}${LOGIN}`), data);
 
           return user.data.data as LoginResponse;
         } catch (error) {
