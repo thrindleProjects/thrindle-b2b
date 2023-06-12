@@ -23,7 +23,6 @@ const RecurrentLayout: React.FC<IProps> = ({ setHasData }) => {
       setHasData(true);
     }
   }, [setHasData, data]);
-
   return (
     <div className=''>
       {isLoading && !isError && <SpinnerLoader type='fullScreen' />}
