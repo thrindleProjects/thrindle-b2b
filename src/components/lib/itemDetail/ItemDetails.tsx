@@ -3,9 +3,10 @@ import React from 'react';
 
 import EmptyStateWithBag from '@/components/lib/emptyStateWithBag/EmptyStateWithBag';
 
+// import { IMAGE_URL } from '../../../constant/constants';
+import { BASE_URL } from '@/api/globalApi';
 import { useGetSingleItemQuery } from '@/api/recurrent';
-
-import { IMAGE_URL } from '../../../constant/constants';
+import { IMAGE_URL_PATH } from '@/constant/constants';
 
 interface IItemDetailsProps {
   active: string | undefined;
@@ -23,7 +24,7 @@ const ItemDetails: React.FC<IItemDetailsProps> = ({ active }) => {
         {data &&
           data.data.images.map((item, index) => (
             <Image
-              src={`${IMAGE_URL}/${item}`}
+              src={`${BASE_URL}/${IMAGE_URL_PATH}/${item}`}
               alt=''
               key={index}
               width={127}
