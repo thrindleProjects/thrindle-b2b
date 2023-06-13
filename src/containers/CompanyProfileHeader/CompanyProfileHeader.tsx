@@ -1,9 +1,12 @@
 import { Icon } from '@iconify/react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
+import { useMemo } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import 'react-loading-skeleton/dist/skeleton.css';
+
+import { IMAGE_URL } from '@/constant/constants';
 
 interface CompanyProfileHeaderProps {
   openModal: () => void;
@@ -14,15 +17,17 @@ type CompanyProfileHeaderType = React.FC<CompanyProfileHeaderProps>;
 const CompanyProfileHeader: CompanyProfileHeaderType = ({ openModal }) => {
   const { data } = useSession();
 
+  const image = useMemo(() => {
+    return data?.user.company.logo
+      ? `${IMAGE_URL}/${data?.user.company.logo}`
+      : '/assets/svg/buildings.svg';
+  }, [data?.user.company.logo]);
+
   return (
     <div className='border-primary-black/10 mt-4 flex items-center justify-between rounded-lg border p-5'>
       <div className='flex items-center gap-2'>
         <figure className='border-primary-black/10 relative aspect-square w-24 overflow-hidden rounded-full border'>
-          <Image
-            src='/assets/svg/critters_logo.svg'
-            alt='Company Logo'
-            fill={true}
-          />
+          <Image src={image} alt='Company Logo' fill={true} />
         </figure>
         <p className='flex flex-col gap-px'>
           <span className='text-sm font-medium lg:text-base'>
