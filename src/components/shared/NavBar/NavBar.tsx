@@ -11,7 +11,7 @@ const NavBar = () => {
   const { data } = useSession();
   const image = useMemo(() => {
     return data?.user.company.logo
-      ? `${BASE_URL}/${IMAGE_URL_PATH}/${data?.user.company.logo}`
+      ? `${BASE_URL}${IMAGE_URL_PATH}/${data?.user.company.logo}`
       : '/assets/svg/buildings.svg';
   }, [data?.user.company.logo]);
 

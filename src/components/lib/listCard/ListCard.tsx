@@ -7,8 +7,9 @@ import { toast } from 'react-hot-toast';
 import { IListCardProps } from '@/components/lib/listCard/types';
 import BorderContainer from '@/components/shared/borderContainer/BorderContainer';
 
+import { BASE_URL } from '@/api/globalApi';
 import { useDeleteItemFromRecurrentOrderMutation } from '@/api/recurrent';
-import { IMAGE_URL } from '@/constant/constants';
+import { IMAGE_URL_PATH } from '@/constant/constants';
 import { mainErrorHandler } from '@/utils/networkHandler';
 
 const ListCard: React.FC<IListCardProps> = ({ data, active, setActive }) => {
@@ -50,7 +51,7 @@ const ListCard: React.FC<IListCardProps> = ({ data, active, setActive }) => {
               <div className='flex items-center gap-6'>
                 {item.images?.[0] && (
                   <Image
-                    src={`${IMAGE_URL}/${item?.images[0]}`}
+                    src={`${BASE_URL}${IMAGE_URL_PATH}/${item?.images[0]}`}
                     alt=''
                     width={40}
                     height={40}
