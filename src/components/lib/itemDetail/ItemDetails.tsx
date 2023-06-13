@@ -24,7 +24,7 @@ const ItemDetails: React.FC<IItemDetailsProps> = ({ active }) => {
         {data &&
           data.data.images.map((item, index) => (
             <Image
-              src={`${BASE_URL}/${IMAGE_URL_PATH}/${item}`}
+              src={`${BASE_URL}${IMAGE_URL_PATH}/${item}`}
               alt=''
               key={index}
               width={127}

@@ -51,7 +51,7 @@ const ListCard: React.FC<IListCardProps> = ({ data, active, setActive }) => {
               <div className='flex items-center gap-6'>
                 {item.images?.[0] && (
                   <Image
-                    src={`${BASE_URL}/${IMAGE_URL_PATH}/${item?.images[0]}`}
+                    src={`${BASE_URL}${IMAGE_URL_PATH}/${item?.images[0]}`}
                     alt=''
                     width={40}
                     height={40}
