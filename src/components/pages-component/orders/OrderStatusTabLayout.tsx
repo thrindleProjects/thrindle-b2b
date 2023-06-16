@@ -6,22 +6,22 @@ import EmptyOrder from '@/components/pages-component/orders/EmptyOrder';
 import OrderStatusTab from '@/components/pages-component/orders/OrderStatusTab';
 import SingleOrder from '@/components/pages-component/orders/SingleOrder';
 import BorderContainer from '@/components/shared/borderContainer/BorderContainer';
+import MainError from '@/components/shared/error/MainError';
 
 import { orderStatus } from '@/@types/appTypes';
 import { useGetOrdersQuery } from '@/api/order/orderServices';
 import { REFETCH_TIME } from '@/constant/constants';
+import { getErrorMessage } from '@/utils/networkHandler';
 
 const OrderStatusTabLayout = () => {
   const { query, push } = useRouter();
   const [activeTab, setActiveTab] = useState<orderStatus>('all');
-  const { data, isError, isLoading, isFetching } = useGetOrdersQuery(
-    activeTab,
-    {
+  const { data, isError, isLoading, isFetching, refetch, error } =
+    useGetOrdersQuery(activeTab, {
       pollingInterval: REFETCH_TIME,
       refetchOnReconnect: true,
       refetchOnMountOrArgChange: true,
-    }
-  );
+    });
   const [activeOrder, setActiveOrder] = useState<string | null>(
     query?.orderId as string
   );
@@ -69,11 +69,6 @@ const OrderStatusTabLayout = () => {
     }
   };
 
-  // console.log(
-  //   '🚀 ~ file: OrderStatusTabLayout.tsx:18 ~ OrderStatusTabLayout ~ data:',
-  //   data
-  // );
-
   return (
     <BorderContainer className='h-[530px] w-full overflow-y-scroll p-5'>
       <OrderStatusTab
@@ -90,6 +85,13 @@ const OrderStatusTabLayout = () => {
           //     ? 'No Order has been placed yet.'
           //     : 'No Order matches your filter.'
           // }
+        />
+      )}
+      {isError && !isLoading && (
+        <MainError
+          className='mt-16'
+          retry={refetch}
+          message={getErrorMessage(error)}
         />
       )}
       {!isLoading && !isError && data && data?.data.length > 0 && (
