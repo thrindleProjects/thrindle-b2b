@@ -25,7 +25,7 @@ export interface IOrderItemSubstitute {
   id: string;
   name: string;
   description: string;
-  image: string;
+  images: string[];
   isSubstitute: boolean;
   recurrent: boolean;
   companyId: string;

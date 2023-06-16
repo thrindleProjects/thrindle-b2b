@@ -19,6 +19,7 @@ const SingleOrder: FC<SingleOrderProps> = ({
   listItems,
   orderStatus,
   createdAt,
+  orderRefCode,
 }) => {
   const { formattedDate } = useTimeFormatHook({
     date: createdAt,
@@ -42,7 +43,7 @@ const SingleOrder: FC<SingleOrderProps> = ({
       <div className='flex w-full flex-row items-center justify-between  px-5 py-5'>
         <div>
           <h6 className='font-clash-grotesk  text-base font-semibold text-gray-900 '>
-            Order #{id.slice(0, 8)}
+            Order #{orderRefCode}
           </h6>
           <p className='font-clash-grotesk pt-1 text-xs font-normal text-gray-400'>
             Order created: {formattedDate}

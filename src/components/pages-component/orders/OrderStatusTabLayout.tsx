@@ -69,6 +69,11 @@ const OrderStatusTabLayout = () => {
     }
   };
 
+  // console.log(
+  //   '🚀 ~ file: OrderStatusTabLayout.tsx:18 ~ OrderStatusTabLayout ~ data:',
+  //   data
+  // );
+
   return (
     <BorderContainer className='h-[530px] w-full overflow-y-scroll p-5'>
       <OrderStatusTab

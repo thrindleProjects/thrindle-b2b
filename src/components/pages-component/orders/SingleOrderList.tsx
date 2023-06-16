@@ -14,20 +14,22 @@ import { COMPLETED, IMAGE_URL_PATH, IN_PROGRESS } from '@/constant/constants';
 import { mainErrorHandler } from '@/utils/networkHandler';
 
 interface SingleOrderListProps extends IOrderItem {
-  toggleOptionsModal: () => void;
+  // toggleOptionsModal: () => void;
   chooseActiveItem: () => void;
+  viewOptions: () => void;
 }
 
 const SingleOrderList: FC<SingleOrderListProps> = ({
   name,
   quantity,
   // substitutes,
-  toggleOptionsModal,
+  // toggleOptionsModal,
   price,
   isAvailable,
   chooseActiveItem,
   id,
   images,
+  viewOptions,
 }) => {
   const { query } = useRouter();
   const [deleteOrderItem, { isLoading }] = useDeleteItemMutation();
@@ -101,7 +103,7 @@ const SingleOrderList: FC<SingleOrderListProps> = ({
               <Button
                 variant='primary'
                 className='mt-4 py-[8px] lg:w-[50%] xl:w-[30%]'
-                onClick={toggleOptionsModal}
+                onClick={viewOptions}
               >
                 View Options
               </Button>
@@ -123,7 +125,7 @@ const SingleOrderList: FC<SingleOrderListProps> = ({
         )}
 
         <p className='font-clash-grotesk pt-5 text-xs font-semibold text-gray-800'>
-          ₦{price ? price?.toLocaleString() : '0.0'}
+          ₦{price ? price?.toLocaleString() : '0.0'} /each
         </p>
       </div>
     </div>

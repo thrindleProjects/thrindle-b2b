@@ -36,10 +36,11 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
   const dispatch = useAppDispatch();
 
   const {
-    id,
+    // id,
     orderStatus,
     listItems,
     createdAt,
+    orderRefCode,
     // paymentStatus,
     // deliveryConfirmation,
   } = data;
@@ -57,7 +58,7 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
         <div className='flex w-full flex-row items-center justify-between'>
           <div>
             <h6 className='font-clash-grotesk text-base font-semibold text-gray-900'>
-              Order #{id}
+              Order #{orderRefCode}
             </h6>
             <p className='font-clash-grotesk pt-1 text-xs font-normal text-gray-400'>
               Order created: {formattedDate}
@@ -73,9 +74,13 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
             <SingleOrderList
               key={index}
               {...item}
-              toggleOptionsModal={() => setOptionsModal(!optionsModal)}
+              // toggleOptionsModal={() => setOptionsModal(!optionsModal)}
               chooseActiveItem={() => {
                 setOrderDetailModal(true);
+                setActiveItem(item);
+              }}
+              viewOptions={() => {
+                setOptionsModal(true);
                 setActiveItem(item);
               }}
             />
@@ -153,8 +158,9 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
       <GenModal
         isOpen={optionsModal}
         handleCloseModal={() => setOptionsModal(false)}
+        className='lg:w-[650px]'
       >
-        <OrderSuggestedOptions />
+        <OrderSuggestedOptions activeItem={activeItem} />
       </GenModal>
       {/* Order detail modal */}
       <GenModal
