@@ -2,7 +2,11 @@
 // import { IMAGE_URL_PATH } from '@/constant/constants';
 import { Carousel } from 'flowbite-react';
 
+import ImageComponent from '@/components/shared/ImageComponent';
+
 import { IOrderItemSubstitute } from '@/@types/appTypes';
+import { BASE_URL } from '@/api/globalApi';
+import { IMAGE_URL_PATH } from '@/constant/constants';
 // import Image from 'next/image';
 // import { Carousel } from 'flowbite-react';
 
@@ -10,13 +14,18 @@ const SingleSuggestedOrder = ({ item }: { item: IOrderItemSubstitute }) => {
   return (
     <div className='w-full'>
       <Carousel
-        className='relative aspect-[16/9] bg-red-500'
+        className='relative aspect-[16/9]'
         indicators={false}
         leftControl={<></>}
         rightControl={<></>}
       >
         {item.images.map((image, index) => (
-          <h6 key={index}> {image}</h6>
+          <figure className='relative h-full w-full' key={index}>
+            <ImageComponent
+              src={`${BASE_URL}${IMAGE_URL_PATH}/${image}`}
+              alt={image}
+            />
+          </figure>
           // <Image
           //   fill={true}
           //   src={`${BASE_URL}${IMAGE_URL_PATH}/${image}`}
