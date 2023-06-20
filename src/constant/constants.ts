@@ -63,6 +63,13 @@ export const GET_COMPANY_RECURRENT_ORDERS =
 export const GET_SINGLE_RECURRENT_ORDER = '/recurrent';
 export const GET_ITEM_BY_ITEM = '/order/item';
 
+// Wallet API Endpoints
+
+export const GET_WALLET_BALLANCE = '/wallet/balance';
+export const GET_WALLET = '/wallet';
+export const GET_WALLET_TRANSACTION = '/wallet/total-transaction';
+export const GET_WALLET_OUTSTANDING = '/wallet/outstanding';
+
 export const PHONE_NUMBER = 'phoneNumber';
 export const ALTERNATE_PHONE = 'alternatePhone';
 export const OFFICE_ADDRESS = 'officeAddress';

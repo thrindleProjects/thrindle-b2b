@@ -2,8 +2,12 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
+import { useGetWalletBalanceQuery } from '@/api/wallet';
+
 const WalletCard = ({ className }: { className?: string }) => {
   const [showPrice, setShowPrice] = useState(false);
+  const { data } = useGetWalletBalanceQuery();
+
   return (
     <div
       className={`bg-primary-blue relative h-[200px] w-full rounded-lg border px-7 py-6 ${className}`}
@@ -25,7 +29,7 @@ const WalletCard = ({ className }: { className?: string }) => {
       <div className='absolute bottom-10  left-0 right-0 flex flex-row items-center justify-between  px-7'>
         {showPrice ? (
           <p className='font-clash-grotesk text-3xl font-semibold text-white'>
-            ₦0.00
+            {data && data.data !== null ? `₦${data.data}.00` : '₦0.00'}
           </p>
         ) : (
           <p className='text-3xl font-semibold text-white'>*******</p>
