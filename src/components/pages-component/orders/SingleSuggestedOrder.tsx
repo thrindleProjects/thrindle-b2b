@@ -1,18 +1,43 @@
-// import { BASE_URL } from '@/api/globalApi';
-// import { IMAGE_URL_PATH } from '@/constant/constants';
 import { Carousel } from 'flowbite-react';
+import { useState } from 'react';
 
+import Button from '@/components/buttons/Button';
 import ImageComponent from '@/components/shared/ImageComponent';
 
 import { IOrderItemSubstitute } from '@/@types/appTypes';
 import { BASE_URL } from '@/api/globalApi';
+import { useReplaceUnavailableItemMutation } from '@/api/order/orderServices';
 import { IMAGE_URL_PATH } from '@/constant/constants';
-// import Image from 'next/image';
-// import { Carousel } from 'flowbite-react';
+import { mainErrorHandler, successHandler } from '@/utils/networkHandler';
 
-const SingleSuggestedOrder = ({ item }: { item: IOrderItemSubstitute }) => {
+import ReplaceItemConsentModal from './ReplaceItemConsentModal';
+
+const SingleSuggestedOrder = ({
+  item,
+  itemId,
+  handleCloseModal,
+}: {
+  item: IOrderItemSubstitute;
+  itemId: string;
+  handleCloseModal: () => void;
+}) => {
+  const [consentModal, setConsentModal] = useState(false);
+  const [replaceItem, { isLoading }] = useReplaceUnavailableItemMutation();
+
+  const replaceUnavailableItem = () => {
+    replaceItem({ itemId, subId: item?.id })
+      .unwrap()
+      .then((res) => {
+        successHandler(res?.message);
+        setConsentModal(false);
+        handleCloseModal();
+      })
+      .catch((err) => {
+        mainErrorHandler(err);
+      });
+  };
   return (
-    <div className='w-full'>
+    <div className='mb-40 w-full lg:mb-0'>
       <Carousel
         className='relative aspect-[16/9]'
         indicators={false}
@@ -20,19 +45,12 @@ const SingleSuggestedOrder = ({ item }: { item: IOrderItemSubstitute }) => {
         rightControl={<></>}
       >
         {item.images.map((image, index) => (
-          <figure className='relative h-full w-full' key={index}>
+          <figure className='relative h-full w-full bg-red-500' key={index}>
             <ImageComponent
               src={`${BASE_URL}${IMAGE_URL_PATH}/${image}`}
               alt={image}
             />
           </figure>
-          // <Image
-          //   fill={true}
-          //   src={`${BASE_URL}${IMAGE_URL_PATH}/${image}`}
-          //   alt='order'
-          //   className='w-full rounded object-contain'
-          //   key={index}
-          // />
         ))}
       </Carousel>
       <div className='mt-2'>
@@ -51,18 +69,22 @@ const SingleSuggestedOrder = ({ item }: { item: IOrderItemSubstitute }) => {
           </span>
           <span className='text-[10px] font-light'>each</span>
         </div>
+        <Button
+          className=' mt-5 h-[44px] w-full'
+          onClick={() => setConsentModal(true)}
+        >
+          Select
+        </Button>
       </div>
+
+      <ReplaceItemConsentModal
+        handleReplace={replaceUnavailableItem}
+        isLoading={isLoading}
+        isOpen={consentModal}
+        handleClose={() => setConsentModal(false)}
+      />
     </div>
   );
 };
 
 export default SingleSuggestedOrder;
-
-// <div key={index} className='relative h-[150px] w-full bg-gray-50'>
-//   <Image
-//     fill={true}
-//     src={`${BASE_URL}${IMAGE_URL_PATH}/${image}`}
-//     alt='order'
-//     className='rounded object-contain'
-//   />
-// </div>

@@ -69,6 +69,9 @@ const OrderStatusTabLayout = () => {
     }
   };
 
+  // console.log(data);
+  // console.log(Date().);
+
   return (
     <BorderContainer className='h-[530px] w-full overflow-y-scroll p-5'>
       <OrderStatusTab
@@ -101,6 +104,7 @@ const OrderStatusTabLayout = () => {
               <SingleOrder
                 key={index}
                 {...item}
+                item={item}
                 activeOrder={activeOrder}
                 changeOrder={() => {
                   push({

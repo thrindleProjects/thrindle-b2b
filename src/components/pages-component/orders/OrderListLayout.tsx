@@ -35,15 +35,7 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
   const { isPaymentModalOpen } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
 
-  const {
-    // id,
-    orderStatus,
-    listItems,
-    createdAt,
-    orderRefCode,
-    // paymentStatus,
-    // deliveryConfirmation,
-  } = data;
+  const { orderStatus, listItems, createdAt, orderRefCode } = data;
 
   const { formattedDate } = useTimeFormatHook({
     date: createdAt,
@@ -136,6 +128,7 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
           handleCompleteOrder={() => {
             setPaymentSuccess(true);
           }}
+          order={data}
         />
       </GenModal>
       <GenModal
@@ -158,9 +151,12 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
       <GenModal
         isOpen={optionsModal}
         handleCloseModal={() => setOptionsModal(false)}
-        className='lg:w-[650px]'
+        className='lg:w-[700px] xl:w-[650px]'
       >
-        <OrderSuggestedOptions activeItem={activeItem} />
+        <OrderSuggestedOptions
+          activeItem={activeItem}
+          handleCloseModal={() => setOptionsModal(false)}
+        />
       </GenModal>
       {/* Order detail modal */}
       <GenModal
