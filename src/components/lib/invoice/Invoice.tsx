@@ -70,7 +70,7 @@ const Invoice = ({ order }: { order: IOrder }) => {
       {/* Content */}
       <div className='mt-10 w-full'>
         <h6 className='font-clash-grotesk text-xl font-semibold text-black/90'>
-          Dear Critters Vet,
+          Dear {order?.company?.companyName},
         </h6>
         <p className='font-clash-grotesk pt-4 text-base font-normal text-black/80'>
           Thank you for choosing Thrindle! We are pleased to provide you with
@@ -82,11 +82,11 @@ const Invoice = ({ order }: { order: IOrder }) => {
             Order Details:
           </p>
           <p className='font-clash-grotesk mt-5 text-base font-normal'>
-            Order Number:&nbsp;
+            Order Number:&nbsp;&nbsp;
             <span className='font-medium'>#{order?.orderRefCode}</span>
           </p>
           <p className='font-clash-grotesk text-base font-normal'>
-            Order Date:&nbsp;
+            Order Date:&nbsp;&nbsp;
             <span className='font-medium'>{formattedDate}</span>
           </p>
         </div>

@@ -45,7 +45,7 @@ const SingleSuggestedOrder = ({
         rightControl={<></>}
       >
         {item.images.map((image, index) => (
-          <figure className='relative h-full w-full bg-red-500' key={index}>
+          <figure className='relative h-full w-full bg-gray-200' key={index}>
             <ImageComponent
               src={`${BASE_URL}${IMAGE_URL_PATH}/${image}`}
               alt={image}
