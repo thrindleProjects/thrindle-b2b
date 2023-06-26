@@ -17,7 +17,7 @@ const Invoice = ({ order }: { order: IOrder }) => {
     date: order?.createdAt,
     format: 'Do MMMM YYYY',
   });
-  const invoiceRef = useRef(null);
+  const invoiceRef = useRef();
 
   const objectDate = new Date();
   const month = objectDate.getMonth();
@@ -25,7 +25,8 @@ const Invoice = ({ order }: { order: IOrder }) => {
   const year = objectDate.getFullYear();
 
   const downloadPDF = useCallback(() => {
-    const input = invoiceRef.current;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const input = invoiceRef.current as any;
     html2canvas(input)
       .then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
@@ -63,7 +64,8 @@ const Invoice = ({ order }: { order: IOrder }) => {
   }, [downloadPDF]);
 
   return (
-    <div className='mx-auto  w-full   bg-white px-5 ' ref={invoiceRef}>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    <div className='mx-auto  w-full   bg-white px-5 ' ref={invoiceRef as any}>
       <div className=''>
         <ThrindleLogo variant='blue' />
       </div>
