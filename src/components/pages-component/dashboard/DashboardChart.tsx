@@ -15,7 +15,7 @@ import { DashboardChartTooltip } from '@/components/pages-component/dashboard';
 
 import { useGetDashboardDataQuery } from '@/api/dashboard/dashboardServices';
 import { REFETCH_TIME } from '@/constant/constants';
-import { graphData } from '@/utils/devData';
+import { getMonthFromNumber } from '@/utils/helperFunctions';
 import { getErrorMessage } from '@/utils/networkHandler';
 
 const DashboardChart = () => {
@@ -26,8 +26,22 @@ const DashboardChart = () => {
       pollingInterval: REFETCH_TIME,
     });
 
+  // Restructure the data from backend
+  const reformedData =
+    data && data?.data && data?.data?.monthlySpendingData
+      ? data?.data?.monthlySpendingData.map((item) => {
+          return {
+            ...item,
+            name: getMonthFromNumber(item.month),
+            uv: item?.orderAmount,
+            pv: item?.orderAmount,
+            amt: item?.orderAmount,
+          };
+        })
+      : [];
+
   return (
-    <div className='w-full px-6 py-8'>
+    <div className='w-full px-6 py-8 '>
       {/* When loading */}
       {!isError && isFetching && <SpinnerLoader type='fullScreen' />}
       {isError && !isFetching && (
@@ -60,11 +74,11 @@ const DashboardChart = () => {
 
           {/* Graph */}
           {data && data?.data?.monthlySpendingData?.length > 0 && (
-            <div className='mt-14 w-full'>
+            <div className='mt-14 w-full pl-10'>
               <ResponsiveContainer width='100%' height={400}>
                 <LineChart
                   className='w-full'
-                  data={graphData}
+                  data={reformedData}
                   margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
                 >
                   <Line type='monotone' dataKey='uv' stroke='#8884d8' />
