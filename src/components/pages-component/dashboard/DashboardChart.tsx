@@ -69,7 +69,7 @@ const DashboardChart = () => {
                 ₦{data?.data?.totalAmountSpent.toLocaleString()}
               </p>
             </div>
-            <p>Hello</p>
+            {/* <p>Hello</p> */}
           </div>
 
           {/* Graph */}
