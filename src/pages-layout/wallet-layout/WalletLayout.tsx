@@ -38,14 +38,14 @@ const WalletLayout = () => {
             <WalletWhiteBgCard
               amount={outstanding && outstanding?.data}
               date='Due Date'
-              title='Outstanding Payment'
+              title='Outstanding payment'
             />
           </Carousel>
         </div>
       </div>
 
       <div className='mt-5 flex  gap-6'>
-        <BorderContainer className='w-[68%] p-7 lg:p-10'>
+        <BorderContainer className='w-[69%] p-7 lg:p-10'>
           <WalletTable />
         </BorderContainer>
         <BorderContainer className=' w-[33.33%]  p-7 lg:p-10'>
