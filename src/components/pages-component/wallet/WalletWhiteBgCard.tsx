@@ -28,7 +28,10 @@ const WalletWhiteBgCard: React.FC<WalletWhiteCardProps> = ({
           recurrent ? 'text-primary-blue' : ''
         }`}
       >
-        Amount: {amount && amount === undefined ? 'N/A ' : `N${amount}.00`}
+        Amount:{' '}
+        {(amount && amount === null) || amount === undefined
+          ? 'N/A '
+          : `N${amount}.00`}
       </p>
       {recurrent ? (
         <p className='text-[16px] font-[600] text-[#767778]'>

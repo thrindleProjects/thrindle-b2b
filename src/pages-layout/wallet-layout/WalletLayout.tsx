@@ -20,7 +20,7 @@ const WalletLayout = () => {
       <div className='grid  grid-cols-2 gap-6 lg:grid-cols-3'>
         <WalletCard />
         <WalletWhiteBgCard
-          amount={data && data.data.totalDeposited}
+          amount={data && data.data?.totalDeposited}
           date='Jan - April'
           title='Total Funds added'
         />
@@ -31,12 +31,12 @@ const WalletLayout = () => {
             slideInterval={3000}
           >
             <WalletWhiteBgCard
-              amount={data && data.data.totalSpent}
+              amount={data && data.data?.totalSpent}
               date='Jan - April'
               title='Total Funds Spent'
             />
             <WalletWhiteBgCard
-              amount={outstanding && outstanding.data}
+              amount={outstanding && outstanding?.data}
               date='Due Date'
               title='Outstanding Payment'
             />
