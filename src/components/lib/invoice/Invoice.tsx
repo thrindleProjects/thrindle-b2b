@@ -17,7 +17,7 @@ const Invoice = ({ order }: { order: IOrder }) => {
     date: order?.createdAt,
     format: 'Do MMMM YYYY',
   });
-  const invoiceRef = useRef(null);
+  const invoiceRef = useRef();
 
   const objectDate = new Date();
   const month = objectDate.getMonth();
@@ -25,7 +25,8 @@ const Invoice = ({ order }: { order: IOrder }) => {
   const year = objectDate.getFullYear();
 
   const downloadPDF = useCallback(() => {
-    const input = invoiceRef.current;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const input = invoiceRef.current as any;
     html2canvas(input)
       .then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
@@ -63,14 +64,15 @@ const Invoice = ({ order }: { order: IOrder }) => {
   }, [downloadPDF]);
 
   return (
-    <div className='mx-auto  w-full   bg-white px-5 ' ref={invoiceRef}>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    <div className='mx-auto  w-full   bg-white px-5 ' ref={invoiceRef as any}>
       <div className=''>
         <ThrindleLogo variant='blue' />
       </div>
       {/* Content */}
       <div className='mt-10 w-full'>
         <h6 className='font-clash-grotesk text-xl font-semibold text-black/90'>
-          Dear Critters Vet,
+          Dear {order?.company?.companyName},
         </h6>
         <p className='font-clash-grotesk pt-4 text-base font-normal text-black/80'>
           Thank you for choosing Thrindle! We are pleased to provide you with
@@ -82,11 +84,11 @@ const Invoice = ({ order }: { order: IOrder }) => {
             Order Details:
           </p>
           <p className='font-clash-grotesk mt-5 text-base font-normal'>
-            Order Number:&nbsp;
+            Order Number:&nbsp;&nbsp;
             <span className='font-medium'>#{order?.orderRefCode}</span>
           </p>
           <p className='font-clash-grotesk text-base font-normal'>
-            Order Date:&nbsp;
+            Order Date:&nbsp;&nbsp;
             <span className='font-medium'>{formattedDate}</span>
           </p>
         </div>

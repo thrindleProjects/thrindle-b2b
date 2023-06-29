@@ -20,7 +20,7 @@ const WalletLayout = () => {
       <div className='grid  grid-cols-2 gap-6 lg:grid-cols-3'>
         <WalletCard />
         <WalletWhiteBgCard
-          amount={data && data.data.totalDeposited}
+          amount={data && data.data?.totalDeposited}
           date='Jan - April'
           title='Total Funds added'
         />
@@ -31,21 +31,21 @@ const WalletLayout = () => {
             slideInterval={3000}
           >
             <WalletWhiteBgCard
-              amount={data && data.data.totalSpent}
+              amount={data && data.data?.totalSpent}
               date='Jan - April'
               title='Total Funds Spent'
             />
             <WalletWhiteBgCard
-              amount={outstanding && outstanding.data}
+              amount={outstanding && outstanding?.data}
               date='Due Date'
-              title='Outstanding Payment'
+              title='Outstanding payment'
             />
           </Carousel>
         </div>
       </div>
 
       <div className='mt-5 flex  gap-6'>
-        <BorderContainer className='w-[68%] p-7 lg:p-10'>
+        <BorderContainer className='w-[69%] p-7 lg:p-10'>
           <WalletTable />
         </BorderContainer>
         <BorderContainer className=' w-[33.33%]  p-7 lg:p-10'>
