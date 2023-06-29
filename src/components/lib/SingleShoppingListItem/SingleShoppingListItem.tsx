@@ -2,6 +2,9 @@ import { Icon } from '@iconify/react';
 import Image from 'next/image';
 import { useMemo, useState } from 'react';
 
+import clsxm from '@/lib/clsxm';
+import { useDisclosure } from '@/hooks';
+
 import GenModal from '@/components/shared/modal/Modal';
 import EditShoppingItemForm from '@/containers/EditShoppingItemForm/EditShoppingItemForm';
 
@@ -26,6 +29,8 @@ const SingleShoppingListItem: SingleShoppingListItemType = ({
   // isLoading,
 }) => {
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
+
+  const { isOpen: seeMore, toggle } = useDisclosure();
 
   const image = useMemo(() => {
     return `${BASE_URL}${IMAGE_URL_PATH}/${item.images[0]}`;
@@ -76,12 +81,28 @@ const SingleShoppingListItem: SingleShoppingListItemType = ({
         <section className='flex flex-col gap-3'>
           <p className='text-base font-semibold'>{item.name}</p>
           <p className='text-sm font-medium'>Item Created {date}</p>
-          <p className='text-xs font-medium'>{item.description}</p>
+          <p className='text-xs font-medium'>
+            {seeMore || item.description.length < 300
+              ? item.description
+              : `${item.description.substring(0, 300)}...`}{' '}
+            {item.description.length > 300 && (
+              <button
+                className={clsxm(
+                  'text-primary-blue px-1 text-[0.85em] font-bold',
+                  [seeMore && 'block']
+                )}
+                onClick={toggle}
+                type='button'
+              >
+                {seeMore ? 'See less' : 'See more'}
+              </button>
+            )}
+          </p>
         </section>
         <div className='ml-auto flex flex-shrink-0 flex-col items-end gap-4'>
           <div className='text-sm font-semibold lg:text-base'>
             <div className='flex items-center gap-2 p-1'>
-              {item.quantity} Pieces{' '}
+              {item.quantity} {item.quantity > 1 ? 'Pieces' : 'Piece'}
               <button className='text-lg' onClick={handleOpenEditModal}>
                 <Icon icon='ph:pencil-line' />
               </button>
