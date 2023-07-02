@@ -5,13 +5,6 @@ import { IOrderItem } from '@/@types/appTypes';
 import { BASE_URL } from '@/api/globalApi';
 import { IMAGE_URL_PATH } from '@/constant/constants';
 
-const images = [
-  '/images/landing-hero-bg.png',
-  '/images/placeholder-image.png',
-  '/images/landing-hero-bg.png',
-  '/images/large-og.png',
-  '/images/placeholder-image.png',
-];
 const OrderItemDetailModal = ({
   activeItem,
 }: {
@@ -30,7 +23,7 @@ const OrderItemDetailModal = ({
       {/* Image section */}
       {activeItem?.images?.length ? (
         <section className='grid w-full grid-cols-3 gap-5'>
-          {images.map((img, index) => (
+          {activeItem?.images?.map((img, index) => (
             <div
               key={index}
               className='relative h-[150px] max-h-[150px] w-full rounded-sm bg-gray-100 lg:h-[120px] lg:max-h-[120px]'

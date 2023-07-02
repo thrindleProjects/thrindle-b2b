@@ -7,7 +7,6 @@ import BorderContainer from '@/components/shared/borderContainer/BorderContainer
 
 import { useGetDashboardRecentPurchasesQuery } from '@/api/dashboard/dashboardServices';
 import { REFETCH_TIME } from '@/constant/constants';
-import { recentPurchasesData } from '@/utils/devData';
 import { getErrorMessage } from '@/utils/networkHandler';
 
 const RecentPurchases = () => {
@@ -18,14 +17,14 @@ const RecentPurchases = () => {
     });
 
   return (
-    <BorderContainer className='mt-5 max-h-[350px] min-h-[300px] bg-white pb-3'>
+    <BorderContainer className='mt-5 h-[300px] max-h-[350px] min-h-[350px] overflow-y-auto bg-white pb-3'>
       <div className='border-b-200 w-full border-b px-4  py-3'>
         <p className='font-clash-grotesk text-sm font-medium text-gray-500'>
           Recent Purchases
         </p>
       </div>
       {/* Loading */}
-      {isFetching && <SpinnerLoader type='fullScreen' className='mt-10' />}
+      {isFetching && <SpinnerLoader type='fullScreen' className='' />}
 
       {/* Error occurred */}
       {isError && !isFetching && (
@@ -44,7 +43,7 @@ const RecentPurchases = () => {
         data?.data &&
         data?.data.length > 0 && (
           <div className='mt-2 w-full pt-2'>
-            {recentPurchasesData.map((item, index) => (
+            {data?.data.map((item, index) => (
               <SingleRecentPurchase {...item} key={index} />
             ))}
           </div>

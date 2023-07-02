@@ -1,8 +1,10 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { MdOutlineFileDownload } from 'react-icons/md';
 
 import { useTimeFormatHook } from '@/hooks/useTimeFormakHook';
 
+import Invoice from '@/components/lib/invoice/Invoice';
+import GenModal from '@/components/shared/modal/Modal';
 import OrderStatusContainer from '@/components/shared/orderStatus/OrderStatusContainer';
 
 import { IOrder, orderStatus } from '@/@types/appTypes';
@@ -10,6 +12,7 @@ import { IOrder, orderStatus } from '@/@types/appTypes';
 interface SingleOrderProps extends IOrder {
   activeOrder: string | null;
   changeOrder: () => void;
+  item: IOrder;
 }
 
 const SingleOrder: FC<SingleOrderProps> = ({
@@ -19,11 +22,15 @@ const SingleOrder: FC<SingleOrderProps> = ({
   listItems,
   orderStatus,
   createdAt,
+  orderRefCode,
+  item,
 }) => {
+  const [invoiceModal, setInvoiceModal] = useState(false);
   const { formattedDate } = useTimeFormatHook({
     date: createdAt,
     format: 'Do MMMM YYYY',
   });
+
   return (
     <div
       onClick={changeOrder}
@@ -35,6 +42,7 @@ const SingleOrder: FC<SingleOrderProps> = ({
           : 'relative mb-5 h-[150px] w-full rounded-md border border-gray-200 transition-all duration-500 ease-in-out'
       }
     >
+      {/* {showInvoice && <Invoice order={item} ref={invoiceRef} />} */}
       {/* Active border */}
       {activeOrder && activeOrder === id && (
         <div className='absolute  left-0 top-[10%] h-[80%] w-[5px] rounded-lg bg-[#065DA7] transition-all duration-500 ease-in-out' />
@@ -42,7 +50,7 @@ const SingleOrder: FC<SingleOrderProps> = ({
       <div className='flex w-full flex-row items-center justify-between  px-5 py-5'>
         <div>
           <h6 className='font-clash-grotesk  text-base font-semibold text-gray-900 '>
-            Order #{id.slice(0, 8)}
+            Order #{orderRefCode}
           </h6>
           <p className='font-clash-grotesk pt-1 text-xs font-normal text-gray-400'>
             Order created: {formattedDate}
@@ -61,7 +69,13 @@ const SingleOrder: FC<SingleOrderProps> = ({
             role='button'
           >
             {orderStatus === 'in-progress' && (
-              <p className='text-primary-blue pr-2'>Download Invoice</p>
+              <button
+                onClick={() => {
+                  setInvoiceModal(true);
+                }}
+              >
+                <p className='text-primary-blue pr-2'>Download Invoice</p>
+              </button>
             )}
             {orderStatus === 'completed' ||
               (orderStatus === 'pending' && (
@@ -75,6 +89,13 @@ const SingleOrder: FC<SingleOrderProps> = ({
               ))}
           </div>
         </div>
+        <GenModal
+          isOpen={invoiceModal}
+          handleCloseModal={() => setInvoiceModal(false)}
+          className='lg:w-[700px] xl:w-[900px]'
+        >
+          <Invoice order={item} />
+        </GenModal>
       </div>
     </div>
   );

@@ -46,6 +46,7 @@ export const CREATE_NEW_COMPANY_API = '/company/signup';
 export const GET_ALL_ORDERS_PATH = '/order/getCompanyOrders';
 export const GET_SINGLE_ORDER_PATH = '/order';
 export const DELETE_ORDER_ITEM_PATH = '/order/item';
+export const REPLACE_UNAVAILABLE_ITEM_API_URL = '/order/updateUnavailableItem';
 export const IMAGE_URL_PATH = '/images';
 export const RESEND_ORDER_PATH = '/order/resend';
 export const GET_DASHBOARD_DATA_PATH = '/order/getDashboardData';
@@ -62,6 +63,13 @@ export const GET_COMPANY_RECURRENT_ORDERS =
   '/recurrent/getRecurrentCompanyOrders';
 export const GET_SINGLE_RECURRENT_ORDER = '/recurrent';
 export const GET_ITEM_BY_ITEM = '/order/item';
+
+// Wallet API Endpoints
+
+export const GET_WALLET_BALLANCE = '/wallet/balance';
+export const GET_WALLET = '/wallet';
+export const GET_WALLET_TRANSACTION = '/wallet/total-transaction';
+export const GET_WALLET_OUTSTANDING = '/wallet/outstanding';
 
 export const PHONE_NUMBER = 'phoneNumber';
 export const ALTERNATE_PHONE = 'alternatePhone';

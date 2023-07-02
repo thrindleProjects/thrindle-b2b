@@ -67,3 +67,7 @@ export const getErrorMessage = (err: any) => {
     return err.message || 'Something went wrong';
   }
 };
+
+export const successHandler = (message: string) => {
+  toast.success(`${message}`);
+};
