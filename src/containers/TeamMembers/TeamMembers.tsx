@@ -61,7 +61,6 @@ const TeamMembers: React.FC = () => {
             <tr className='text-left'>
               <th></th>
               <th className='font-medium'>Name</th>
-              <th className='font-medium'>Phone</th>
               <th className='font-medium'>Email</th>
             </tr>
           </thead>
@@ -92,7 +91,7 @@ const TeamMembers: React.FC = () => {
                         </span>
                       )}
                     </td>
-                    <td>{member.phone || 'Not Provided'}</td>
+                    {/* <td>{member.phone || 'Not Provided'}</td> */}
                     <td>{member.email}</td>
                   </tr>
                 );

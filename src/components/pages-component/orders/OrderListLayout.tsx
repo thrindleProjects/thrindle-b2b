@@ -139,7 +139,7 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
       >
         <ResponseStatusModal
           title='Proceed To Orders'
-          msg='Your payment of #231,000 has been made successfully and charged from your wallet, our representatives will contact you to give you delivery information'
+          msg='Your payment of N50,000 has been charged from your wallet. Delivery information will be communicated shortly'
           btnText='Proceed To orders'
           onClick={() => {
             dispatch(togglePaymentModal());
