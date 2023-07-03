@@ -82,6 +82,7 @@ const CompanyProfileInformation: CompanyProfileInformationType = ({
           <Icon icon='ph:pencil-line' />
         </button>
       </div>
+      {/* <button onClick={() => signOut()}>logout</button> */}
     </div>
   );
 };

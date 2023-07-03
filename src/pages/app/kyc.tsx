@@ -12,8 +12,7 @@ const KYC: NextPageWithLayout = () => {
       <div className='w-[50%]'>
         <FormContainer
           title='You are almost there'
-          subtitle='Provide us with few other information 
-and your account set up is done'
+          subtitle='Provide us with few other information and your account set up is done'
           className='mt-6'
         >
           <Kycform />
