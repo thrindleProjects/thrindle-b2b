@@ -8,7 +8,7 @@ import {
   initialValues,
   validationSchema,
 } from '@/components/lib/addItemForm/validation';
-import Counter from '@/components/lib/counter/Counter';
+import CartCounter from '@/components/shared/CartCounter/CartCounter';
 import Input from '@/components/shared/Input/Input';
 import InputFile from '@/components/shared/InputFile/InputFile';
 import { ModalHeader } from '@/components/shared/modal';
@@ -21,18 +21,30 @@ import * as CONSTANTS from '@/constant/constants';
 import { mainErrorHandler } from '@/utils/networkHandler';
 
 const QuickBuyModalView = () => {
-  const [counter, setCounter] = useState(0);
-  const [error, setError] = useState('');
   const [orderSuccessModal, setOrderSuccessModal] = useState(false);
   const router = useRouter();
 
   const [quickBuy, { isLoading }] = useQuickBuyMutation();
   const increaseCounter = () => {
-    setCounter((prev) => prev + 1);
+    if (isNaN(formik.values.quantity)) {
+      formik.setFieldTouched('quantity', true, true);
+      return;
+    }
+    formik.setFieldValue('quantity', Number(formik.values.quantity) + 1, true);
+    formik.setFieldTouched('quantity', false);
+    return;
   };
 
   const decreaseCounter = () => {
-    if (counter > 0) setCounter((prev) => prev - 1);
+    if (formik.values.quantity === 0 || isNaN(formik.values.quantity)) {
+      formik.setFieldTouched('quantity', true, true);
+      return;
+    }
+
+    formik.setFieldValue('quantity', Number(formik.values.quantity) - 1, true);
+    formik.setFieldTouched('quantity', false);
+
+    return;
   };
 
   const formik = useFormik({
@@ -46,23 +58,17 @@ const QuickBuyModalView = () => {
         values['Item Description'] as string | Blob
       );
 
-      formData.append('quantity', String(counter) as string | Blob);
+      formData.append('quantity', String(values.quantity));
       if (values.Image) {
         if (values.Image[0]) {
           formData.append('image', values.Image[0] as Blob);
         }
-      }
-      if (counter === 0) {
-        setError('Quantity must be greater than zero');
-        return;
       }
       quickBuy({ data: formData })
         .unwrap()
         .then((res) => {
           toast.success(`${res.message}`);
           resetForm();
-          setError('');
-          setCounter(0);
           setOrderSuccessModal(true);
         })
         .catch((err) => mainErrorHandler(err));
@@ -129,12 +135,17 @@ const QuickBuyModalView = () => {
                 numbOfRows={3}
               />
             </div>
-            <Counter
-              add={decreaseCounter}
-              subtract={increaseCounter}
-              counter={counter}
-              error={error}
-            />
+            <div className='w-1/3'>
+              <CartCounter
+                decreaseQuantity={decreaseCounter}
+                increaseQuantity={increaseCounter}
+                value={formik.values.quantity}
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                error={formik.errors[CONSTANTS.QUANTITY]}
+                touched={formik.touched[CONSTANTS.ITEMDESCRIPTION]}
+              />
+            </div>
             <Button
               type='submit'
               // leftIcon={MdAdd}
