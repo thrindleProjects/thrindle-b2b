@@ -28,7 +28,7 @@ const WalletDough = () => {
         <p>Hello</p>
       </div>
       <p className='my-8 text-[24px] font-[600] text-[#49494b]'>
-        N{data?.data.total.toLocaleString()}.00
+        <span>&#8358;</span> {data?.data.total.toLocaleString()}.00
       </p>
 
       <div className='h-full w-full'>

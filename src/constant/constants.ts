@@ -77,6 +77,7 @@ export const OFFICE_ADDRESS = 'officeAddress';
 export const STATE = 'state';
 export const LANDMARK = 'landmark';
 export const LOGO = 'logo';
+export const QUANTITY = 'quantity';
 
 // SHOPPING LIST ENDPOINTS START
 export const BASE_URL_SHOPPING_LIST_PATH = '/order/item' as const;
