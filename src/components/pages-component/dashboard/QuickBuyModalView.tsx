@@ -101,7 +101,7 @@ const QuickBuyModalView = () => {
             />
             <div className='mt-4'>
               <InputFile
-                label='Sample Image (Optional)'
+                label='Sample Image '
                 id={CONSTANTS.IMAGE}
                 name={CONSTANTS.IMAGE}
                 className='rounded-[8px]'
