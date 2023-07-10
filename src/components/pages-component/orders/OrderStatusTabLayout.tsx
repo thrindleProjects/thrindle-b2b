@@ -16,23 +16,25 @@ import { getErrorMessage } from '@/utils/networkHandler';
 const OrderStatusTabLayout = () => {
   const { query, push } = useRouter();
   const [activeTab, setActiveTab] = useState<orderStatus>('all');
-  const { data, isError, isLoading, isFetching, refetch, error } =
-    useGetOrdersQuery(activeTab, {
+  const { data, isError, isLoading, refetch, error } = useGetOrdersQuery(
+    activeTab,
+    {
       pollingInterval: REFETCH_TIME,
       refetchOnReconnect: true,
       refetchOnMountOrArgChange: true,
-    });
+    }
+  );
   const [activeOrder, setActiveOrder] = useState<string | null>(
     query?.orderId as string
   );
 
-  useEffect(() => {
-    if (query && query?.status) {
-      setActiveTab(query?.status as orderStatus);
-    }
+  // useEffect(() => {
+  //   if (query && query?.status) {
+  //     setActiveTab(query?.status as orderStatus);
+  //   }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query?.status]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [query?.status]);
 
   useEffect(() => {
     if (data && data?.data) {
@@ -51,22 +53,22 @@ const OrderStatusTabLayout = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeTab, isFetching]);
+  }, [activeTab, data?.data]);
 
   const changeTab = (val: orderStatus) => {
     setActiveTab(val);
-    if (data && data?.data.length) {
-      push({
-        pathname: '/app/orders',
-        query: { status: `${val}`, orderId: data?.data[0]?.id },
-      });
-      setActiveOrder(data?.data[0]?.id);
-    } else {
-      push({
-        pathname: '/app/orders',
-        query: { status: `${val}` },
-      });
-    }
+    // if (data && data?.data.length) {
+    //   push({
+    //     pathname: '/app/orders',
+    //     query: { status: `${val}`, orderId: data?.data[0]?.id },
+    //   });
+    //   setActiveOrder(data?.data[0]?.id);
+    // } else {
+    //   push({
+    //     pathname: '/app/orders',
+    //     query: { status: `${val}` },
+    //   });
+    // }
   };
 
   // console.log(data);

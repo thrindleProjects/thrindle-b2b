@@ -219,6 +219,8 @@ const Invoice = ({ order }: { order: IOrder }) => {
             <p className='font-clash-grotesk mt-1 font-normal text-black/60'>
               No. 10, Alagomeji Street, Maryland, Lagos
             </p>
+            <br />
+            <br />
             {/* <div className='mt-5 flex w-full flex-row'>
               <a
                 href='https://web.facebook.com/thrindle/?_rdc=1&_rdr'
