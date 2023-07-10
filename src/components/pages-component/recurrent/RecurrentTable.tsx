@@ -50,7 +50,6 @@ const RecurrentTable: React.FC<ITableProps> = ({ data }) => {
                 <TableCell>
                   <OrderStatusContainer
                     status={item.orderStatus as orderStatus}
-                    className='mt-5 max-w-[70%]'
                   />
                 </TableCell>
 

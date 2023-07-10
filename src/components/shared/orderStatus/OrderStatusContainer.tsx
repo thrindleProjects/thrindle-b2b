@@ -15,15 +15,15 @@ const OrderStatusContainer = ({
     orderStatus: status as orderStatus,
   });
   return (
-    <div
+    <span
       className={`flex flex-row items-center justify-center rounded-sm px-3 py-2 ${orderStyle.bgColor} ${className}`}
     >
-      <p
+      <span
         className={`font-clash-grotesk text-xs font-medium ${orderStyle.textColor}`}
       >
         {orderStyle?.text}
-      </p>
-    </div>
+      </span>
+    </span>
   );
 };
 
