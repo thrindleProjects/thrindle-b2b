@@ -26,6 +26,8 @@ declare module 'next-auth' {
         status: string;
         token: string;
         tokenExpiry: Date;
+        companyCode: string;
+        isVIP: boolean;
       };
       type: 'owner' | 'teamMember';
     };
@@ -53,6 +55,8 @@ declare module 'next-auth' {
       status: string;
       token: string;
       tokenExpiry: Date;
+      companyCode: string;
+      isVIP: boolean;
     };
     type: 'owner' | 'teamMember';
   }
@@ -73,7 +77,6 @@ declare module 'next-auth/jwt' {
         id: string;
         companyName: string;
         logo: string;
-
         email: string;
         address: string;
         state: string;
@@ -83,6 +86,8 @@ declare module 'next-auth/jwt' {
         status: string;
         token: string;
         tokenExpiry: Date;
+        companyCode: string;
+        isVIP: boolean;
       };
       type: 'owner' | 'teamMember';
     };

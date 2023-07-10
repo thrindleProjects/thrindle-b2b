@@ -44,6 +44,8 @@ export interface ICompanyDetails {
   token: string;
   tokenExpiry: Date;
   logo: string;
+  companyCode: string;
+  isVIP: boolean;
 }
 export interface LoginResponse {
   token: string;

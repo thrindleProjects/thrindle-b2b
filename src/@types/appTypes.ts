@@ -13,7 +13,9 @@ export type orderStatus =
   | 'requested'
   | 'pending'
   | 'in-progress'
-  | 'completed';
+  | 'completed'
+  | 'cancelled'
+  | 'owing';
 
 export type orderPaymentOptions = 'now' | 'scheduled-payment';
 export type IGlobalError = {
