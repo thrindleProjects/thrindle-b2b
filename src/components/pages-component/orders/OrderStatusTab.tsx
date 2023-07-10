@@ -1,9 +1,10 @@
+import { useSession } from 'next-auth/react';
 import React from 'react';
 
 import SingleOrderTab from '@/components/pages-component/orders/SingleOrderTab';
 
 import { orderStatus } from '@/@types/appTypes';
-import { orderStatues } from '@/utils/productionData';
+import { orderStatues, orderStatuesVip } from '@/utils/productionData';
 
 const OrderStatusTab = ({
   className,
@@ -14,11 +15,16 @@ const OrderStatusTab = ({
   activeTab: orderStatus;
   changeTab: (val: orderStatus) => void;
 }) => {
+  const { data } = useSession();
+
+  const mainTabList = data?.user?.company?.isVIP
+    ? orderStatuesVip
+    : orderStatues;
   return (
     <div
       className={`h-[50px] rounded-md bg-blue-50 ${className} flex flex-row items-center justify-between px-5`}
     >
-      {orderStatues.map((item, index) => (
+      {mainTabList.map((item, index) => (
         <SingleOrderTab
           key={index}
           {...item}
