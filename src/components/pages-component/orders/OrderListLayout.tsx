@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 import styles from './OrderListLayout.module.scss';
 
@@ -84,7 +85,8 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
       {orderStatus === IN_PROGRESS && (
         <div className='row-span-1 row-start-2 px-5 py-2'>
           <Button
-            onClick={() => dispatch(togglePaymentModal())}
+            onClick={() => toast.error('Payment feature is not available.')}
+            // onClick={() => dispatch(togglePaymentModal())}
             className='w-full'
           >
             Proceed To Payment
