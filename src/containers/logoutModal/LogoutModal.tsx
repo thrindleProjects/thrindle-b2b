@@ -66,7 +66,7 @@ const LogoutModal: LogoutModalType = ({ isOpen, close }) => {
           </button>
           <button
             onClick={handleSignout}
-            className='bg-primary-blue border-x-primary-blue rounded-lg border px-4 py-3 text-base font-semibold text-white'
+            className='bg-primary-blue border-primary-blue rounded-lg border px-4 py-3 text-base font-semibold text-white'
           >
             {isLoading ? (
               <ImSpinner2 className='mx-auto animate-spin' />
