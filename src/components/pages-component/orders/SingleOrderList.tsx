@@ -8,25 +8,28 @@ import Button from '@/components/buttons/Button';
 import { SpinnerLoader } from '@/components/common/loader';
 
 import { IOrderItem } from '@/@types/appTypes';
+import { BASE_URL } from '@/api/globalApi';
 import { useDeleteItemMutation } from '@/api/order/orderServices';
 import { COMPLETED, IMAGE_URL_PATH, IN_PROGRESS } from '@/constant/constants';
 import { mainErrorHandler } from '@/utils/networkHandler';
 
 interface SingleOrderListProps extends IOrderItem {
-  toggleOptionsModal: () => void;
+  // toggleOptionsModal: () => void;
   chooseActiveItem: () => void;
+  viewOptions: () => void;
 }
 
 const SingleOrderList: FC<SingleOrderListProps> = ({
   name,
   quantity,
   // substitutes,
-  toggleOptionsModal,
+  // toggleOptionsModal,
   price,
-  image,
   isAvailable,
   chooseActiveItem,
   id,
+  images,
+  viewOptions,
 }) => {
   const { query } = useRouter();
   const [deleteOrderItem, { isLoading }] = useDeleteItemMutation();
@@ -44,16 +47,29 @@ const SingleOrderList: FC<SingleOrderListProps> = ({
   return (
     <div className='mb-5 flex w-full flex-row items-center justify-between border-b border-b-gray-100 pb-4'>
       <div className='flex w-[70%] flex-row '>
-        <div className='relative h-[40px] w-[40px] bg-gray-100'>
-          <Image
-            fill={true}
-            src={`${process.env.NEXT_PUBLIC_DEV_URL}${IMAGE_URL_PATH}/${image}`}
-            alt='order'
-            className=' rounded object-contain'
-            placeholder='blur'
-            blurDataURL='/assets/images/placeholder-image.png'
-          />
-        </div>
+        {images.length ? (
+          <div className='relative h-[40px] w-[40px] bg-gray-100'>
+            <Image
+              fill={true}
+              src={`${BASE_URL}${IMAGE_URL_PATH}/${images[0]}`}
+              alt='order'
+              className=' rounded object-contain'
+              placeholder='blur'
+              blurDataURL='/assets/images/placeholder-image.png'
+            />
+          </div>
+        ) : (
+          <div className='relative h-[40px] w-[40px] bg-gray-100'>
+            <Image
+              fill={true}
+              src='/images/placeholder-image.png'
+              alt='order'
+              className=' h-full w-full rounded '
+              placeholder='blur'
+              blurDataURL='/assets/images/placeholder-image.png'
+            />
+          </div>
+        )}
 
         <div className='ml-4'>
           <p className=' truncate... text-xs font-medium capitalize text-gray-700 xl:text-sm'>
@@ -87,7 +103,7 @@ const SingleOrderList: FC<SingleOrderListProps> = ({
               <Button
                 variant='primary'
                 className='mt-4 py-[8px] lg:w-[50%] xl:w-[30%]'
-                onClick={toggleOptionsModal}
+                onClick={viewOptions}
               >
                 View Options
               </Button>
@@ -109,7 +125,7 @@ const SingleOrderList: FC<SingleOrderListProps> = ({
         )}
 
         <p className='font-clash-grotesk pt-5 text-xs font-semibold text-gray-800'>
-          ₦{price ? price?.toLocaleString() : '0.0'}
+          ₦{price ? price?.toLocaleString() : '0.0'} /each
         </p>
       </div>
     </div>

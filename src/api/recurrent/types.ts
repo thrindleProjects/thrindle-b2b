@@ -2,7 +2,7 @@ export interface IRecurrentItems {
   id: string;
   name: string;
   description: string;
-  image: string;
+  images: string[];
   recurrent: boolean;
   companyId: string;
   isAvailable: boolean;
@@ -45,13 +45,28 @@ export interface IRecurrentOrderResponse {
   recurringDeliveryDay: number;
 }
 
+interface ISubtitues {
+  createdAt: string;
+
+  description: string;
+  id: string;
+  images: string[];
+  name: string;
+
+  price: number;
+
+  quantity: number;
+  updatedAt: string;
+  volumeDiscount: boolean;
+  volumeDiscountAmt: number;
+}
 export interface ISingleRecurrentItem {
   id: string;
   name: string;
   description: string;
-  image: string;
+  images: string[];
   isSubstitute: boolean;
-  substitutes: [];
+  substitutes: ISubtitues[];
   recurrent: boolean;
   companyId: string;
   isAvailable: boolean;

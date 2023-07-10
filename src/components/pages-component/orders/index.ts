@@ -8,6 +8,7 @@ export { default as OrderStatusLayout } from './OrderStatusLayout';
 export { default as OrderStatusTab } from './OrderStatusTab';
 export { default as OrderStatusTabLayout } from './OrderStatusTabLayout';
 export { default as OrderSuggestedOptions } from './OrderSuggestedOptions';
+export { default as ReplaceItemConsentModal } from './ReplaceItemConsentModal';
 export { default as SingleOrderList } from './SingleOrderList';
 export { default as SingleOrderPriceDetail } from './SingleOrderPriceDetail';
 export { default as SingleSuggestedOrder } from './SingleSuggestedOrder';

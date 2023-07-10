@@ -15,6 +15,9 @@ export const getExtension = (filename: string) => {
 export const validationSchema = Yup.object({
   [CONSTANTS.ITEMNAME]: Yup.string().required('Item Name is required'),
   [CONSTANTS.ITEMDESCRIPTION]: Yup.string().required('Description is required'),
+  [CONSTANTS.QUANTITY]: Yup.number()
+    .required('Quantity is required')
+    .typeError('Quantity must be a number'),
 
   [CONSTANTS.IMAGE]: Yup.array()
     .min(1, 'Please provide at least one image')
@@ -30,17 +33,20 @@ export const validationSchema = Yup.object({
 
         return isValid;
       }
-    ),
+    )
+    .max(6, 'you can not upload more than 6 Images'),
 });
 
 export const initialValues: {
   [CONSTANTS.ITEMDESCRIPTION]: string;
   [CONSTANTS.ITEMNAME]: string;
+  [CONSTANTS.QUANTITY]: number;
 
   [CONSTANTS.IMAGE]?: File[];
 } = {
   [CONSTANTS.ITEMNAME]: '',
   [CONSTANTS.ITEMDESCRIPTION]: '',
+  [CONSTANTS.QUANTITY]: 0,
 
   [CONSTANTS.IMAGE]: [],
 };

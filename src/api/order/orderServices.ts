@@ -1,4 +1,4 @@
-import { IOrder, ISingleOrder } from '@/@types/appTypes';
+import { IOrder, IOrderItemSubstitute } from '@/@types/appTypes';
 import { globalApi } from '@/api/globalApi';
 import {
   DELETE,
@@ -6,6 +6,8 @@ import {
   GET,
   GET_ALL_ORDERS_PATH,
   GET_SINGLE_ORDER_PATH,
+  PUT_METHOD,
+  REPLACE_UNAVAILABLE_ITEM_API_URL,
 } from '@/constant/constants';
 import { INetworkSuccessResponse } from '@/utils/appTypes';
 
@@ -20,7 +22,7 @@ const orderApi = globalApi.injectEndpoints({
       }),
       providesTags: ['Order', 'ShoppingItems'],
     }),
-    getSingleOrder: build.query<INetworkSuccessResponse<ISingleOrder>, string>({
+    getSingleOrder: build.query<INetworkSuccessResponse<IOrder>, string>({
       query: (id) => ({
         url: `${GET_SINGLE_ORDER_PATH}/${id}`,
         method: GET,
@@ -34,6 +36,16 @@ const orderApi = globalApi.injectEndpoints({
       }),
       invalidatesTags: ['OrderItem', 'Order'],
     }),
+    replaceUnavailableItem: build.mutation<
+      INetworkSuccessResponse<IOrderItemSubstitute>,
+      { itemId: string; subId: string }
+    >({
+      query: (data) => ({
+        url: `${REPLACE_UNAVAILABLE_ITEM_API_URL}/${data.itemId}/${data.subId}`,
+        method: PUT_METHOD,
+      }),
+      invalidatesTags: ['OrderItem', 'Order'],
+    }),
   }),
 });
 
@@ -41,4 +53,5 @@ export const {
   useGetOrdersQuery,
   useGetSingleOrderQuery,
   useDeleteItemMutation,
+  useReplaceUnavailableItemMutation,
 } = orderApi;

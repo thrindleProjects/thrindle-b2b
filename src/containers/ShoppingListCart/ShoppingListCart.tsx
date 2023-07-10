@@ -21,7 +21,10 @@ const ShoppingListCart: ShoppingListCartType = ({
   createOrder,
   creatingOrder,
 }) => {
-  const { isLoading, currentData } = useGetShoppingItemsQuery('');
+  const { isLoading, currentData } = useGetShoppingItemsQuery('', {
+    refetchOnMountOrArgChange: true,
+    refetchOnReconnect: true,
+  });
 
   if (isLoading || !currentData) {
     return (

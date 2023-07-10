@@ -1,9 +1,12 @@
 import { useSession } from 'next-auth/react';
-import { PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
+
+import { useDisclosure } from '@/hooks';
 
 import ActiveLink from '@/components/shared/ActiveLink';
 import AuthenticatedLayoutHeader from '@/components/shared/AuthenticatedLayoutHeader/AuthenticatedLayoutHeader';
 import MainContentWrapper from '@/components/shared/MainContentWrapper/MainContentWrapper';
+import LogoutModal from '@/containers/logoutModal/LogoutModal';
 
 import AuthenticatedLayout from '@/layouts/AuthenticatedLayout/AuthenticatedLayout';
 
@@ -19,17 +22,19 @@ const links = [
   {
     title: 'Password',
     link: '/app/profile/password',
-    access: ['owner'],
+    access: ['owner', 'teamMember'],
   },
   {
     title: 'Team Access',
     link: '/app/profile/team',
-    access: 'owner',
+    access: ['owner'],
   },
 ];
 
 const ProfileLayout: ProfileLayoutType = ({ children }) => {
   const { data } = useSession();
+
+  const { isOpen, open, close } = useDisclosure();
 
   if (!data) {
     return <></>;
@@ -59,14 +64,25 @@ const ProfileLayout: ProfileLayoutType = ({ children }) => {
                       </li>
                     );
                   }
-                  return <></>;
+                  return <React.Fragment key={link.link}></React.Fragment>;
                 })}
+
+                <li>
+                  <button
+                    onClick={open}
+                    className='text-primary-red block rounded-lg p-3 text-sm font-medium lg:text-base'
+                  >
+                    Log Out
+                  </button>
+                </li>
               </ul>
             </nav>
           </div>
           <div>{children}</div>
         </div>
       </MainContentWrapper>
+
+      <LogoutModal close={close} isOpen={isOpen} />
     </AuthenticatedLayout>
   );
 };

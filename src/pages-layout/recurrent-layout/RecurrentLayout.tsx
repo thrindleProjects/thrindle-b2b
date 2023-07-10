@@ -12,7 +12,7 @@ interface IProps {
 
 const RecurrentLayout: React.FC<IProps> = ({ setHasData }) => {
   const { data, isError, isLoading } = useGetAllRecurrentOrdersQuery(
-    'in-progress',
+    'requested',
     {
       refetchOnReconnect: true,
     }
@@ -23,7 +23,6 @@ const RecurrentLayout: React.FC<IProps> = ({ setHasData }) => {
       setHasData(true);
     }
   }, [setHasData, data]);
-
   return (
     <div className=''>
       {isLoading && !isError && <SpinnerLoader type='fullScreen' />}

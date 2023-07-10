@@ -53,5 +53,5 @@ export interface LoginResponse {
   lastName: string;
   phone: string;
   company: ICompanyDetails;
-  type: string;
+  type: 'owner' | 'teamMember';
 }

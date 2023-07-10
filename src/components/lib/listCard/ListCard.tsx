@@ -7,8 +7,9 @@ import { toast } from 'react-hot-toast';
 import { IListCardProps } from '@/components/lib/listCard/types';
 import BorderContainer from '@/components/shared/borderContainer/BorderContainer';
 
+import { BASE_URL } from '@/api/globalApi';
 import { useDeleteItemFromRecurrentOrderMutation } from '@/api/recurrent';
-import { IMAGE_URL } from '@/constant/constants';
+import { IMAGE_URL_PATH } from '@/constant/constants';
 import { mainErrorHandler } from '@/utils/networkHandler';
 
 const ListCard: React.FC<IListCardProps> = ({ data, active, setActive }) => {
@@ -27,7 +28,7 @@ const ListCard: React.FC<IListCardProps> = ({ data, active, setActive }) => {
 
   useEffect(() => {
     if (setActive && data) {
-      const firstId = data[0].id;
+      const firstId = data[0]?.id;
       setActive(firstId);
     }
   }, [data, setActive]);
@@ -48,12 +49,14 @@ const ListCard: React.FC<IListCardProps> = ({ data, active, setActive }) => {
           >
             <div className='flex items-center justify-between'>
               <div className='flex items-center gap-6'>
-                <Image
-                  src={`${IMAGE_URL}/${item.image}`}
-                  alt=''
-                  width={40}
-                  height={40}
-                />
+                {item.images?.[0] && (
+                  <Image
+                    src={`${BASE_URL}${IMAGE_URL_PATH}/${item?.images[0]}`}
+                    alt=''
+                    width={40}
+                    height={40}
+                  />
+                )}
                 <div className='md:hidden lg:block'>
                   <p className='text-[16px] font-[600]'>{item.name}</p>
                   <p className='text-[12px] font-[500]  text-[#767778]'>

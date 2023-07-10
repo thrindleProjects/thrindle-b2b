@@ -25,7 +25,7 @@ const List: React.FC<IListProps> = ({ data }) => {
         recurrent={data?.recurringDeliveryDay}
       />
       <div className='mt-6 flex w-full gap-6'>
-        <BorderContainer className='h-max w-[48%] p-10'>
+        <BorderContainer className='h-[700px] w-[48%] overflow-y-auto p-10'>
           <div>
             <p className='text-[18px] font-[500]'>My Scheduled Order</p>
             <hr className='mt-2' />

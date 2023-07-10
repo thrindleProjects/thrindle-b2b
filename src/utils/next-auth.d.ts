@@ -27,7 +27,7 @@ declare module 'next-auth' {
         token: string;
         tokenExpiry: Date;
       };
-      type: string;
+      type: 'owner' | 'teamMember';
     };
     expires: ISODateString;
   }
@@ -54,7 +54,7 @@ declare module 'next-auth' {
       token: string;
       tokenExpiry: Date;
     };
-    type: string;
+    type: 'owner' | 'teamMember';
   }
 }
 
@@ -84,7 +84,7 @@ declare module 'next-auth/jwt' {
         token: string;
         tokenExpiry: Date;
       };
-      type: string;
+      type: 'owner' | 'teamMember';
     };
   }
 }

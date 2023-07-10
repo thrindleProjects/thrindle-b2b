@@ -25,6 +25,7 @@ import { togglePaymentModal } from '@/slices/appSlice';
 interface OrderListLayoutProps {
   data: ISingleOrder;
 }
+// console.log('Downloading');
 
 const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
   const [paymentSuccess, setPaymentSuccess] = useState(false);
@@ -35,14 +36,7 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
   const { isPaymentModalOpen } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
 
-  const {
-    id,
-    orderStatus,
-    listItems,
-    createdAt,
-    // paymentStatus,
-    // deliveryConfirmation,
-  } = data;
+  const { orderStatus, listItems, createdAt, orderRefCode } = data;
 
   const { formattedDate } = useTimeFormatHook({
     date: createdAt,
@@ -57,7 +51,7 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
         <div className='flex w-full flex-row items-center justify-between'>
           <div>
             <h6 className='font-clash-grotesk text-base font-semibold text-gray-900'>
-              Order #{id}
+              Order #{orderRefCode}
             </h6>
             <p className='font-clash-grotesk pt-1 text-xs font-normal text-gray-400'>
               Order created: {formattedDate}
@@ -73,9 +67,13 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
             <SingleOrderList
               key={index}
               {...item}
-              toggleOptionsModal={() => setOptionsModal(!optionsModal)}
+              // toggleOptionsModal={() => setOptionsModal(!optionsModal)}
               chooseActiveItem={() => {
                 setOrderDetailModal(true);
+                setActiveItem(item);
+              }}
+              viewOptions={() => {
+                setOptionsModal(true);
                 setActiveItem(item);
               }}
             />
@@ -131,6 +129,7 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
           handleCompleteOrder={() => {
             setPaymentSuccess(true);
           }}
+          order={data}
         />
       </GenModal>
       <GenModal
@@ -140,7 +139,7 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
       >
         <ResponseStatusModal
           title='Proceed To Orders'
-          msg='Your payment of #231,000 has been made successfully and charged from your wallet, our representatives will contact you to give you delivery information'
+          msg='Your payment of N50,000 has been charged from your wallet. Delivery information will be communicated shortly'
           btnText='Proceed To orders'
           onClick={() => {
             dispatch(togglePaymentModal());
@@ -153,8 +152,12 @@ const OrderListLayout: FC<OrderListLayoutProps> = ({ data }) => {
       <GenModal
         isOpen={optionsModal}
         handleCloseModal={() => setOptionsModal(false)}
+        className='lg:w-[700px] xl:w-[650px]'
       >
-        <OrderSuggestedOptions />
+        <OrderSuggestedOptions
+          activeItem={activeItem}
+          handleCloseModal={() => setOptionsModal(false)}
+        />
       </GenModal>
       {/* Order detail modal */}
       <GenModal

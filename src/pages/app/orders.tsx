@@ -11,7 +11,7 @@ const Orders = () => {
   return (
     <MainContentWrapper>
       <AuthenticatedLayoutHeader headerText='Orders' />
-      <section className='grid w-full gap-5 lg:grid-cols-2'>
+      <section className='grid w-full gap-5  lg:grid-cols-[60%,40%] xl:grid-cols-2'>
         <OrderStatusTabLayout />
         <OrderStatusLayout />
       </section>

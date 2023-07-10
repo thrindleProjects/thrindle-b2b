@@ -1,11 +1,11 @@
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React from 'react';
 import { toast } from 'react-hot-toast';
 import { MdAdd } from 'react-icons/md';
 
 import Button from '@/components/buttons/Button';
 import { IAddItemFormProps } from '@/components/lib/addItemForm/types';
-import Counter from '@/components/lib/counter/Counter';
+import CartCounter from '@/components/shared/CartCounter/CartCounter';
 import Input from '@/components/shared/Input/Input';
 import InputFile from '@/components/shared/InputFile/InputFile';
 import MultiLineInput from '@/components/shared/multilineInput/MultiLineInput';
@@ -24,15 +24,26 @@ const AddItemForm: React.FC<IAddItemFormProps> = ({
   id,
   handleCloseModal,
 }) => {
-  const [counter, setCounter] = useState(0);
-  const [error, setError] = useState('');
-
   const increaseCounter = () => {
-    setCounter((prev) => prev + 1);
+    if (isNaN(formik.values.quantity)) {
+      formik.setFieldTouched('quantity', true, true);
+      return;
+    }
+    formik.setFieldValue('quantity', Number(formik.values.quantity) + 1, true);
+    formik.setFieldTouched('quantity', false);
+    return;
   };
 
   const decreaseCounter = () => {
-    if (counter > 0) setCounter((prev) => prev - 1);
+    if (formik.values.quantity === 0 || isNaN(formik.values.quantity)) {
+      formik.setFieldTouched('quantity', true, true);
+      return;
+    }
+
+    formik.setFieldValue('quantity', Number(formik.values.quantity) - 1, true);
+    formik.setFieldTouched('quantity', false);
+
+    return;
   };
 
   const [createItem, { isLoading }] = useCreateRecurrentListMutation();
@@ -50,16 +61,14 @@ const AddItemForm: React.FC<IAddItemFormProps> = ({
         values['Item Description'] as string | Blob
       );
       formData.append('recurrent', 'true' as string | Blob);
-      formData.append('quantity', String(counter) as string | Blob);
+      formData.append('quantity', String(values.quantity));
       if (values.Image) {
-        if (values.Image[0]) {
-          formData.append('image', values.Image[0] as Blob);
-        }
+        // if (values.Image[0]) {
+        //   formData.append('image', values.Image[0] as Blob);
+        // }
+        values.Image.forEach((item) => formData.append('image', item));
       }
-      if (counter === 0) {
-        setError('Quantity must be greater than zero');
-        return;
-      }
+
       if (asModal) {
         addItem({
           data: formData,
@@ -69,8 +78,6 @@ const AddItemForm: React.FC<IAddItemFormProps> = ({
           .then((res) => {
             toast.success(`${res.message}`);
             resetForm();
-            setError('');
-            setCounter(0);
             if (handleCloseModal) {
               handleCloseModal();
             }
@@ -84,8 +91,6 @@ const AddItemForm: React.FC<IAddItemFormProps> = ({
           .then((res) => {
             toast.success(`${res.message}`);
             resetForm();
-            setError('');
-            setCounter(0);
           })
           .catch((err) => {
             mainErrorHandler(err);
@@ -121,7 +126,7 @@ const AddItemForm: React.FC<IAddItemFormProps> = ({
       />
       <div className='mt-4'>
         <InputFile
-          label='Sample Image (Optional)'
+          label='Sample Image '
           id={CONSTANTS.IMAGE}
           name={CONSTANTS.IMAGE}
           className='rounded-[8px]'
@@ -137,6 +142,7 @@ const AddItemForm: React.FC<IAddItemFormProps> = ({
           required={true}
           extensions='image/*, .doc, .docx,'
           showPreview={true}
+          multiple={true}
         />
       </div>
       <div className='mt-4'>
@@ -153,12 +159,17 @@ const AddItemForm: React.FC<IAddItemFormProps> = ({
           numbOfRows={3}
         />
       </div>
-      <Counter
-        add={decreaseCounter}
-        subtract={increaseCounter}
-        counter={counter}
-        error={error}
-      />
+      <div className='w-1/3'>
+        <CartCounter
+          decreaseQuantity={decreaseCounter}
+          increaseQuantity={increaseCounter}
+          value={formik.values.quantity}
+          onBlur={formik.handleBlur}
+          onChange={formik.handleChange}
+          error={formik.errors[CONSTANTS.QUANTITY]}
+          touched={formik.touched[CONSTANTS.ITEMDESCRIPTION]}
+        />
+      </div>
       <Button
         type='submit'
         leftIcon={MdAdd}

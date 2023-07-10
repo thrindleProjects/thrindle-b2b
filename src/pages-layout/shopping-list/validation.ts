@@ -19,7 +19,6 @@ export const initialValues: ShoppingListItem = {
 };
 export type EditInitialShoppingListItemType = Omit<
   CreateShoppingItemResponse,
-  | 'image'
   | 'isSubstitute'
   | 'recurrent'
   | 'companyId'
@@ -28,11 +27,11 @@ export type EditInitialShoppingListItemType = Omit<
   | 'volumeDiscount'
   | 'volumeDiscountAmt'
 > & {
-  image: string | File[];
+  images: (string | File)[];
 };
 
 export const editInitialShoppingListItem: EditInitialShoppingListItemType = {
-  image: '',
+  images: [],
   name: '',
   quantity: 0,
   createdAt: '',
@@ -48,30 +47,34 @@ export const editValidationSchema = Yup.object({
     .required('Quantity is required')
     .typeError('Quantity must be a number')
     .min(1, 'Must be greater than zero'),
-  image: Yup.lazy((value) => {
-    return typeof value === 'string'
-      ? Yup.string().required()
-      : Yup.array()
-          .test(
-            'validate image',
-            'Please provide a valid image',
-            (value: File[] | undefined, context) => {
-              if (!value || !value.length) {
-                return true;
-              }
+  images: Yup.array()
+    .test(
+      'validate image',
+      'Please provide a valid image',
+      (value: (string | File)[] | undefined, context) => {
+        if (!value || !value.length) {
+          return true;
+        }
+        const isValid = value.every((item) => {
+          if (typeof item === 'string') {
+            return true;
+          }
 
-              const isValid = Boolean(
-                value[0] && value[0].type.includes('image/')
-              );
+          if (item instanceof File) {
+            return item.type.includes('image/');
+          }
 
-              if (!isValid) return context?.createError();
+          return false;
+        });
 
-              return isValid;
-            }
-          )
-          .min(1, 'Please provide at least one image')
-          .required('Please provide at least one image');
-  }),
+        if (!isValid) context?.createError();
+
+        return isValid;
+      }
+    )
+    .min(1, 'Please provide at least one image')
+    .max(6, 'You cannot upload more than 6 images')
+    .required('Please provide at least one image'),
 });
 
 export const validationSchema = Yup.object({
@@ -84,13 +87,16 @@ export const validationSchema = Yup.object({
           return true;
         }
 
-        const isValid = Boolean(value[0] && value[0].type.includes('image/'));
+        // const isValid = Boolean(value[0] && value[0].type.includes('image/'));
 
-        if (!isValid) return context?.createError();
+        const isValid = value.every((item) => item.type.includes('image/'));
+
+        if (!isValid) context?.createError();
 
         return isValid;
       }
     )
+    .max(6, 'You cannot upload more than 6 images')
     .min(1, 'Please provide at least one image')
     .required('Please provide at least one image'),
   name: Yup.string().required('Item Name is required'),

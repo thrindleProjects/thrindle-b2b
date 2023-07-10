@@ -7,8 +7,8 @@ import RecentPurchases from '@/pages-layout/dashboardLayout/RecentPurchases';
 const DashboardLayout = () => {
   return (
     <div className='flex w-full flex-col justify-between lg:flex-row'>
-      <div className='w-full lg:w-[65%]'>
-        <BorderContainer>
+      <div className=' w-full lg:w-[65%]'>
+        <BorderContainer className='min-h-[400px]'>
           <DashboardChart />
         </BorderContainer>
       </div>

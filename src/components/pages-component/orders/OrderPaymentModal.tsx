@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import * as Yup from 'yup';
 
 import logger from '@/lib/logger';
+import { useGetOrderPricesHooks } from '@/hooks';
 
 import Button from '@/components/buttons/Button';
 import SingleOrderPaymentOption from '@/components/pages-component/orders/SingleOrderPaymentOption';
@@ -10,17 +11,22 @@ import SingleOrderPriceDetail from '@/components/pages-component/orders/SingleOr
 import Input from '@/components/shared/Input/Input';
 import { ModalHeader } from '@/components/shared/modal';
 
-import { orderPaymentOptions } from '@/@types/appTypes';
+import { ISingleOrder, orderPaymentOptions } from '@/@types/appTypes';
 import { DATE, SCHEDULED_PAYMENT } from '@/constant/constants';
 import { paymentOptionsData } from '@/utils/productionData';
 
 const PaymentModal = ({
   handleCompleteOrder,
+  order,
 }: {
   handleCompleteOrder: () => void;
+  order: ISingleOrder;
 }) => {
   const [paymentOption, setPaymentOption] =
     useState<orderPaymentOptions>('now');
+
+  const { deliveryFee, serviceCharge, getOrderSubTotal, getTotalAmount } =
+    useGetOrderPricesHooks({ order });
 
   const pay = (values: { date: string }) => {
     /* eslint-disable */
@@ -61,7 +67,7 @@ const PaymentModal = ({
               type={DATE}
               value={formik.values.date}
               placeholder='24 / 03 / 1999'
-              label='Date of Birth'
+              label='Schedule Date'
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={formik.errors.date && formik.touched.date}
@@ -74,15 +80,23 @@ const PaymentModal = ({
         {/* Order Details */}
         <div className='mt-8 w-full'>
           <div className='w-full border-b border-b-gray-200 pb-2'>
-            <SingleOrderPriceDetail title='Total Cost' value='₦200,000' />
-            <SingleOrderPriceDetail title='Delivery Fee' value='₦10,000' />
-            <SingleOrderPriceDetail title='Service Charge' value='₦5,000' />
+            <SingleOrderPriceDetail
+              title='Total Cost'
+              value={getOrderSubTotal()}
+            />
+            <SingleOrderPriceDetail title='Delivery Fee' value={deliveryFee} />
+            <SingleOrderPriceDetail
+              title='Service Charge'
+              value={serviceCharge}
+            />
           </div>
           <div className='mt-5 flex w-full flex-row items-center justify-between'>
             <p className='font-clash-grotesk text-base font-medium text-gray-800'>
               Total
             </p>
-            <p className='text-xl font-semibold text-gray-900'>₦215,000</p>
+            <p className='text-xl font-semibold text-gray-900'>
+              ₦{getTotalAmount().toLocaleString()}
+            </p>
           </div>
         </div>
         {paymentOption === SCHEDULED_PAYMENT ? (
@@ -95,7 +109,7 @@ const PaymentModal = ({
             variant='primary'
             className='mt-10 w-full'
           >
-            Pay ₦215,000
+            Pay ₦{getTotalAmount().toLocaleString()}
           </Button>
         )}
       </div>

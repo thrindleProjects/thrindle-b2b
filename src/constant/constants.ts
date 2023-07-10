@@ -46,8 +46,12 @@ export const CREATE_NEW_COMPANY_API = '/company/signup';
 export const GET_ALL_ORDERS_PATH = '/order/getCompanyOrders';
 export const GET_SINGLE_ORDER_PATH = '/order';
 export const DELETE_ORDER_ITEM_PATH = '/order/item';
+export const REPLACE_UNAVAILABLE_ITEM_API_URL = '/order/updateUnavailableItem';
 export const IMAGE_URL_PATH = '/images';
 export const RESEND_ORDER_PATH = '/order/resend';
+export const GET_DASHBOARD_DATA_PATH = '/order/getDashboardData';
+export const GET_DASHBOARD_RECENT_PURCHASES_API_PATH = '/order/recentPurchases';
+export const QUICK_BUY_API_PATH = '/order/quickBuy';
 
 // Recurrent List Api Endpoints
 export const CREATE_RECURRENT_LIST = '/order/item/create';
@@ -60,12 +64,20 @@ export const GET_COMPANY_RECURRENT_ORDERS =
 export const GET_SINGLE_RECURRENT_ORDER = '/recurrent';
 export const GET_ITEM_BY_ITEM = '/order/item';
 
+// Wallet API Endpoints
+
+export const GET_WALLET_BALLANCE = '/wallet/balance';
+export const GET_WALLET = '/wallet';
+export const GET_WALLET_TRANSACTION = '/wallet/total-transaction';
+export const GET_WALLET_OUTSTANDING = '/wallet/outstanding';
+
 export const PHONE_NUMBER = 'phoneNumber';
 export const ALTERNATE_PHONE = 'alternatePhone';
 export const OFFICE_ADDRESS = 'officeAddress';
 export const STATE = 'state';
 export const LANDMARK = 'landmark';
 export const LOGO = 'logo';
+export const QUANTITY = 'quantity';
 
 // SHOPPING LIST ENDPOINTS START
 export const BASE_URL_SHOPPING_LIST_PATH = '/order/item' as const;
@@ -75,4 +87,12 @@ export const GET_ALL_SHOPPING_LIST_ITEMS_PATH =
   `${BASE_URL_SHOPPING_LIST_PATH}/getAllItems` as const;
 export const CREATE_ORDER_PATH = '/order/create' as const;
 
+export const DELETE_IMAGE_SHOPPING_LIST_ITEM_PATH = '/order/itemImage' as const;
+
 // SHOPPING LIST ENDPOINTS END
+
+// ROLES AND PERMISSIONS ENDPOINTS START
+export const DELETE_TEAM_MEMBER_PATH = '/user';
+export const GET_ALL_COMPANY_USERS_PATH = '/user/getAllCompanyUsers';
+export const CREATE_TEAM_MEMBER_PATH = '/user/create';
+// ROLES AND PERMISSIONS ENDPOINTS END
