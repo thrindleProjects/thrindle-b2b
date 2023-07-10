@@ -172,10 +172,10 @@ const Invoice = ({ order }: { order: IOrder }) => {
               </strong>
             </p>
             <p className='font-clash-grotesk mt-5 font-medium text-black/80'>
-              Payment will be made using your in-app wallet, load up your wallet
+              Payment can be made using your in-app wallet, load up your wallet
               with funds so you can pay for the goods.
             </p>
-            {order && order?.paymentDate && (
+            {/* {order && order?.paymentDate && (
               <>
                 <p className='font-clash-grotesk mt-2 font-normal text-black/60'>
                   Please ensure that the total amount is paid by the due date
@@ -192,7 +192,43 @@ const Invoice = ({ order }: { order: IOrder }) => {
                   }
                 </p>
               </>
-            )}
+            )} */}
+            <p className='py-2'>or</p>
+            {/* Other account */}
+            <div className='mt-5 w-full bg-[#065DA7]/10 px-4 py-6'>
+              <p className='font-clash-grotesk font-medium text-slate-800'>
+                Pay To:
+              </p>
+              {/* Content */}
+              <div className='w-full'>
+                <p className='font-clash-grotesk pt-2 text-base font-normal text-black/60'>
+                  Account Number: &nbsp;
+                  <span className='font-medium text-black/80'>1027088818</span>
+                </p>
+                <p className='font-clash-grotesk pt-2 text-base font-normal text-black/60'>
+                  Account Name: &nbsp;
+                  <span className='font-medium text-black/80'>
+                    Thrindle Merchant Account
+                  </span>
+                </p>
+                <p className='font-clash-grotesk pt-2 text-base font-normal text-black/60'>
+                  Bank Name: &nbsp;
+                  <span className='font-medium text-black/80'>
+                    VFD Microfinance Bank
+                  </span>
+                </p>
+                {/* <p className='font-clash-grotesk pt-2 text-base font-normal text-black/60'>
+                  Reference Number: &nbsp;
+                 <span className='font-medium text-black/80'>
+                 VFD Microfinance Bank
+                </span>
+                </p> */}
+                <p className='font-clash-grotesk text-primary-blue mt-2 font-medium '>
+                  Make sure that you input your reference code as narration when
+                  making the transfer
+                </p>
+              </div>
+            </div>
 
             <p className='font-clash-grotesk mt-10'>
               If you have any further questions or need assistance, please

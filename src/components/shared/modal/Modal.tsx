@@ -10,6 +10,7 @@ const GenModal: React.FC<ModalProps> = ({
   children,
   hideCloseIcon,
   className,
+  shouldCloseOnOverlayClick,
 }) => {
   return (
     <Modal
@@ -27,7 +28,7 @@ const GenModal: React.FC<ModalProps> = ({
           outline: 'none',
         },
       }}
-      shouldCloseOnOverlayClick={true}
+      shouldCloseOnOverlayClick={shouldCloseOnOverlayClick ?? true}
       shouldReturnFocusAfterClose={true}
       ariaHideApp={false}
       className={`ml-auto  h-max flex-shrink-0 bg-transparent  drop-shadow-2xl md:h-max lg:w-[485px] ${className}`}

@@ -4,4 +4,5 @@ export interface ModalProps extends PropsWithChildren {
   handleCloseModal: () => void;
   hideCloseIcon?: boolean;
   className?: string;
+  shouldCloseOnOverlayClick?: boolean;
 }
