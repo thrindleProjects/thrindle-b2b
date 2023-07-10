@@ -38,10 +38,11 @@ const Wallet = () => {
       <GenModal
         isOpen={fundWalletModal}
         handleCloseModal={() => setFundWalletModal(!fundWalletModal)}
+        shouldCloseOnOverlayClick={false}
+        hideCloseIcon={true}
       >
         <FundWalletModal
-          title='Add Funds'
-          text='Make a transfer to the under listed account number to add money to your wallet now'
+          handleCloseModal={() => setFundWalletModal(!fundWalletModal)}
         />
       </GenModal>
       <GenModal

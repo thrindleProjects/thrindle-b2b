@@ -135,7 +135,7 @@ const QuickBuyModalView = () => {
                 numbOfRows={3}
               />
             </div>
-            <div className='w-1/3'>
+            <div className='mt-4 w-1/2'>
               <CartCounter
                 decreaseQuantity={decreaseCounter}
                 increaseQuantity={increaseCounter}
@@ -169,7 +169,7 @@ const QuickBuyModalView = () => {
             router.push('/app/orders');
           }}
           title='Order Recieved'
-          msg='     We have gotten the list and we will be responding with a quote in less
+          msg='We have gotten the list and we will be responding with a quote in less
         than 5 hours, check your order page to monitor update and make payment'
           icon_src='order_received'
           btnText='Proceed To Orders'

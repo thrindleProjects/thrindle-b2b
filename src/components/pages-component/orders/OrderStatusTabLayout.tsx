@@ -71,13 +71,10 @@ const OrderStatusTabLayout = () => {
     // }
   };
 
-  // console.log(data);
-  // console.log(Date().);
-
   return (
     <BorderContainer className='h-[530px] w-full overflow-y-scroll p-5'>
       <OrderStatusTab
-        className='md:w-[95%] lg:w-full xl:w-[95%]'
+        className='md:w-[100%] lg:w-full xl:w-[100%]'
         activeTab={activeTab}
         changeTab={changeTab}
       />

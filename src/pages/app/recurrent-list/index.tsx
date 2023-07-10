@@ -15,8 +15,7 @@ const RecurrentList = () => {
     <MainContentWrapper>
       <AuthenticatedLayoutHeader
         headerText='Recurrent List'
-        subText='Create a  list of recurring things you need at a particular time monthly
- so we can get them for you automatically'
+        subText='Create a list of recurring things you need at a particular time monthly so we can get them for you automatically'
         component={
           <div className='z-50 flex gap-2'>
             {hasData ? (

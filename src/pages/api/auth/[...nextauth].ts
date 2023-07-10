@@ -124,6 +124,14 @@ export const authOptions: NextAuthOptions = {
           label: 'tokenExpiry',
           type: 'string',
         },
+        companyCode: {
+          label: 'companyCode',
+          type: 'string',
+        },
+        isVIP: {
+          label: 'isVIP',
+          type: 'boolean',
+        },
       },
       async authorize(credentials) {
         try {
@@ -149,6 +157,8 @@ export const authOptions: NextAuthOptions = {
               status: (credentials?.status || '') as string,
               token: (credentials?.company_token || '') as string,
               tokenExpiry: (credentials?.tokenExpiry || '') as unknown as Date,
+              companyCode: (credentials?.companyCode || '') as string,
+              isVIP: (credentials?.isVIP || false) as boolean,
             },
           };
 
@@ -200,6 +210,8 @@ export const authOptions: NextAuthOptions = {
             status: token.user.company.status,
             token: token.user.company.token,
             tokenExpiry: token.user.company.tokenExpiry,
+            companyCode: token.user.company.companyCode,
+            isVIP: token.user.company.isVIP,
           },
           token: '',
         },

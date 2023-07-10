@@ -1,5 +1,6 @@
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
+import { useSession } from 'next-auth/react';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -19,6 +20,8 @@ const Invoice = ({ order }: { order: IOrder }) => {
   });
   const invoiceRef = useRef();
 
+  const { data } = useSession();
+
   const objectDate = new Date();
   const month = objectDate.getMonth();
 
@@ -37,7 +40,7 @@ const Invoice = ({ order }: { order: IOrder }) => {
         const imgHeight = canvas.height;
         const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
         const imgX = (pdfWidth - imgWidth * ratio) / 2;
-        const imgY = 30;
+        const imgY = 1;
         pdf.addImage(
           imgData,
           'PNG',
@@ -65,7 +68,7 @@ const Invoice = ({ order }: { order: IOrder }) => {
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    <div className='mx-auto  w-full   bg-white px-5 ' ref={invoiceRef as any}>
+    <div className='mx-auto w-full bg-white px-5 pt-10' ref={invoiceRef as any}>
       <div className=''>
         <ThrindleLogo variant='blue' />
       </div>
@@ -172,10 +175,10 @@ const Invoice = ({ order }: { order: IOrder }) => {
               </strong>
             </p>
             <p className='font-clash-grotesk mt-5 font-medium text-black/80'>
-              Payment will be made using your in-app wallet, load up your wallet
+              Payment can be made using your in-app wallet, load up your wallet
               with funds so you can pay for the goods.
             </p>
-            {order && order?.paymentDate && (
+            {/* {order && order?.paymentDate && (
               <>
                 <p className='font-clash-grotesk mt-2 font-normal text-black/60'>
                   Please ensure that the total amount is paid by the due date
@@ -192,7 +195,43 @@ const Invoice = ({ order }: { order: IOrder }) => {
                   }
                 </p>
               </>
-            )}
+            )} */}
+            <p className='py-2'>or</p>
+            {/* Other account */}
+            <div className='mt-5 w-full bg-[#065DA7]/10 px-4 py-6'>
+              <p className='font-clash-grotesk font-medium text-slate-800'>
+                Pay To:
+              </p>
+              {/* Content */}
+              <div className='w-full'>
+                <p className='font-clash-grotesk pt-2 text-base font-normal text-black/60'>
+                  Account Number: &nbsp;
+                  <span className='font-medium text-black/80'>1027088818</span>
+                </p>
+                <p className='font-clash-grotesk pt-2 text-base font-normal text-black/60'>
+                  Account Name: &nbsp;
+                  <span className='font-medium text-black/80'>
+                    Thrindle Merchant Account
+                  </span>
+                </p>
+                <p className='font-clash-grotesk pt-2 text-base font-normal text-black/60'>
+                  Bank Name: &nbsp;
+                  <span className='font-medium text-black/80'>
+                    VFD Microfinance&nbsp;Bank
+                  </span>
+                </p>
+                <p className='font-clash-grotesk pt-2 text-base font-normal text-black/60'>
+                  Company Reference Code: &nbsp;
+                  <span className='font-medium text-black/80'>
+                    {data?.user?.company?.companyCode}
+                  </span>
+                </p>
+                <p className='font-clash-grotesk text-primary-blue mt-2 font-medium '>
+                  Make sure that you input your company reference code as
+                  narration when making the transfer to identify your company.
+                </p>
+              </div>
+            </div>
 
             <p className='font-clash-grotesk mt-10'>
               If you have any further questions or need assistance, please
@@ -221,28 +260,6 @@ const Invoice = ({ order }: { order: IOrder }) => {
             </p>
             <br />
             <br />
-            {/* <div className='mt-5 flex w-full flex-row'>
-              <a
-                href='https://web.facebook.com/thrindle/?_rdc=1&_rdr'
-                className='mr-5 block'
-              >
-                <img
-                  src='https://i.ibb.co/StLcLwy/facebook.png'
-                  alt='facebook'
-                />
-              </a>
-
-              <a href='https://imgbb.com/' className='mr-5 block'>
-                <img src='https://i.ibb.co/qkM5qyk/twitter.png' alt='twitter' />
-              </a>
-
-              <a
-                href='https://www.instagram.com/thrindle/channel/'
-                className='mr-5 block'
-              >
-                <img src='https://i.ibb.co/SnX7Cvb/ins.png' alt='ins' />
-              </a>
-            </div> */}
           </div>
         </div>
       </div>
