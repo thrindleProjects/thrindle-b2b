@@ -36,9 +36,8 @@ const TeamMemberAddedModal: TeamMemberAddedModalType = ({
           Team Member Added
         </h4>
         <p>
-          {firstName} {lastName} has been added as a member and given access
-          successfully, {firstName} will login their account with the provided
-          phone number and the generated password
+          You have successfully added a team member. An invite has been sent to{' '}
+          {firstName} {lastName} with the generated password
         </p>
 
         <section className='flex flex-col gap-2'>
